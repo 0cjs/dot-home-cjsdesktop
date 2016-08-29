@@ -1,0 +1,29 @@
+#!/bin/sh
+
+set -e; trap 'err Internal Error' 0
+
+err() {
+    e=$?; [ $e -ne 0 ] || e=1
+    echo 1>&2 "$(basename $0): $@"
+    trap '' 0
+    exit $e
+}
+
+usage() {
+    echo 1>&2 "Usage: $(basename $0) <program> [<args ...>]"
+    trap '' 0; exit 2
+}
+
+program="$1"; shift
+[ -n "$program" ] || usage
+case "$program"  in
+    --help)         usage;;
+    xterm)          choices='urxvt256c-ml urxvt xterm';;
+    vim|vi)         choices='2vim 3vim vimx vim vi';;
+    *)              err "Unknown program: $program";;
+esac
+for c in $choices; do
+    type -t $c >/dev/null || continue
+    trap '' 0; exec $c "$@"
+done
+err "Cannot find any of $choices"
