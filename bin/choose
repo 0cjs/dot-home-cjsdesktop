@@ -18,8 +18,8 @@ program="$1"; shift
 [ -n "$program" ] || usage
 case "$program"  in
     --help)         usage;;
+    vim|vi)         choices='vimx vim nvi vi';;
     xterm)          choices='urxvt256c-ml urxvt xterm';;
-    vim|vi)         choices='2vim 3vim vimx vim vi';;
     *)              err "Unknown program: $program";;
 esac
 for c in $choices; do
