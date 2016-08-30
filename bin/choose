@@ -23,7 +23,7 @@ case "$program"  in
     *)              err "Unknown program: $program";;
 esac
 for c in $choices; do
-    type -t $c >/dev/null || continue
+    type $c >/dev/null 2>&1 || continue
     trap '' 0; exec $c "$@"
 done
 err "Cannot find any of $choices"
