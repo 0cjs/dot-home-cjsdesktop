@@ -14,12 +14,16 @@ usage() {
     trap '' 0; exit 2
 }
 
+HEIGHT="$(xwininfo -root 2>/dev/null | sed -n -e 's/ *Height: //p')"
+
 program="$1"; shift
 [ -n "$program" ] || usage
 case "$program"  in
     --help)         usage;;
     vim|vi)         choices='vimx vim nvi vi';;
-    xterm)          choices='urxvt256c-ml urxvt xterm';;
+    xterm)          choices='urxvt256c-ml urxvt xterm'
+                    [ "${HEIGHT:-0}" -le 1200 ] && choices=xterm
+                    ;;
     *)              err "Unknown program: $program";;
 esac
 for c in $choices; do
