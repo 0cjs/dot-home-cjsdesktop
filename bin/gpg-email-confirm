@@ -1,0 +1,31 @@
+#!/bin/sh
+#
+#  gpg-email-confirm -	send a message to confirm that someone at a particular
+#			e-mail address has control of a PGP key associated
+#			with it
+#
+
+set -e
+
+for email in "$@"; do
+    echo "Processing $email"
+    gpg -q --list-keys "$email" > /dev/null	# assert it exists
+
+    random_string="$(dd 2>/dev/null if=/dev/urandom count=1 | sha1)"
+    echo "$random_string	$email" >> ~/doc/gpg-verify
+
+    gpg_command='gpg --armor --encrypt --recipient "$email"'
+    mail_command='mail -s "PGP Key and E-mail Address Verification" "$email"'
+
+    cat <<EOF | eval "$gpg_command" | eval "$mail_command"
+This message is to confirm that the user at this e-mail address can decrypt
+and sign e-mail with the key used to encrypt this message. Please return
+the string below to me, after signing it with your key and encrypting it
+with mine. I will then sign the identity on your key that includes this
+e-mail address and return it to you.
+
+$random_string	$email
+EOF
+    echo Sent to "$email"
+done
+

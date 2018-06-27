@@ -1,0 +1,17 @@
+#!/bin/sh
+
+if [ -n "$1" ]; then
+    idle_time="$1"
+else
+    idle_time=5
+fi
+
+if type xautolock > /dev/null; then
+    pkill xautolock || true
+    if [ X"$1" != X- ]; then
+	xautolock -corners 00+0 -cornerdelay 1 -time "$idle_time" &
+    fi
+else
+    echo 1>&2 "xautolock not available"
+    exit 1
+fi

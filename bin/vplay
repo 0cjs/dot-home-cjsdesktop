@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+#  vplay - varispeed video playback
+#
+
+boost=''    # Add 6 db volume boost?
+[ _-b = "_$1" ] && { shift; boost='volume=10:0,'; }
+
+speed=1.5
+[ _-s = "_$1" ] && { shift; speed="$1"; shift; }
+shift=$(echo "(100-100*$speed)/$speed" | bc -q)
+
+mplayer -speed $speed \
+    -af ${boost}ladspa=/usr/lib/ladspa/tap_pitch.so:tap_pitch:0:$shift:-90:0 \
+    "$@"

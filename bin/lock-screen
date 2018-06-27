@@ -1,0 +1,18 @@
+#!/bin/sh -e
+
+s=$(gnome-screensaver-command -q 2>&1 >/dev/null) || true;
+
+if xscreensaver-command -version >/dev/null 2>&1; then
+    xscreensaver-command -lock
+elif xlock -version >/dev/null 2>&1; then
+    xlock -mode blank
+elif [ -z "$s" ]; then
+    gnome-screensaver-command  -l 2>/dev/null
+elif light-locker-command --version >/dev/null 2>&1; then
+    light-locker-command -l
+else
+    dbus-send --session --dest=org.freedesktop.ScreenSaver \
+        --type=method_call --print-reply /ScreenSaver \
+        org.freedesktop.ScreenSaver.Lock \
+        #2>/dev/null
+fi

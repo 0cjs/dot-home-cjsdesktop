@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+set -e
+
+die() { echo "$(basename "$0"):" "$@"; exit 1; }
+
+assert_have() {
+    local prog="$1" package="${2:-$1}"
+    type -t "$prog" >/dev/null || die "$package not installed?"
+}
+
+pshutdown() {
+    sudo -v
+    while [[ $(pgrep -c chrom) -gt 0 ]]; do
+        echo "Waiting for chrom* processes to exit..."
+        sleep 5
+    done
+    shutdown $1 now
+}
+
+lock_and() {
+    assert_have xdg-screensaver
+    assert_have pm-suspend pm-utils
+    sudo -v
+    xdg-screensaver lock
+    sleep 0.5
+    sudo "$@"
+}
+
+usage() {
+    sed -e 's/^        //' <<___
+        Usage: $(basename "$0") off | suspend | hibernate | hybrid
+___
+    exit 2
+}
+
+case "$1" in
+    '')         usage;;
+    off)        pshutdown -P;;
+    reboot)     pshutdown -r;;
+    sus*|sle*)  lock_and pm-suspend;;
+    hib*)       lock_and pm-hibernate;;
+    hyb*)       lock_and pm-suspend-hybrid;;
+    *)          usage;;
+esac

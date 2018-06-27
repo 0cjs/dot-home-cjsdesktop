@@ -1,0 +1,24 @@
+#!/bin/sh
+
+if [ -z "$1" ]; then
+    echo "Usage: vncs <screen-width>"
+    exit 2
+else
+    width=$1
+    shift
+fi
+
+case $width in
+    640)	geom="640x480";;
+    800)	geom="800x600";;
+    1024)	geom="1024x768";;
+    1280)	geom="1280x1024";;
+    wide)	geom="1200x550";;
+    shdtv)	geom="1595x1080";;
+    hdtv)	geom="1920x1080";;
+    tv)		geom="1350x950";;
+    *)		echo "Unknown width: $width"; exit 2;;
+esac
+
+cd $HOME
+ssh-agent vncserver -geometry $geom -depth 24 -desktop $(hostname -s)-cjs

@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+require 'tempfile'
+
+input2 = ARGV.pop || (
+    $stderr.puts("Usage: gconf-diff [opts] <file> <file>")
+    exit(1)
+)
+input1 = ARGV.pop
+
+UNWANTED_PAT = /mtime="\d+"/
+
+def copy_tmp(id, path)
+    t = Tempfile.new("gconf-diff-#{id}-")
+    File.open(path).each { |line| t.write(line.gsub(UNWANTED_PAT, '')) }
+    t.close
+    t
+end
+t1 = copy_tmp('1', input1)
+t2 = copy_tmp('2', input2)
+
+system('diff', *(ARGV + ['-B', '-b', t1.path, t2.path]))
+exit($?.exitstatus)

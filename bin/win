@@ -1,0 +1,41 @@
+#!/bin/sh
+
+usage() {
+    [ -n "$1" ] && echo 1>&2 "$1"
+    echo 1>&2 "Usage: win [-f fwdhost] [-h] [-l] [-s]host"
+    echo 1>&2 "  -f Forward connection via ssh through fwdhost"
+    echo 1>&2 "  -h Use settings suitable for a high-speed network."
+    echo 1>&2 "  -l Use larger than normal window."
+    echo 1>&2 "  -s Use smaller than normal window."
+    exit 2
+}
+
+fwdhost=""
+size="1350x1050"
+rdopts=""
+
+while true; do case "$1" in
+    -f) shift; fwdhost="$1"; shift;;
+    -h) shift; rdopts="$rdopts -x lan";; # high-speed network
+    -l)	shift; size="1550x1200";;
+    -s)	shift; size="800x600";;
+    -*) usage "Unknown option: $1";;
+    *)  break;;
+esac; done
+
+[ -z "$1" ] && usage
+server="$1"
+
+if ! echo "$server" | grep -q -F . ; then
+    server="$server.office.cynic.net."
+fi
+
+command="rdesktop -g $size -r sound:remote $rdopts"
+if [ -z "$fwdhost" ]; then
+    exec $command $server
+else
+    ssh -N -L 127.0.0.1:3389:"$server":3389 "$fwdhost" & sleep 2
+    ssh_pid=$!
+    $command $127.0.0.1
+    kill $ssh_pid
+fi

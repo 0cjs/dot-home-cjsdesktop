@@ -1,0 +1,66 @@
+!--------------------------------------------------
+! Generic changes
+
+! Caps lock/ctrl flip
+remove Lock = Caps_Lock
+remove Control = Control_L
+keycode 37 = Caps_Lock
+keycode 66 = Control_L
+add Lock = Caps_Lock
+add Control = Control_L
+
+! Reverse ESC and backquote/tilde
+keycode 9 = quoteleft asciitilde
+keycode 49 = Escape
+
+
+
+
+!--------------------------------------------------
+! Japanese mappings
+
+! NetBSD/Ubuntu 8.04
+keycode 133 = grave yen
+! Ubuntu 8.10
+keycode 132 = grave yen
+
+! NetBSD/Ubuntu 8.04
+keycode 211 = underscore asciitilde
+! Ubuntu 8.10
+keycode 97 = underscore asciitilde
+
+! muhenkan key backs up a page in Mozilla
+keycode 131 = Muhenkan Muhenkan Muhenkan
+keycode 129 = Henkan Mae_Koho Zen_Koho
+keycode 208 = Hiragana Katakana Romaji
+
+!--------------------------------------------------
+! Dell Precision oddities
+!
+
+! Control_R -> Alt_R, because there is no real Alt_R
+keycode 105 =	Alt_R
+
+! Shift all F-keys over to the left by one, since the keyboard has
+! ESC above the traditional tilde key, instead of F1 as the Thinkpads
+! do. Then we make Dell's F10/11/12 into Print/Scroll_Lock/Pause,
+! since these are various window maximizes in fvwm and otherwise require
+! using the Fn modifier on this keyboard.
+
+keycode  9 = F1
+keycode 67 = F2
+keycode 68 = F3
+keycode 69 = F4
+keycode 70 = F5
+keycode 71 = F6
+keycode 72 = F7
+keycode 73 = F8
+keycode 74 = F9
+keycode 76 = Print
+keycode 95 = Scroll_Lock
+keycode 96 = Pause
+! We could use the Fn modified version of these to get back our now-missing
+! F10/F11/F12, except that on regular keyboards, SysRq and PrntScr are on
+! the same key. (SysRq is shifted PrntScr.)
+!keycode 107 = F10/F11
+!keycode 127 = F12

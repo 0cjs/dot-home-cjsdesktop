@@ -1,0 +1,65 @@
+#!/bin/sh
+#
+#  xresetup - (re-)do all idempotent X desktop setup, including env vars
+#
+#  This is intended to be sourced both on initial login and when
+#  configuration or device changes cause the X11 configuration to be
+#  changed from that as desired. Note that environment variables will
+#  not be exported/updated unless the `source` or `.` command is used
+#  in the calling shell. Use cases include:
+#
+#    1. The keyboard/mouse is changed or unplugged/repluged,
+#       necessitating that the xmodmap and xinput pointer settings be
+#       configured again.
+#    2. The `.Xresources` file is changed and needs to be re-read.
+#    3. Something changed the root window color and it needs to be
+#       changed back.
+#
+#  N.B.: Since this script is often sourced, it must never itself exit,
+#  as that will cause the calling shell to exit, perhaps preventing
+#  login. it may, however, execute `return 1` or similar.
+#
+
+xrdb -cpp cpp -merge $HOME/.Xresources
+
+xmodmap $HOME/.xmodmaprc
+
+# If we're potentially using a Lenovo Bluetooth Thinkpad Keyboard,
+# set up the function keys.
+tpck=~/co/github.com/lentinj/tp-compact-keyboard/tp-compact-keyboard
+[ -x $tpck ] && sudo $tpck --fn-lock-enable
+
+# Set up Thinkpad/TrackPoint scrolling
+# https://wiki.debian.org/InstallingDebianOn/Thinkpad/Trackpoint
+#
+# TPPS/2: ThinkPad laptop keyboard
+# Synaptics: Thinkpad USB external keyboard
+#
+for pointer in \
+    "TPPS/2 IBM TrackPoint" \
+    "Synaptics Inc. Composite TouchPad / TrackPoint (Stick)" \
+; do
+    xinput set-prop "$pointer" "Evdev Wheel Emulation" 1
+    xinput set-prop "$pointer" "Evdev Wheel Emulation Button" 2
+    xinput set-prop "$pointer" "Evdev Wheel Emulation Timeout" 200
+    xinput set-prop "$pointer" "Evdev Wheel Emulation Axes" 6 7 4 5
+
+    # Less sensitive, but faster acceleration
+    xinput set-prop "$pointer" 'Device Accel Constant Deceleration' 2
+    xinput set-prop "$pointer" 'Device Accel Profile' 2
+    xinput set-prop "$pointer" 'Device Accel Velocity Scaling' 20
+done 2>&1 | 1>&2 grep -v '^unable to find device '
+
+BGCOLOR='#005048'
+xsetroot -solid $BGCOLOR
+xset dpms $((5*60)) $((30*60)) $((30*60))
+
+# Set up Japanese input
+# We do not need to ibus-daemon and frends, as it's somehow started for us.
+export XMODIFIERS=@im=ibus
+export GTK_IM_MODULE=ibus
+export QT_IM_MODULE=ibus
+
+
+# Headphone port is off by default in CentOS
+amixer -q sset Headphone unmute 2>/dev/null || true

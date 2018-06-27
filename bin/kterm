@@ -1,0 +1,13 @@
+#!/bin/sh
+
+path_not_including_me=$(echo ":$PATH:" |
+    sed -e "s,:$(dirname $0):,:," -e 's,^:,,' -e 's,:$,,')
+real_kterm=$(PATH="$path_not_including_me" type kterm |
+    sed -n -e 's/^kterm is //p')
+if [ -z "$real_kterm" ]; then
+    echo 1>&2 "Can't find kterm in path."
+    exit 1
+fi
+
+# Ensure we use kterm's default encoding for programs run under it.
+unset LANG; exec $real_kterm "$@"

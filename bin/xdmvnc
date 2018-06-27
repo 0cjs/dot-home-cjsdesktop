@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+if [ -z "$1" ]; then
+    echo 1>&2 "Usage: $(basename $0) xdmcp-server"
+    exit 2
+fi
+Xvnc :4 \
+    -geometry 1280x1024 -depth 32 \
+    -query "$1" -once

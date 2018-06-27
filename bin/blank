@@ -1,0 +1,4 @@
+#!/bin/sh
+sleep 1
+#xset s activate
+xset dpms force off

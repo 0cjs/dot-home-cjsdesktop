@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+ HD=1280x720
+WXGA=1366x768
+ FHD=1920x1080
+ QHD=2560x1440
+# More at https://en.wikipedia.org/wiki/Graphics_display_resolution
+
+status() {
+    xrandr | sed \
+    -e 's/minimum[^,]*, //'     \
+    -e 's/, maximum .*//'       \
+    -e 's/(.*)//'               \
+    -e '/^ /d'                  \
+    -e '/ disconnected \?$/d'
+
+}
+
+while [ -n "$1" ]; do case "$1" in
+    lvds)
+        xrandr --output DP-1 --off
+        xrandr --output LVDS-1 --auto
+        ;;
+    -lvds)
+        xrandr --output LVDS-1 --off
+        ;;
+    +lvds)
+        xrandr --output LVDS-1 --auto
+        ;;
+    -pan)
+        xrandr --output LVDS-1 --auto --panning 0x0
+        ;;
+    +pan)
+        xrandr --output LVDS-1 --fb $QHD --panning $QHD
+        ;;
+    2k5)
+        xrandr --output VGA-1 --off
+        # QNX monitor sometimes needs this first
+        xrandr --output DP-1 --mode $FHD
+        xrandr --output DP-1 --mode $QHD
+        ;;
+    vga)
+        xrandr --output DP-1 --off
+        xrandr --output VGA-1 --auto   # should have --same-as LVDS-1 ?
+        ;;
+    '')
+        break
+        ;;
+    *)
+        echo >&2 "$(basename "$0"): Unknown argument: $1"
+        echo >&2 "  Opts: lvds -lvds +lvds -pan +pan 2k5 vga"
+        exit 1
+        ;;
+esac; shift; done
+status

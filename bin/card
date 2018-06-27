@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+case "$1" in
+    m*) sudo cryptdisks_start card
+        sudo fsck /card
+        sudo mount /card
+        ;;
+    u*) sudo umount /card
+        sudo cryptdisks_stop card
+        ;;
+    *)  echo 1>&2 "Usage: card mount|umount"; exit 1
+esac

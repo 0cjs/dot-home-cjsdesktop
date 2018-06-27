@@ -1,0 +1,61 @@
+#!/bin/sh
+
+self=$(/bin/pwd)
+
+BGCOLOR='#005048'
+HICOLOR='#8f4a1c'
+
+select_xmodmap() {
+    product_name=$(cat /sys/devices/virtual/dmi/id/product_name 2>/dev/null)
+    case "$product_name" in
+	Precision?M*)	echo "dell-precision";;
+	*)		echo "thinkpad";;
+    esac
+}
+
+setup_xmodmap() {
+    rm -f $HOME/.xmodmaprc
+    ln -s $self/xmodmap/$(select_xmodmap) $HOME/.xmodmaprc
+}
+
+############################################################
+# Gnome
+
+has_gnome() { type gconftool-2 >/dev/null 2>&1; }
+gnome_setup() {
+    has_gnome || return
+    gconftool-2 --type string \
+	--set /desktop/gnome/interface/gtk_key_theme Emacs
+    gconftool-2 --type string \
+	--set /desktop/gnome/background/primary_color "$BGCOLOR"
+    gconftool-2 --type string \
+	--set /desktop/gnome/background/secondary_color "$HICOLOR"
+}
+
+############################################################
+# Xfce
+
+has_xfce() { type xfconf-query >/dev/null 2>&1; }
+xfce_setup() {
+    has_xfce || return
+    xfconf-query -c xsettings -p /Gtk/KeyThemeName -s Emacs
+}
+
+############################################################
+# Other
+
+firefox_setup() {
+    for i in $HOME/.mozilla/firefox/*.default; do
+	[ ! -d "$i" ] && continue
+	rm -rf $i/searchplugins
+	ln -s firefox/searchplugins $i/searchplugins
+    done
+}
+
+############################################################
+# Main
+
+setup_xmodmap
+gnome_setup
+xfce_setup
+#firefox_setup

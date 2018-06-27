@@ -1,0 +1,58 @@
+#!/bin/bash
+############################################################
+# Set up logging
+
+exec >$HOME/.xinit-errors 2>&1
+
+
+############################################################
+# Environment and device configuration
+
+# On some systems, xinit will set up our profile properly; on others not.
+if [ -n "$ENV_DONE" ]; then
+    echo "ENV_DONE=$ENV_DONE; environment already set up"
+else
+    echo "ENV_DONE unset; setting up environment"
+    . $HOME/.home/public/environment
+    echo "ENV_DONE=$ENV_DONE; environment setup done"
+fi
+
+# `/usr/bin/xdg-{settings,open}` understands only a few popular
+# desktop environments (see the `detectDE()` function). We set this so
+# that we can actually set preferences for xdg-open (which is used by,
+# e.g., Slack) rather than just live with the default browser list
+# that puts Firefox before Chrome.
+#
+export XDG_CURRENT_DESKTOP=XFCE
+
+. $HOME/.local/bin/xresetup || echo 1>&2 "ERROR: xresetup failed"
+
+
+############################################################
+# Start "background" programs
+
+# Dbus appears to be started for us on login, though we should probably
+# check for that and start it here if necessary.
+
+xfce4-panel & sleep 1
+ibus-daemon --xim --daemonize
+xfce4-power-manager &
+nm-applet &
+blueman-applet &
+redshift-gtk &              # `fluxgui` doesn't work on newer kernels
+xscreensaver -no-splash &
+
+#   Do not autostart dropbox sync if we don't have a sync'd copy.
+if [[ -r ~/Dropbox/0-desc ]]; then
+    #   If we don't have the dropbox.py control script kicking around
+    #   (it comes with the Linux package), see if the headless version is
+    #   available. Note that the latter, dropboxd, does not deamonize itself.
+    dropbox start || { $HOME/.dropbox-dist/dropboxd & }
+fi
+
+
+############################################################
+# Start "foreground" programs and window manager
+
+xterm -name 'start' -geometry 80x59+730+0 &
+fvwm

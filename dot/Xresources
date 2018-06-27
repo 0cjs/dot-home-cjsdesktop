@@ -1,0 +1,267 @@
+! Parameter for small/medium/large displays
+! Small:  FullHD 1080, WQHD 1440, WQXGA 1600
+! Medium: 4K 2160
+! Large:  5K 2880
+#if HEIGHT <= 1620
+#define SML(s,m,l) s
+#elif HEIGHT <= 2700
+#define SML(s,m,l) m
+#else
+#define SML(s,m,l) l
+#endif
+
+!----------------------------------------------------------------------
+! Even 4k displays work best at 96 DPI, if applications are tweaked right.
+! (E.g., Chrome looks better at 96 DPI and 125% page zoom.)
+! But anythinig >4k is likely to have menus that are too small.
+
+Xft.dpi: SML(96,120,144)
+
+!----------------------------------------------------------------------
+! rxvt and urxvt256c-ml
+! Ctrl-Alt-C for copy, etc.
+
+Rxvt.geometry:          80x45
+Rxvt.saveLines:         8192
+Rxvt.utmpInhibit:       true
+Rxvt.secondaryScreen: 	true
+Rxvt.secondaryScroll: 	false
+Rxvt.tripleclickwords:	true
+Rxvt.cutchars:		:/`""''&()*,;<=>?@[]^{|}
+Rxvt.perl-ext-common:	default,confirm-paste,font-size
+Rxvt.foreground: 	black
+Rxvt.background: 	lightyellow
+Rxvt.scrollBar:		false
+Rxvt.scrollTtyOutput:	false
+Rxvt.scrollWithBuffer:	true
+Rxvt.scrollTtyKeypress:	true
+!Rxvt.font:		9x15,xft:Kochi Gothic
+Rxvt.font:		xft:Source Code Pro:size=SML(9,9,10),xft:Source Han Sans,xft:DejaVu Serif:size=SML(8,8,9),xft:DejaVu Sans Mono:size=SML(8,8,9)
+Rxvt.letterSpace: 	-1.5
+Rxvt.color2:		#00a000
+Rxvt.color3:		yellow4
+Rxvt.color7:		LightSlateGray
+Rxvt.color10:		#00d000
+Rxvt.color11:		#a0a000
+Rxvt.color15:		gray
+Rxvt.visualBell:	true
+
+! For font-size extension (+/-/0 mapped by default)
+Rxvt.keysym.C-equal:	font-size:increase
+Rxvt.keysym.C-Up:	font-size:increase
+Rxvt.keysym.C-Down:	font-size:decrease
+Rxvt.keysym.C-slash:	font-size:show
+
+!----------------------------------------------------------------------
+! Xterm
+
+XTerm*charClass: 45-46:48,47:47,58:58,
+XTerm*on4Clicks: regex .*
+XTerm*backarrowKey: true
+XTerm*ttyModes: erase ^H
+#if HEIGHT >= 1024
+XTerm*vt100.Geometry: 80x37
+#else
+XTerm*vt100.Geometry: 80x25
+#endif
+XTerm*foreground: black
+XTerm*background: lightyellow
+XTerm*cutNewline: false
+XTerm*cutToBeginningOfLine: false
+XTerm*multiScroll: true
+XTerm*reverseWrap: true
+XTerm*scrollTtyOutput: false
+XTerm*scrollKey: true
+XTerm*scrollBar: false
+XTerm*saveLines: 2048
+XTerm*zIconBeep: 20
+
+XTerm*wideChars: 1
+XTerm*utf8: 1
+
+XTerm*VT100*font:  -misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso10646-1
+XTerm*VT100*wideFont:  -misc-fixed-medium-r-normal-ja-13-125-75-75-c-120-iso10646-1
+!XTerm*VT100*boldFont:  -misc-fixed-bold-r-semicondensed--13-120-75-75-c-60-iso10646-1
+!XTerm*VT100*font:     -Misc-Fixed-Medium-R-Normal--18-120-100-100-C-90-ISO10646-1
+!XTerm*VT100*wideFont: -Misc-Fixed-Medium-R-Normal-ja-18-120-100-100-C-180-ISO10646-1
+
+! Fonts: 0=default, 1=unreadable, 2=tiny, 3=small, 4=medium, 5=large, 6=huge
+! 
+! !XTerm*font1: fixedgr		! unreadable = Greek
+! 
+! ! Courier set
+! !XTerm*font2: -*-courier-medium-r-normal-*-10-*-75-*-*-*-iso8859-*
+! !XTerm*font3: -*-courier-medium-r-normal-*-12-*-75-*-*-*-iso8859-*
+! XTerm*font3:  -*-courier-medium-r-normal-*-14-*-75-*-*-*-iso8859-*
+! !XTerm*font4: -*-courier-medium-r-normal-*-18-*-75-*-*-*-iso8859-*
+! XTerm*font5: -*-courier-medium-r-normal-*-24-*-75-*-*-*-iso8859-*
+! XTerm*font6: -*-courier-medium-r-normal-*-25-*-75-*-*-*-iso8859-*
+! 
+! ! Schumacher clean set
+! XTerm*font1: -*-clean-medium-r-*-*-10-*-*-*-*-*-iso8859-1
+! XTerm*font2: -*-clean-medium-r-*-*-12-*-*-*-*-*-iso8859-1
+! XTerm*font: -*-clean-medium-r-*-*-14-*-*-*-*-*-iso8859-1
+! XTerm*font4: -*-clean-medium-r-*-*-15-*-*-*-*-*-iso8859-1
+
+! Fix yellow colors to be readable on light background
+XTerm*color3: yellow4
+XTerm*color4: Blue3
+XTerm*color11: #a0a000
+XTerm*color12: Blue
+
+!# Scrolling on wheel mouse: half a page normally, line per line with shift
+XTerm.vt100.translations: #override\n\
+ Shift<Btn4Down>,<Btn4Up>:scroll-back(1,halfpage)\n\
+ Shift<Btn5Down>,<Btn5Up>:scroll-forw(1,halfpage)\n\
+ Ctrl<Btn4Down>,<Btn4Up>:scroll-back(1,page)\n\
+ Ctrl<Btn5Down>,<Btn5Up>:scroll-forw(1,page)\n\
+ <Btn4Down>,<Btn4Up>:scroll-back(1,line)\n\
+ <Btn5Down>,<Btn5Up>:scroll-forw(1,line)\n
+!# In the scrollbar we map buttons 5 & 4 to 1 and 2 otherwise, core dump
+!# This will move proportionnaly to cursor position but we dont know how to
+!# program the same exact behavior as in the text widget.
+XTerm.vt100.Scrollbar.translations: #override\n\
+     <Btn5Down>: StartScroll(Forward)\n\
+     <Btn4Down>: StartScroll(Backward)\n\
+
+!----------------------------------------------------------------------
+! Misc
+
+Vncviewer*shareDesktop: true
+Vnvviewer*grabKeyboard: true
+Vncviewer*passwordDialog: false
+Vncviewer*rawDelay: 0
+Vncviewer*desktop.translations: #override\n\
+    <Key>F8: SendRFBEvent()\n\
+    <Key>Insert: ShowPopup()
+
+XConsole*background: lightyellow
+
+*Clock*update: 1
+*Clock*hands: lightyellow
+*Clock*highlight: lightyellow
+*Clock*foreground: lightyellow
+*Clock*background: #005048
+
+XLock.erasedelay: 1
+XLock.mode: clock
+
+XLoad*foreground: lightyellow
+XLoad*background: #005048
+
+xosview*meterLabelColor: white
+xosview*usedLabelColor: white
+xosview*enableStipple: false
+xosview*loadPriority: 50
+xosview*loadGraph: true
+xosview*cpuPriority: 15
+xosview*cpuGraph: true
+xosview*memPriority: 15
+xosview*memGraph: true
+xosview*swapPriority: 50
+xosview*swapGraph: true
+xosview*pagePriority: 15
+xosview*pageGraph: true
+xosview*net: true
+xosview*netPriority: 15
+xosview*netGraph: true
+xosview*interrupts: false
+xosview*diskPriority: 15
+xosview*diskGraph: true
+
+!----------------------------------------------------------------------
+! Obsolete stuff only below here
+!----------------------------------------------------------------------
+
+XBiff*file:/var/mail/cjs
+XBiff*update:10
+XBiff*foreground:lightyellow
+XBiff*background:#005048
+
+! KTerm defs -- make it look like XTerm above
+KTerm*backarrowKey: true
+KTerm*ttyModes: erase ^H
+KTerm*background: lightyellow
+KTerm*foreground: black
+KTerm*cutNewline: false
+KTerm*multiScroll: true
+KTerm*reverseWrap: true
+KTerm*scrollTtyOutput: false
+KTerm*scrollKey: true
+KTerm*scrollBar: false
+KTerm*saveLines: 2048
+KTerm*zIconBeep: 20
+KTerm*vt100.kanjiMode: euc
+! And make control-space work to bring up kinput2.
+KTerm*VT100*translations: #override Ctrl<Key>space:\
+    begin-conversion(_JAPANESE_CONVERSION)\n\
+ Shift<Btn4Down>,<Btn4Up>:scroll-back(1,line)\n\
+ Shift<Btn5Down>,<Btn5Up>:scroll-forw(1,line)\n\
+ Ctrl<Btn4Down>,<Btn4Up>:scroll-back(1,page)\n\
+ Ctrl<Btn5Down>,<Btn5Up>:scroll-forw(1,page)\n\
+ <Btn4Down>,<Btn4Up>:scroll-back(1,halfpage)\n\
+ <Btn5Down>,<Btn5Up>:scroll-forw(1,halfpage)\n
+
+
+
+! !## NETSCAPE
+! Netscape*drawingArea.translations:      #replace        \
+!         <Btn1Down>:                     ArmLink()       \n\
+!         <Btn2Down>:                     ArmLink()       \n\
+!         ~Shift<Btn1Up>:                 ActivateLink()  \n\
+!         ~Shift<Btn2Up>:                 ActivateLink(new-window)  \
+!                                         DisarmLink()    \n\
+!         Shift<Btn1Up>:                  ActivateLink(save-only)  \
+!                                         DisarmLink()    \n\
+!         Shift<Btn2Up>:                  ActivateLink(save-only)  \
+!                                         DisarmLink()    \n\
+!         <Btn1Motion>:                   DisarmLinkIfMoved()  \n\
+!         <Btn2Motion>:                   DisarmLinkIfMoved()  \n\
+!         <Btn3Motion>:                   DisarmLinkIfMoved()  \n\
+!         <Motion>:                       DescribeLink()  \n\
+!         <Btn3Down>:                     xfeDoPopup()    \n\
+!         <Btn3Up>:                       ActivatePopup() \n\
+!         Ctrl<Btn4Down>: PageUp()\n\
+!         Ctrl<Btn5Down>: PageDown()\n\
+!         Shift<Btn4Down>: LineUp()\n\
+!         Shift<Btn5Down>: LineDown()\n\
+!          None<Btn4Down>: LineUp()LineUp()LineUp()LineUp()LineUp()LineUp()\n\
+!          None<Btn5Down>: LineDown()LineDown()LineDown()LineDown()LineDown()LineDown()\n\
+!         Alt<Btn4Down>: xfeDoCommand(forward)\n\
+!         Alt<Btn5Down>: xfeDoCommand(back)\n
+! 
+! Netscape*globalNonTextTranslations: #override\n\
+!  Shift<Btn4Down>: LineUp()\n\
+!  Shift<Btn5Down>: LineDown()\n\
+!  None<Btn4Down>:LineUp()LineUp()LineUp()LineUp()LineUp()LineUp()\n\
+!  None<Btn5Down>:LineDown()LineDown()LineDown()LineDown()LineDown()LineDown()\n\
+!  Alt<Btn4Down>: xfeDoCommand(forward)\n\
+!  Alt<Btn5Down>: xfeDoCommand(back)\n
+Netscape*international: True
+
+! Kinput2
+*Kinput2*conversionEngine:		canna
+*Kinput2*JpWcharDisplay*kanaFont:	12x24kana
+*Kinput2*JpWcharDisplay*kanjiFont:	kanji24
+! start key
+*KinputProtocol*xlcConversionStartKey: Ctrl<Key>space
+*conversionStartKeys: Ctrl<Key>space
+*ConversionStartKeys: Ctrl<Key>space
+! For everything that takes an input method.
+*inputMethod: kinput2
+
+! xpdf
+xpdf.initialZoom:	140
+xpdf.t1libControl:	aa
+xpdf.freeTypeControl:	aa
+xpdf.viKeys:		true
+xpdf.urlCommand:	netscape -remote 'openURL(%s)'
+
+! XMbmon
+XMBmon*cmtcpu:  chip
+XMBmon*cmtcs:   mb-cpu
+XMBmon*tmin:    25
+XMBmon*tmax:    75
+XMBmon*vmin:    1.4
+XMBmon*sec:     10
+!XMBmon*geometry: 110x140+0+750 

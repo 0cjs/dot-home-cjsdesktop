@@ -1,0 +1,68 @@
+#!/bin/sh
+. ~/.shrc
+
+#xterm -e 'echo 22; exec /bin/bash -i'
+#exit
+
+geom=$(xprop -root | sed -n -e 's/_NET_DESKTOP_GEOMETRY(CARDINAL) = //p')
+desktop_x=$(echo "$geom" | sed -e 's/, .*//')
+desktop_y=$(echo "$geom" | sed -e 's/.*, //')
+
+if [ $desktop_x = 2560 ]; then
+    # Wide display
+    windows="80x32-108+0,repl 80x90-1260-0 pause 128x75-0-0,build 80x90-774-0,edit"
+else case "$DISPLAY" in
+         # "Reversed" right-hand
+    *.0) windows="80x32-108+0,repl 80x50+25+0 pause 98x57-0-0,build 80x79-595-0,edit ";;
+         # Traditional left-hand
+    *.1) windows="S-80x32+132+0,repl S-80x50+1106+0 pause 98x57+24-0,build S-80x79+619-0,edit";;
+    *)    echo 2>&1 "Can't parse \$DISPLAY (\"$DISPLAY\")."; exit;;
+esac; fi
+
+prerel=prerel
+while true; do case "$1" in
+    -h) shift; host="$1";     shift;;
+    -c) shift; co_dir="$1";   shift;;
+    -d) shift; base_dir="$1"; shift;;
+    -P) shift; prerel=:            ;;	# no prerel
+    -s) shift; sub_dir="$1";  shift;;
+    -*) echo 2>&1 "Unknown option: $1"; exit 1;;
+    *)  break;;
+esac; done
+
+for window in $windows; do
+    if [ $window = pause ]; then
+	# Give started xterms time to map to the display
+	sleep 0.2
+    else
+	geom=${window%,*}
+	title=${window#*,}
+	[ "$title" = "$geom" ] && title=""
+	if [ -n "$host" ]; then
+	    c="cjslogin -t $host 'c $co_dir; $prerel; $SHELL -l -i'"
+	else
+	    c=". ~/.shrc; "
+	    if [ -n "$co_dir" ]; then
+		dir=$(find-co-dir -1 "$co_dir")
+		[ $? -ne 0 ] && exit 1
+		c="$c cd $dir; $prerel; xt $title;"
+	    fi
+	    [ -n "$base_dir" ] && c="cd $base_dir;"
+	    case $geom in S-*) 
+		geom=$(echo "$geom" | sed -e 's/S-//')
+		[ -n "$sub_dir" ] && c="$c cd $sub_dir;"
+	    esac
+	    c="$c $SHELL -i;"
+	fi
+	xterm \
+	    -title "$(hostname -s):$*" -n $(hostname -s) \
+	    -g $geom -e "$c" \
+	    &
+	sleep 0.1
+    fi
+    # Now that at least one window has been started, ensure that a key is
+    # loaded before we continue. (XXX fails if first window was "pause"!)
+    while [ -n "$host" ] && ! cjslogin --check-agent-only $host; do
+	sleep 1
+    done
+done

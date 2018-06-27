@@ -1,0 +1,80 @@
+!--------------------------------------------------
+! Caps Lock -> Ctrl
+!--------------------------------------------------
+
+! Caps_Lock (66) duplicates Control_L
+!
+  remove Control  = Control_L
+  keycode 66      = Control_L
+  add Control     = Control_L
+
+! I don't rebind Control_L to Caps_Lock because I didn't use it much
+! and it's more convenient for other users on my keyboard to leave it.
+!
+! remove Lock     = Caps_Lock
+! keycode 37      = Caps_Lock
+! add Lock        = Caps_Lock
+!
+! However, with no keys bound to it, we must clear it or it seems that
+! Control_L will somehow stick to the Lock modifier as well. We must
+! clear instead of remove to avoid error messages when this is run again.
+!
+clear Lock
+
+! Swap ESC (9) and backquote/tilde (49)
+!
+  keycode 9 = quoteleft asciitilde
+  keycode 49 = Escape
+
+! Control_R as compose can be handy for Compose-E-Quote → é etc.
+! But we don't do this because it's also the Virtualbox "escape from
+! captured console" key; without it we can get badly stuck.
+! keycode 105 =	Multi_key
+
+!--------------------------------------------------
+! Japanese keyboard customizations
+!--------------------------------------------------
+
+! yen left of backspace
+  keycode 132 = asciitilde yen
+! underbar left of right-shift
+  keycode 97 = underscore grave
+
+  keycode 131 = Muhenkan Muhenkan Muhenkan
+  keycode 129 = Henkan Mae_Koho Zen_Koho
+  keycode 208 = Hiragana Katakana Romaji
+
+!--------------------------------------------------
+! Thinkpad stuff
+!--------------------------------------------------
+
+! On new Thinkpad Compact Bluetooth/USB Keyboard with TrackPoint we have
+! Home/End/Ins/Del in a row at the top right; it's nice to swap Home/End
+! with Ins/Del because I use the former a lot and the latter little in
+! areas where I don't even have Emacs keybindings. This actually looks
+! ok on the older keyboards (with PgUp/PgDn at the very far right) using
+! a more vertical orientation, but we'll see if we need to tweak
+! differently for that later. These are in order left to right:
+keycode 110 = Insert
+keycode 115 = Delete
+keycode 118 = Home
+keycode 119 = End
+
+! Hmm....funny thinkpad thing? This otherwise comes out as
+! (keysym 0xfe03, ISO_Level3_Shift)...XKeysymToKeycode returns keycode: 92
+keycode 108 = Alt_R
+
+!keycode 51 = BackSpace
+!keycode 22 = backslash bar
+
+! On older ThinkPad keyboards, 135 seemed to be pause, but mapped funny.
+! On the X61 it's Menu.
+!keycode 135 = Pause
+
+! Thinkpad "page" keys near arrow keys; laptop internal keyboards only
+keycode 166 = Prior
+keycode 167 = Next
+
+! numlock for ThinkPad T42
+keycode 77 = Num_Lock Num_Lock
+

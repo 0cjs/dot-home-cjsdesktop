@@ -1,0 +1,21 @@
+#!/bin/sh
+#
+# Set up standard terminals for desktop 3.
+#
+
+geom=$(xprop -root | sed -n -e 's/_NET_DESKTOP_GEOMETRY(CARDINAL) = //p')
+desktop_x=$(echo "$geom" | sed -e 's/, .*//')
+desktop_y=$(echo "$geom" | sed -e 's/.*, //')
+
+
+if [ $desktop_x = 2560 ]; then
+    xterm -title 'midomutt localhost' -g 80x108+523+0 &
+    xterm -title 'work localhost'     -g 80x70+1009+0 &
+    sched & # XXX still has to be manually moved to lower left.
+else
+    # Old config for small monitor
+    xterm -title 'work localhost' -g 80x30+512+370 \
+        -e '. .shrc && c cjs client infinet && exec $SHELL -i' &
+    xterm -title 'misc localhost' -g 80x30+512-0 &
+    sched &
+fi

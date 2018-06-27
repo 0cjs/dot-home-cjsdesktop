@@ -1,0 +1,15 @@
+#!/bin/sh -e
+#
+# Bring up the editor for Firefox It's All Text plugin, with appropriate
+# options.
+#
+# If this doesn't run, ensure that /etc/apparmor.d/local/usr.bin.firefox
+# contains the line "/home/cjs/bin/iat-edit PUxr," (including comma).
+# You may need to run "/etc/init.d/apparmor reload" after this.
+#
+
+[ "$1" = "$0" ] && shift        # bug in plugin?
+
+right=$(xwininfo -root | sed -n -e 's/Width: //p')
+x=$(($right - 502))
+/usr/bin/gvim -geometry 80x55 -c ":winpos $x 0" "$@"

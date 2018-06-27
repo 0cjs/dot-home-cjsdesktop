@@ -1,0 +1,14 @@
+# Do not quote the `%s` parameters in this file. See:
+# http://www.mutt.org/doc/devel/manual/#secure-mailcap
+
+text/html; xdg-open %s
+
+# `copiousoutput` defines these to Mutt as text converters which Mutt
+# will use in preference to previously defined programs to view the
+# attachement inline.
+#
+text/html; elinks -dump; copiousoutput
+application/zip; unzip -v %s; copiousoutput
+application/x-zip-compressed; unzip -v %s; copiousoutput
+
+image/*;   display %s

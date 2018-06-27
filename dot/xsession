@@ -1,0 +1,26 @@
+#!/bin/bash
+#
+#  .xsession is run on login from a display manager (graphical login screen).
+#  It combines the roles of .profile and .xinitrc.
+#
+#  This file must be set executable!
+#
+
+# XXX This is supposed to be done by the system, but sometimes isn't?
+exec >>$HOME/.xsession-errors 2>&1
+
+echo ===== starting ckssh-compatible ssh agent
+export SSH_AUTH_SOCK=/run/user/1765/ckssh/socket/cynic
+mkdir -m 700 -p "$(dirname "$SSH_AUTH_SOCK")"
+eval $(ssh-agent -a "$SSH_AUTH_SOCK")
+
+echo ===== sourcing profile
+if [ -r ~/.bash_profile ]; then
+    . ~/.bash_profile
+else
+    # This should never happen unless we're using an old .home/public,
+    # but just in case, we use the old .profile.
+    echo 1>&2 "WARNING: ~/.bash_profile not found; sourcing ~/.profile"
+    . ~/.profile
+fi
+echo ===== execing .xinitrc;    exec ~/.xinitrc
