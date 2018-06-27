@@ -1,0 +1,27 @@
+[hosts-cynic]
+TITLE = Cynic Hosts
+&attic          = cjslogin attic.cynic.net.
+&beatific       = cjslogin beatific.cynic.net.
+&critic.cjs     = cjslogin wifi.critic.cjs.cynic.net.
+&dyadic         = SUBMENU hosts-xen-dyadic
+&epistolic      = cjslogin epistolic.cynic.net.
+&homeric.cjs    = cjslogin homeric.cjs.cynic.net.
+&pessimistic    = cjslogin pessimistic.cynic.net.
+0               = NOP
+Production      = SUBMENU Production
+
+[hosts-xen-dyadic]
+TITLE           = xen-dyadic
+Dom&0           = cjslogin dyadic.cynic.net.
+pri&v.dyadic    = cjslogin priv.dyadic.cynic.net.
+&stage.dyadic   = cjslogin stage.dyadic.cynic.net.
+&prod.dyadic    = cjslogin prod.dyadic.cynic.net.
+t&1.dyadic      = cjslogin t1.dyadic.cynic.net.
+t&2.dyadic      = cjslogin t2.dyadic.cynic.net.
+
+[Production]
+TITLE = Cynic Production
+&nbpkg          = cjslogin nbpkg.cynic.net.
+starling &repo  = cjslogin starling.repo.cynic.net.
+&staging        = cjslogin staging.cynic.net.
+pri&vate repo   = cjslogin repo.cynic.net.

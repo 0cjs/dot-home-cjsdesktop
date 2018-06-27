@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+basedir=$(cd "$(dirname "$0")" && pwd -P)
+
+set -e
+cd "$basedir"
+[[ $1 = -C ]] && { shift; rm -rf .build/; }
+. ./activate -q --python=python2
+
+echo ===== Unit tests
+pytest *.py
+./sshmenus.py ./sshmenus.inb4 > .build/conf.1
+
+echo ===== Comparison Test
+../generate-menus > .build/conf.0
+diff -u .build/conf.[01]
