@@ -1,0 +1,101 @@
+#!/bin/sh
+
+# Run slogin with our own appropriate ssh agent settings and pause
+# on exit to allow viewing the result before an xterm closes.
+
+######################################################################
+
+vecho() { $verbose && echo 1>&2 "$@"; }
+
+######################################################################
+
+verbose=false
+wait=true
+check_agent_only=false
+while true; do case "$1" in
+    --verbose)          verbose=true;           shift;;
+    --nowait)           wait=false;             shift;;
+    --check-agent-only) check_agent_only=true;  shift;;
+    *)                  break;;
+esac; done
+
+######################################################################
+# Assume that the host is everything after the last '@' sign in the
+# first parameter that doesn't start with a '-'. (This seems to be about
+# what slogin does.)
+#
+# We force slogin to use that hostname (even if we got it wrong) by
+# passing this to slogin as the HostName parameter, which overrides any
+# hostname specified on the command line.
+
+host=
+for arg in "$@"; do
+    case "$arg" in
+        -*) continue;;
+         *) host=$(echo "$arg" | sed -e 's/.*@//'); break;;
+    esac
+done
+if [ -z "$host" ]; then
+    echo 1>&2 "$0: Cannot find host on command line."
+    exit 2
+fi
+vecho "Host: $host"
+
+agent_forwarding=-a; key_pattern='/id_rsa[ ]'
+# We need to do this in an eval because if we try to set the variables
+# directly in the "while read ..." loop, the changed values do not
+# propagate outside of the loop. (Argh!)
+eval `
+    cat $HOME/.ssh/key_patterns | grep -v '^#' | grep -v '^$' \
+    | while read host_pattern potential_key_pattern; do
+        case "$host" in $host_pattern)
+            echo agent_forwarding=-A
+            echo key_pattern=\""$potential_key_pattern"\"
+            break
+        esac
+    done
+`
+vecho "Key pattern: $key_pattern"
+
+######################################################################
+# Look for a running agent that has a key matching the pattern we're
+# looking for. If we can't find one, we need to start a new agent and
+# add the key matching that pattern.
+#
+# This currently doesn't permit an agent to have more than one key.
+# Possibly we should allow this if we're not forwarding, but possibly
+# we should just keep things simple and stick to one key per agent.
+
+unset SSH_AUTH_SOCK
+if [ -n "$key_pattern" ]; then
+    for sock in /run/user/$(id -u)/ckssh/socket/* /tmp/ssh-*/agent.*; do
+        vecho "Checking socket: $sock"
+        export SSH_AUTH_SOCK="$sock"
+        # We don't use agents with multiple keys because the whole point here
+        # is to avoid exposure of keys other than the one we deem safe to
+        # expose to the particular host.
+        [ $(ssh-add -l | wc -l) -eq 1 ] \
+            && ssh-add -l | sed -e 's/ (RSA)$//' | grep -q "$key_pattern" \
+            && break
+        unset SSH_AUTH_SOCK
+    done
+fi
+if [ -n "$SSH_AUTH_SOCK" ]; then
+    vecho "Using socket: $SSH_AUTH_SOCK"
+    $check_agent_only && exit 0
+else
+    $check_agent_only && exit 1
+    echo 1>&2 "Appropriate agent not found; starting new ssh-agent."
+    eval $(ssh-agent)
+    addkeys "$key_pattern"
+fi
+
+echo 1>&2 SSH_AUTH_SOCK=$SSH_AUTH_SOCK
+ssh-add -l | sed -e 's,.*/,  ,' | cat 1>&2
+echo 1>&2
+
+slogin -e none $agent_forwarding -o "HostName $host" "$@"
+if $wait; then
+    echo -n "Press ENTER: "
+    read ignored
+fi
