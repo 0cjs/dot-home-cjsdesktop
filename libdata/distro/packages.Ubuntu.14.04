@@ -8,6 +8,7 @@ ispell
 keepass2
 meld
 python
+ssh-askpass
 vim-gtk
 xcompmgr
 xdotool
