@@ -196,6 +196,7 @@ Key Next                A M     Desk 1
 Key Prior               A M     Desk -1
 
 # unmodified F1-F12, select desktop
+# (See menu-windowops-keystroke for how to send F1-12 to applications.)
 Key F1                  A N     GotoDesk 0 1
 Key F2                  A N     GotoDesk 0 2
 Key F3                  A N     GotoDesk 0 3
@@ -231,12 +232,6 @@ Key 9                   A M     GotoDesk 0 9
 Key 0                   A M     GotoDesk 0 10
 Key minus               A M     GotoDesk 0 11
 Key equal               A M     GotoDesk 0 12
-
-# XXX Here we should set up a way to get back our regular function keys
-# when a special key is pressed; maybe we can use a special "prefix"
-# key that, when pressed, turns off all of the above F-key bindings for
-# a moment while the next key is pressed, and then re-enables them. Or
-# maybe just make it an on-off switch.
 
 
 ######################################################################
