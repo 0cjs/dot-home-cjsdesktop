@@ -1,0 +1,6 @@
+#!/bin/sh -e
+#
+# This is intended for use with graphical programs that wish to bring up
+# a user's preferred editor.
+#
+exec xterm -g 80x55-0+0 -e ${VISUAL:-vi} "$@"
