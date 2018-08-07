@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -e
+
+# XXX This is a pretty bad hack
+
+source_code_pro() {
+    local site=https://github.com/adobe-fonts/source-code-pro
+    # The archive includes both ro[man] and [it]alic.
+    local dir=2.030R-ro file=1.050R-it
+
+    mkdir -p ~/tmp/; cd ~/tmp
+    wget $site/archive/$dir/$file.tar.gz
+    tar xf $file.tar.gz
+    mkdir -p ~/.fonts                      
+    mv source-code-pro-*/OTF/*.otf ~/.fonts
+    rm -r $file.tar.gz source-code-pro-*
+}
+
+source_code_pro
