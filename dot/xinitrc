@@ -3,6 +3,7 @@
 # Set up logging
 
 exec >$HOME/.xinit-errors 2>&1
+echo "===== .xinitrc startup: $(date +'%Y-%m-%d %H:%M:%S')"
 
 
 ############################################################

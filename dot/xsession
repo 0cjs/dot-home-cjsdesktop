@@ -8,6 +8,7 @@
 
 # XXX This is supposed to be done by the system, but sometimes isn't?
 exec >>$HOME/.xsession-errors 2>&1
+echo "===== .xsession startup: $(date +'%Y-%m-%d %H:%M:%S')"
 
 echo ===== starting ckssh-compatible ssh agent
 export SSH_AUTH_SOCK=/run/user/$(id -ur)/ckssh/socket/cynic
