@@ -10,7 +10,7 @@
 exec >>$HOME/.xsession-errors 2>&1
 
 echo ===== starting ckssh-compatible ssh agent
-export SSH_AUTH_SOCK=/run/user/1765/ckssh/socket/cynic
+export SSH_AUTH_SOCK=/run/user/$(id -ur)/ckssh/socket/cynic
 mkdir -m 700 -p "$(dirname "$SSH_AUTH_SOCK")"
 eval $(ssh-agent -a "$SSH_AUTH_SOCK")
 
