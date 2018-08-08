@@ -23,7 +23,7 @@ setup_xmodmap() {
 
 has_gnome() { type gconftool-2 >/dev/null 2>&1; }
 gnome_setup() {
-    has_gnome || return
+    has_gnome || return 0
     gconftool-2 --type string \
 	--set /desktop/gnome/interface/gtk_key_theme Emacs
     gconftool-2 --type string \
@@ -37,7 +37,7 @@ gnome_setup() {
 
 has_xfce() { type xfconf-query >/dev/null 2>&1; }
 xfce_setup() {
-    has_xfce || return
+    has_xfce || return 0
     xfconf-query -c xsettings -p /Gtk/KeyThemeName -s Emacs
 }
 
