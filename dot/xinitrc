@@ -9,15 +9,6 @@ echo "===== .xinitrc startup: $(date +'%Y-%m-%d %H:%M:%S')"
 ############################################################
 # Environment and device configuration
 
-# On some systems, xinit will set up our profile properly; on others not.
-if [ -n "$ENV_DONE" ]; then
-    echo "ENV_DONE=$ENV_DONE; environment already set up"
-else
-    echo "ENV_DONE unset; setting up environment"
-    . $HOME/.home/public/environment
-    echo "ENV_DONE=$ENV_DONE; environment setup done"
-fi
-
 # `/usr/bin/xdg-{settings,open}` understands only a few popular
 # desktop environments (see the `detectDE()` function). We set this so
 # that we can actually set preferences for xdg-open (which is used by,
