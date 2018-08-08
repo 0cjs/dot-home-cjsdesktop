@@ -1,0 +1,4 @@
+# First parameter is host pattern in shell glob format.
+# Second parameter is key filename to match in regex format.
+
+*.cynic.net.            cjs@cynic.net-
