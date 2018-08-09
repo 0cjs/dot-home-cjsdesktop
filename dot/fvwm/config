@@ -335,7 +335,7 @@ AddToMenu menu-windowops
     + ""                                Nop
 
     + "&.	 Refresh Screen"        Refresh
-    + "&;	 quick shell"           Exec exec choose xterm -geometry 80x25-200+200 -title "QuickShell" -n "QuickShell"
+    + "&;	 quick shell"           Exec XTITLE=QuickShell exec choose xterm -geometry 80x25-200+200 -title "QuickShell"
     + "&l	 lock screen"           Exec exec lock-screen
 
 #   If maximized, return to original size.
@@ -438,10 +438,10 @@ AddToFunc WindowListFunc
 DestroyMenu menu-root
 AddToMenu menu-root
     + "Root Menu"       Title
-    + "&Shell"          Exec exec choose xterm -title "$(hostname -s)" -n "$(hostname -s)"
-    + "&xterm"          Exec exec        xterm -title "$(hostname -s)" -n "$(hostname -s)"
-    + "u&rxvt"          Exec exec        urxvt -title "$(hostname -s)" -n "$(hostname -s)"
-    + "&; quick shell"  Exec exec choose xterm -geometry 80x25-200+200 -title "QuickShell" -n "QuickShell"
+    + "&Shell"          Exec exec choose xterm
+    + "&xterm"          Exec exec xterm
+    + "u&rxvt"          Exec exec urxvt
+    + "&; quick shell"  Exec XTITLE=QuickShell exec choose xterm -geometry 80x25-200+200 -title "QuickShell"
     + "&4-Up"           Popup menu-4up
     + ""                Nop
     + "C&ynic Hosts"    Popup menu-hosts-cynic
