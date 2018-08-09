@@ -440,6 +440,7 @@ AddToMenu menu-root
     + "Root Menu"       Title
     + "&Shell"          Exec exec choose xterm -title "$(hostname -s)" -n "$(hostname -s)"
     + "&xterm"          Exec exec        xterm -title "$(hostname -s)" -n "$(hostname -s)"
+    + "u&rxvt"          Exec exec        urxvt -title "$(hostname -s)" -n "$(hostname -s)"
     + "&; quick shell"  Exec exec choose xterm -geometry 80x25-200+200 -title "QuickShell" -n "QuickShell"
     + "&4-Up"           Popup menu-4up
     + ""                Nop
