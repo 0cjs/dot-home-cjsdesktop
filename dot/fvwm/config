@@ -2,7 +2,21 @@
 
 ######################################################################
 # X server setup before the config is processed.
+
+#   Fvwm by default ignores the CapsLock modifier (L) when checking
+#   key and mouse bindings. NumLock (2), which may be enabled at X11
+#   startup on some hardware, and ScrollLock (5) are also considered
+#   modifiers, but I never want to use them as such.
 #
+#   According to the manpage and FAQ, more than two modifiers can
+#   "create a lot of extra network traffic" (depending), but I don't
+#   see this being an issue on modern hosts.
+#
+#   For systems starting X11 with NumLock enabled, consider installing
+#   `numlockx` and setting `/etc/default/numlockx` to turn it off.
+
+IgnoreModifiers L25
+
 # This setup should already have been done, but another run can't hurt.
 # Note that environment variables will not be set, as this runs a subprocess.
 # PipeRead makes fvwm wait for this to complete before continuing.
