@@ -38,17 +38,18 @@
     <property name="plugin-4" type="string" value="genmon"/>
     <property name="plugin-10" type="string" value="systray">
       <property name="names-visible" type="array">
+        <value type="string" value="gitter"/>
         <value type="string" value="google-chrome"/>
         <value type="string" value="google-chrome-beta"/>
         <value type="string" value="networkmanager applet"/>
-        <value type="string" value="google-chrome-stable"/>
+        <value type="string" value="ibus panel"/>
         <value type="string" value="telegramdesktop"/>
-        <value type="string" value="telegram"/>
+        <value type="string" value="google-chrome-stable"/>
+        <value type="string" value="ibus-ui-gtk3"/>
+        <value type="string" value="blueman-applet"/>
         <value type="string" value="xfce4-power-manager"/>
         <value type="string" value="slack"/>
-        <value type="string" value="gitter"/>
-        <value type="string" value="blueman-applet"/>
-        <value type="string" value="ibus panel"/>
+        <value type="string" value="telegram"/>
       </property>
     </property>
     <property name="plugin-2" type="string" value="pulseaudio">
