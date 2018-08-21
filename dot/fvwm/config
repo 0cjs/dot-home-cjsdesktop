@@ -453,7 +453,7 @@ DestroyMenu menu-root
 AddToMenu menu-root
     + "Root Menu"       Title
     + "&Shell"          Exec exec choose xterm
-    + "&xterm"          Exec exec xterm
+    + "x&term"          Exec exec xterm
     + "u&rxvt"          Exec exec urxvt
     + "&; quick shell"  Exec XTITLE=QuickShell exec choose xterm -geometry 80x25-200+200 -title "QuickShell"
     + "&4-Up"           Popup menu-4up
@@ -470,18 +470,20 @@ AddToMenu menu-root
     + ""                Nop
     + "&Lock Screen"    Exec exec lock-screen
     + "Old Root"        Popup MenuFvwmRoot
-    + "&Quit session"   Popup menu-quit
+    + "E&xit options"   Popup menu-quit
 
 DestroyMenu menu-quit
 AddToMenu menu-quit
-    + "Quit Options"            Title
-    + "&No, don't quit"         Nop
-    + ""                        Nop
-    + "&Restart"                Restart /usr/bin/fvwm
-    + "&Xterm-only restart"     Restart xterm -n '"X Console"' -T '"X Console"'
-    + ""                        Nop
-    + "Quit &fvwm only"         Quit
-    + "Quit &Session"           QuitSession
+    + "Exit/Restart Options"            Title
+    + "&No, don't quit"                 Nop
+    + ""                                Nop
+    + "&Restart"                        Restart
+    + "Xterm-only restart"              Restart xterm -n '"X Console"' -T '"X Console"'
+    + ""                                Nop
+    + "&0 - Exit fvwm"                  Quit
+    + "&1 - Quit session"               QuitSession
+    + "&2 - Save/quit session"          SaveQuitSession
+    + "&3 - Save session(no quit)"      SaveSession
 
 DestroyMenu menu-applications
 AddToMenu menu-applications
