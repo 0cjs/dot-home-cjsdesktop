@@ -9,8 +9,8 @@ height=$(xwininfo -root | sed -n -e 's/ *Height: //p') \
 SML() {
     local -a sml
     IFS=, read -r -a sml <<< "$*"
-    if   [[ $height -lt 1280 ]]; then   echo ${sml[0]};
-    elif [[ $height -lt 2100 ]]; then   echo ${sml[1]};
+    if   [[ $height -lt 1620 ]]; then   echo ${sml[0]};
+    elif [[ $height -lt 2700 ]]; then   echo ${sml[1]};
     else                                echo ${sml[2]};
     fi
 }
@@ -18,9 +18,9 @@ join() { local IFS=,; echo "$*"; }
 
 #   We really should be reading this from the screen's X resources
 fontlist=(
-    "xft:Source Code Pro:size=$(SML 9,9,10)"
-    "xft:Source Han Sans,xft:DejaVu Serif:size=$(SML 8,8,9)"
-    "xft:DejaVu Sans Mono:size=$(SML 8,8,9)"
+    "xft:Source Code Pro:size=$(SML 8,9,10)"
+    "xft:Source Han Sans,xft:DejaVu Serif:size=$(SML 7,8,9)"
+    "xft:DejaVu Sans Mono:size=$(SML 7,8,9)"
 )
 
 
