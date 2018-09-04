@@ -36,7 +36,7 @@ Rxvt.scrollTtyOutput:	false
 Rxvt.scrollWithBuffer:	true
 Rxvt.scrollTtyKeypress:	true
 !Rxvt.font:		9x15,xft:Kochi Gothic
-Rxvt.font:		xft:Source Code Pro:size=SML(9,9,10),xft:Source Han Sans,xft:DejaVu Serif:size=SML(8,8,9),xft:DejaVu Sans Mono:size=SML(8,8,9)
+Rxvt.font:		xft:Source Code Pro:size=SML(8,9,10),xft:Source Han Sans,xft:DejaVu Serif:size=SML(7,8,9),xft:DejaVu Sans Mono:size=SML(7,8,9)
 Rxvt.letterSpace: 	-1.5
 Rxvt.color2:		#00a000
 Rxvt.color3:		yellow4
