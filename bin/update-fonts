@@ -3,6 +3,19 @@ set -e
 
 # XXX This is a pretty bad hack
 
+inconsolata() {
+    local name=Inconsolata
+    local filename=$name.zip
+    local url=https://fonts.google.com/download?family=$name
+    local file=~/Downloads/"$filename"
+
+    [ -s $file ] || wget -O "$file" "$url"
+    cd ~/Downloads
+    unzip -oq $file
+    #rm OFL.txt
+    mv Inconsolata*.ttf ~/.fonts/
+}
+
 source_code_pro() {
     local site=https://github.com/adobe-fonts/source-code-pro
     # The archive includes both ro[man] and [it]alic.
@@ -22,12 +35,14 @@ ubuntu-font-family() {
 
     [ -s $file ] || wget -O "$file" "$url"
     cd ~/Downloads
-    unzip -q $file
+    unzip -oq $file
     mv ubuntu-font-family-0.83/*.ttf ~/.fonts/
     #rm -r ubuntu-font-family-0.83/
 }
 
 
 mkdir -p ~/.fonts   # XXX should be ~/.local/...
+inconsolata
 source_code_pro
 ubuntu-font-family
+
