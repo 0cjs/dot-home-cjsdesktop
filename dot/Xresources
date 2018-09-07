@@ -16,6 +16,7 @@
 ! But anythinig >4k is likely to have menus that are too small.
 
 Xft.dpi: SML(96,120,144)
+Xft.rgba: none
 
 !----------------------------------------------------------------------
 ! rxvt and urxvt256c-ml
