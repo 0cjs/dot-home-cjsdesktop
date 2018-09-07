@@ -37,6 +37,8 @@ Rxvt.scrollTtyOutput:	false
 Rxvt.scrollWithBuffer:	true
 Rxvt.scrollTtyKeypress:	true
 !Rxvt.font:		9x15,xft:Kochi Gothic
+! This is best for 4K; remember to set lineSpace: 0
+!Rxvt.font:		xft:Inconsolata:size=SML(9,10,11),xft:Source Han Sans,xft:DejaVu Serif:size=SML(7,8,9),xft:DejaVu Sans Mono:size=SML(7,8,9)
 Rxvt.font:		xft:Noto Mono:size=SML(8,9,10),xft:Source Han Sans,xft:DejaVu Serif:size=SML(7,8,9),xft:DejaVu Sans Mono:size=SML(7,8,9)
 ! Extra line spacing for Noto Mono only
 Rxvt.lineSpace:		SML(1,2,2)
