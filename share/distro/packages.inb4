@@ -1,0 +1,56 @@
+#   Package list for `distro` command.
+#   Format: <group> <package-name> <distro-pattern> ...
+
+#   This is a bit of a mess; it's a quick and dirty conversion of
+#   an old config that itself was rather a mess.
+
+user    acroread                Ubuntu.14.04
+#user   alsa-utils              CentOS.7
+user    bzip2                   CentOS.7
+user    chromium-browser        Ubuntu.14.04
+user    cpp                     CentOS.7
+user    blueman                 Debian.*
+user    chromium                Debian.*
+user    clusterssh              Debian.* Ubuntu.14.04 CentOS.7
+user    #flashplugin-nonfree    Debian.8
+user    flashplugin-installer   Ubuntu.14.04
+user    fonts-droid             Debian.8 Ubuntu.14.04
+user    fonts-droid-fallback    Debian.9
+user    fonts-noto              Debian.9
+user    fonts-noto-cjk          Debian.9
+user    fonts-noto-mono         Debian.9
+user    fvwm                    Debian.* Ubuntu.14.04 CentOS.7
+user    ibus-mozc               Debian.*
+user    ispell                  Debian.* Ubuntu.14.04
+user    keepass2                Debian.* Ubuntu.14.04
+user    keepassx2               CentOS.7
+user    libappindicator1        Debian.9
+user    libXScrnSaver           CentOS.7
+user    meld                    Debian.* Ubuntu.14.04 CentOS.7
+user    network-manager-applet  CentOS.7
+#user   pulseaudio-utils        CentOS.7
+user    python                  Debian.* Ubuntu.14.04
+user    rxvt-unicode-256color   Debian.*
+user    ssh-askpass-fullscreen  Debian.* Ubuntu.14.04
+user    vim-X11                 CentOS.7
+user    vim-gtk                 Debian.* Ubuntu.14.04
+user    xcompmgr                Debian.* Ubuntu.14.04
+user    xdotool                 Debian.* Ubuntu.14.04 CentOS.7
+user    xfce4                   Debian.* Ubuntu.14.04
+#user   xfce4-pulseaudio-plugin CentOS.7
+user    xinput                  Debian.*
+user    xorg-x11-xinit-session  CentOS.7
+user    xpdf                    Debian.* Ubuntu.14.04 CentOS.7
+user    xscreensaver            Debian.* Ubuntu.14.04 CentOS.7
+
+#   CentOS.7 notes:
+#   * Stuff still to work on:
+#     blueman ibus-mozc xcompmgr xinput
+#   * We also `yum groupinstall`:
+#       X Window System
+#       xfce
+#   * Not clear what to do about Japanese support. There is a
+#     `Japanese Support` group in CentOS.6, I think, but in 7 we
+#     use `yum-langpacks` instead?
+#   * For making Chrome display properly, just installed everything
+#     found by `yum search font | grep -i japanese`
