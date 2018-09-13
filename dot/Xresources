@@ -121,19 +121,22 @@ Rxvt.scrollTtyKeypress:	true
 Rxvt.letterSpace: 	-1.5
 Rxvt.visualBell:	true
 
-! Font settings
-!
-!	Old unused setting
-!Rxvt.font:		9x15,xft:Kochi Gothic
-!
-!	Noto Mono seems the best compromise across all screen sizes.
-!	Only it needs extra line spacing.
-Rxvt.font:		xft:Noto Mono:size=SML(8,9,10),xft:Source Han Sans,xft:DejaVu Serif:size=SML(7,8,9),xft:DejaVu Sans Mono:size=SML(7,8,9)
-Rxvt.lineSpace:		SML(1,2,2)
-!
-!	Inconsolata looks better on 4K monitors
-!Rxvt.font:		xft:Inconsolata:size=SML(9,10,11),xft:Source Han Sans,xft:DejaVu Serif:size=SML(7,8,9),xft:DejaVu Sans Mono:size=SML(7,8,9)
-!Rxvt.lineSpace:		0
+!   Font settings
+!   (Originally: 9x15,xft:Kochi Gothic)
+#define RXVT_FONT_COMMON_FALLBACK \
+    xft:Source Han Sans,\
+    xft:DejaVu Serif:size=SML(7,8,9),\
+    xft:DejaVu Sans Mono:size=SML(7,8,9)
+#if HEIGHT > 1620
+!       Inconsolata looks better on 4K monitors
+    Rxvt.font:          xft:Inconsolata:size=SML(9,10,11),RXVT_FONT_COMMON_FALLBACK
+    Rxvt.lineSpace:     0
+#else
+!       Noto Mono seems the best compromise across all smaller screen sizes.
+!       It alone needs extra leading (line spacing).
+    Rxvt.font:          xft:Noto Mono:size=SML(8,9,10),RXVT_FONT_COMMON_FALLBACK
+    Rxvt.lineSpace:     SML(1,2,2)
+#endif
 
 ! For font-size extension (+/-/0 mapped by default)
 Rxvt.keysym.C-equal:	font-size:increase
