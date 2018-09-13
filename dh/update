@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+git fetch && { git rebase master@{upstream} || git rebase --abort; }
