@@ -14,7 +14,7 @@ pshutdown() {
         echo "Waiting for chrom* processes to exit..."
         sleep 5
     done
-    shutdown $1 now
+    /sbin/shutdown $1 now
 }
 
 lock_and() {
