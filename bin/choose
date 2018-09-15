@@ -22,7 +22,7 @@ case "$program"  in
     --help)         usage;;
     vim|vi)         choices='vimx vim nvi vi';;
     xterm)          choices='urxvt256c-ml urxvt xterm'
-                    [ "${HEIGHT:-0}" -le 1080 ] && choices=xterm
+                    #[ "${HEIGHT:-0}" -le 1080 ] && choices=xterm
                     ;;
     *)              err "Unknown program: $program";;
 esac
