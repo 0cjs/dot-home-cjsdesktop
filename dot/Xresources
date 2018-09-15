@@ -5,21 +5,21 @@
 #define C_bg            lightyellow
 #define C_desktop       #005048
 
-*.foreground:           C_fg
-*.background:           C_bg
+*foreground:            C_fg
+*background:            C_bg
 
-!   Colors 4 and 12 are urxvt defaults; we tweak xterm etc. to be the same
-!   This color scheme does not fix the issue with different colors for
-!   xterm and urxvt in vim, I think because urxvt is 256 color.
+!  Colors 4 and 12 are urxvt defaults; we tweak xterm etc. to be the same
+!  This color scheme does not fix the issue with different colors for
+!  xterm and urxvt in vim, I think because urxvt is 256 color.
 !
-*.color2:               #00a000
-*.color3:               yellow4
-*.color4:               Blue3
-*.color7:               LightSlateGray
-*.color10:              #00d000
-*.color11:              #a0a000
-*.color12:              Blue
-*.color15:              gray
+*color2:                #00a000
+*color3:                yellow4
+*color4:                Blue3
+*color7:                LightSlateGray
+*color10:               #00d000
+*color11:               #a0a000
+*color12:               Blue
+*color15:               gray
 
 !----------------------------------------------------------------------
 ! Solarized color defs from https://github.com/altercation/solarized.git
@@ -34,51 +34,60 @@
 #define S_cyan          #2aa198
 #define S_green         #859900
 
-#ifdef SOLARIZED_DARK
-    #define S_base03    #002b36
-    #define S_base02    #073642
-    #define S_base01    #586e75
-    #define S_base00    #657b83
-    #define S_base0     #839496
-    #define S_base1     #93a1a1
-    #define S_base2     #eee8d5
-    #define S_base3     #fdf6e3
-#else
-    #define S_base03    #fdf6e3
-    #define S_base02    #eee8d5
-    #define S_base01    #93a1a1
-    #define S_base00    #839496
-    #define S_base0     #657b83
-    #define S_base1     #586e75
-    #define S_base2     #073642
-    #define S_base3     #002b36
-#endif
+#define S_base03    #002b36
+#define S_base02    #073642
+#define S_base01    #586e75
+#define S_base00    #657b83
+#define S_base0     #839496
+#define S_base1     #93a1a1
+#define S_base2     #eee8d5
+#define S_base3     #fdf6e3
 
 #ifdef SOLARIZED
-    *background:        S_base03
-    *foreground:        S_base0
-    !*fading:           40
-    !*fadeColor:        S_base03
-    *cursorColor:       S_base1
-    *pointerColorBackground:  S_base01
-    *pointerColorForeground:  S_base1
-
-    *color0:            S_base02
     *color1:            S_red
     *color2:            S_green
     *color3:            S_yellow
     *color4:            S_blue
     *color5:            S_magenta
     *color6:            S_cyan
-    *color7:            S_base2
     *color9:            S_orange
-    *color8:            S_base03
-    *color10:           S_base01
-    *color11:           S_base00
-    *color12:           S_base0
     *color13:           S_violet
-    *color14:           S_base1
-    *color15:           S_base3
+
+    #ifdef SOLARIZED_DARK
+        *background:    S_base03
+        *foreground:    S_base0
+        !*fading:       40
+        !*fadeColor:    S_base03
+        *cursorColor:   S_base1
+        *pointerColorBackground:  S_base01
+        *pointerColorForeground:  S_base1
+
+        *color0:        S_base02
+        *color7:        S_base2
+        *color8:        S_base03
+        *color10:       S_base01
+        *color11:       S_base00
+        *color12:       S_base0
+        *color14:       S_base1
+        *color15:       S_base3
+    #else
+        *background:    S_base3
+        *foreground:    S_base00
+        !*fading:       40
+        !*fadeColor:    S_base3
+        *cursorColor:   S_base01
+        *pointerColorBackground:  S_base1
+        *pointerColorForeground:  S_base01
+
+        *color0:        S_base2
+        *color7:        S_base02
+        *color8:        S_base3
+        *color10:       S_base1
+        *color11:       S_base0
+        *color12:       S_base00
+        *color14:       S_base01
+        *color15:       S_base03
+    #endif
 #endif
 
 !----------------------------------------------------------------------
