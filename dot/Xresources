@@ -1,3 +1,14 @@
+!----------------------------------------------------------------------
+!   Generic color configuration
+
+#define C_fg            black
+#define C_bg            lightyellow
+#define C_desktop       #005048
+
+*.foreground:           C_fg
+*.background:           C_bg
+
+!----------------------------------------------------------------------
 ! Parameter for small/medium/large displays
 ! Small:  FullHD 1080, WQHD 1440, WQXGA 1600
 ! Medium: 4K 2160
@@ -30,8 +41,6 @@ Rxvt.secondaryScroll: 	false
 Rxvt.tripleclickwords:	true
 Rxvt.cutchars:		:/`""''&()*,;<=>?@[]^{|}
 Rxvt.perl-ext-common:	default,confirm-paste,font-size
-Rxvt.foreground: 	black
-Rxvt.background: 	lightyellow
 Rxvt.scrollBar:		false
 Rxvt.scrollTtyOutput:	false
 Rxvt.scrollWithBuffer:	true
@@ -77,8 +86,6 @@ XTerm*vt100.Geometry: 80x37
 #else
 XTerm*vt100.Geometry: 80x25
 #endif
-XTerm*foreground: black
-XTerm*background: lightyellow
 XTerm*cutNewline: false
 XTerm*cutToBeginningOfLine: false
 XTerm*multiScroll: true
@@ -148,19 +155,17 @@ Vncviewer*desktop.translations: #override\n\
     <Key>F8: SendRFBEvent()\n\
     <Key>Insert: ShowPopup()
 
-XConsole*background: lightyellow
-
 *Clock*update: 1
-*Clock*hands: lightyellow
-*Clock*highlight: lightyellow
-*Clock*foreground: lightyellow
-*Clock*background: #005048
+*Clock*hands:           C_bg
+*Clock*highlight:       C_bg
+*Clock*foreground:      C_bg
+*Clock*background:      C_desktop
 
 XLock.erasedelay: 1
 XLock.mode: clock
 
-XLoad*foreground: lightyellow
-XLoad*background: #005048
+XLoad*foreground:       C_bg
+XLoad*background:       C_desktop
 
 xosview*meterLabelColor: white
 xosview*usedLabelColor: white
@@ -188,8 +193,8 @@ xosview*diskGraph: true
 
 XBiff*file:/var/mail/cjs
 XBiff*update:10
-XBiff*foreground:lightyellow
-XBiff*background:#005048
+XBiff*foreground:       C_bg
+XBiff*background:       C_desktop
 
 ! xpdf
 xpdf.initialZoom:	140
