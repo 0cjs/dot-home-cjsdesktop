@@ -20,7 +20,7 @@
 #  login. it may, however, execute `return 1` or similar.
 #
 
-xrdb -cpp cpp -merge $HOME/.Xresources
+xrdb -cpp cpp $HOME/.Xresources
 
 xmodmap $HOME/.xmodmaprc
 
