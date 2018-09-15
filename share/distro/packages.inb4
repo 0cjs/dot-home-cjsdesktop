@@ -16,9 +16,10 @@ user    #flashplugin-nonfree    Debian.8
 user    flashplugin-installer   Ubuntu.14.04
 user    fonts-droid             Debian.8 Ubuntu.14.04
 user    fonts-droid-fallback    Debian.9
-user    fonts-noto              Debian.9
-user    fonts-noto-cjk          Debian.9
-user    fonts-noto-mono         Debian.9
+user    fonts-inconsolata       Debian.* Ubuntu.*
+user    fonts-noto              Debian.* Ubuntu.*
+user    fonts-noto-cjk          Debian.* Ubuntu.*
+user    fonts-noto-mono         Debian.* Ubuntu.*
 user    fvwm                    Debian.* Ubuntu.14.04 CentOS.7
 user    ibus-mozc               Debian.*
 user    ispell                  Debian.* Ubuntu.14.04
