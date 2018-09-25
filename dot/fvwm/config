@@ -1,4 +1,5 @@
 # fvwm2 configuration for cjs
+# Comment lines must begin with `#`
 
 ######################################################################
 # X server setup before the config is processed.
@@ -806,15 +807,16 @@ DestroyModuleConfig FvwmIconMan: *
 *FvwmIconMan: FocusButton flat
 
 ######################################################################
-# Initialization functions run only after config is read and processed
+# Initialization functions run only after config is read in order.
+# The Session* versions are used instead when under a sesion manager.
 
-# Run on program startup and restarts.
+#   Executed on both startup and restart
 DestroyFunc StartFunction
 AddToFunc StartFunction
 + I Module FvwmAnimate
 #+ I Module FvwmButtons
 
-# Run only on startup, not on restarts.
+#   Executed only on startup
 DestroyFunc InitFunction
 AddToFunc InitFunction
 + I GotoDesk 0 3
@@ -823,23 +825,22 @@ AddToFunc InitFunction
 + I exec xsetroot -solid '#005048'
 + I exec xscreensaver -no-splash
 
-# Run only on startup under a session manager, not on restarts.
-#
-# The GotoDesk works, but something later sends us back to desktop 0 anyway.
-#
 DestroyFunc SessionInitFunction
 AddToFunc SessionInitFunction
+#   The GotoDesk works, but something later sends us back to desktop 0 anyway.
 + I GotoDesk 0 3
 + I exec exec choose xterm -title "$(hostname -s)" -n "$(hostname -s)" -g 80x57
 + I Wait term
 + I exec xrdb -cpp cpp -merge $HOME/.Xresources
 + I exec xsetroot -solid '#005048'
 
-# Run only on restarts, not on startup.
+#   Executed only on restart
 DestroyFunc RestartFunction
 AddToFunc RestartFunction
 
-# Run on exit before restart or final exit.
+DestroyFunc SessionRestartFunction
+AddToFunc SessionRestartFunction
+
 DestroyFunc ExitFunction
 AddToFunc ExitFunction
 
