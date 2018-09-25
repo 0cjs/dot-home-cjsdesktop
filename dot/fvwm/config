@@ -800,6 +800,9 @@ DestroyModuleConfig FvwmIconMan: *
 *FvwmIconMan: PlainButton flat
 *FvwmIconMan: FocusButton flat
 
+DestroyModuleConfig FvwmBacker: *
+*FvwmBacker: Command (Desk *, Page * *) -solid #005048
+
 ######################################################################
 # Initialization functions run only after config is read in order.
 # The Session* versions are used instead when under a sesion manager.
@@ -808,6 +811,7 @@ DestroyModuleConfig FvwmIconMan: *
 DestroyFunc StartFunction
 AddToFunc StartFunction
 + I Module FvwmAnimate
++ I Module FvwmBacker
 
 #   Executed only on startup
 DestroyFunc InitFunction

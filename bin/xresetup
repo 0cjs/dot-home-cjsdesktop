@@ -50,8 +50,6 @@ for pointer in \
     xinput set-prop "$pointer" 'Device Accel Velocity Scaling' 20
 done 2>&1 | 1>&2 grep -v '^unable to find device '
 
-BGCOLOR='#005048'
-xsetroot -solid $BGCOLOR
 xset dpms $((5*60)) $((30*60)) $((30*60))
 
 # Set up Japanese input
