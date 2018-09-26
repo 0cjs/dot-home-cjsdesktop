@@ -99,7 +99,7 @@
 ! (E.g., Chrome looks better at 96 DPI and 125% page zoom.)
 ! But anythinig >4k is likely to have menus that are too small.
 
-Xft.dpi: SML(96,120,144)
+Xft.dpi: SML(96,108,120)
 Xft.rgba: none
 
 !----------------------------------------------------------------------
@@ -125,16 +125,16 @@ Rxvt.visualBell:	true
 !   (Originally: 9x15,xft:Kochi Gothic)
 #define RXVT_FONT_COMMON_FALLBACK \
     xft:Source Han Sans,\
-    xft:DejaVu Serif:size=SML(7,8,9),\
-    xft:DejaVu Sans Mono:size=SML(7,8,9)
+    xft:DejaVu Serif:size=SML(7,9,10),\
+    xft:DejaVu Sans Mono:size=SML(7,9,10)
 #if HEIGHT > 1620
 !       Inconsolata looks better on 4K monitors
-    Rxvt.font:          xft:Inconsolata:size=SML(9,10,11),RXVT_FONT_COMMON_FALLBACK
+    Rxvt.font:          xft:Inconsolata:size=SML(9,11,12),RXVT_FONT_COMMON_FALLBACK
     Rxvt.lineSpace:     0
 #else
 !       Noto Mono seems the best compromise across all smaller screen sizes.
 !       It alone needs extra leading (line spacing).
-    Rxvt.font:          xft:Noto Mono:size=SML(8,9,10),RXVT_FONT_COMMON_FALLBACK
+    Rxvt.font:          xft:Noto Mono:size=SML(8,10,11),RXVT_FONT_COMMON_FALLBACK
     Rxvt.lineSpace:     SML(1,2,2)
 #endif
 
