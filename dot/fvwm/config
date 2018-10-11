@@ -386,15 +386,22 @@ AddToMenu menu-windowops-moveto
 DestroyMenu menu-windowops-resize
 AddToMenu menu-windowops-resize
     + "Resize" Title
-    + "&8	80c width"          Resize 80c keep
-    + "&9	140c width"         Resize 140c keep
+    + "&u	80c width"          Resize 80c keep
+    + "&i	120c width"         Resize 120c keep
+    + "&o	160c width"         Resize 160c keep
+    + "&p	200c width"         Resize 200c keep
+    + "&[	256c width"         Resize 256c keep
     + Nop
     + "&1	10c height"         Resize keep 10c
     + "&2	25c height"         Resize keep 25c
+    + "&3	35c height"         Resize keep 35c
     + "&4	45c height"         Resize keep 45c
     + "&5	55c height"         Resize keep 55c
     + "&6	65c height"         Resize keep 65c
     + "&7	75c height"         Resize keep 75c
+    + "&8	85c height"         Resize keep 85c
+    + "&9	95c height"         Resize keep 95c
+    + "&0	105c height"        Resize keep 105c
     + "&f	full height"        ResizeMove keep 99 keep 0
     + Nop
 
