@@ -33,6 +33,7 @@ ___
     exit 2
 }
 
+PATH=/usr/sbin:$PATH    # In case /usr/sbin/pm-* isn't in path
 case "$1" in
     '')         usage;;
     off)        pshutdown -P;;
