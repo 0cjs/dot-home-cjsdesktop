@@ -50,7 +50,8 @@ for pointer in \
     xinput set-prop "$pointer" 'Device Accel Velocity Scaling' 20
 done 2>&1 | 1>&2 grep -v '^unable to find device '
 
-xset dpms $((5*60)) $((30*60)) $((30*60))
+#   Note: if xscreensaver is running, these DPMS settings are ignored.
+xset s on s blank s expose s $((5*60)) +dpms dpms $((5*60)) $((6*60)) $((6*60))
 
 # Set up Japanese input
 # We do not need to ibus-daemon and frends, as it's somehow started for us.
