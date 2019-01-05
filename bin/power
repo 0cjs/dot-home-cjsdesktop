@@ -28,7 +28,7 @@ lock_and() {
 
 usage() {
     sed -e 's/^        //' <<___
-        Usage: $(basename "$0") off | suspend | hibernate | hybrid
+        Usage: $(basename "$0") off | reboot | suspend | hibernate | hybrid
 ___
     exit 2
 }
@@ -38,6 +38,7 @@ case "$1" in
     '')         usage;;
     off)        pshutdown -P;;
     reboot)     pshutdown -r;;
+    restart)    pshutdown -r;;
     sus*|sle*)  lock_and pm-suspend;;
     hib*)       lock_and pm-hibernate;;
     hyb*)       lock_and pm-suspend-hybrid;;
