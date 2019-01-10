@@ -25,7 +25,7 @@ captureStderr:	True
 ignoreUninstalledPrograms:False
 font:		*-medium-r-*-140-*-m-*
 dpmsEnabled:	True
-dpmsQuickOff:	True
+dpmsQuickOff:	False
 dpmsStandby:	0:05:00
 dpmsSuspend:	0:06:00
 dpmsOff:	0:06:00
