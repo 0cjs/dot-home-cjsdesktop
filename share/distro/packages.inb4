@@ -21,6 +21,9 @@ user    fonts-noto              Debian.* Ubuntu.*
 user    fonts-noto-cjk          Debian.* Ubuntu.*
 user    fonts-noto-mono         Debian.* Ubuntu.*
 user    fvwm                    Debian.* Ubuntu.14.04 CentOS.7
+user    ibus-gtk                Debian.*
+user    ibus-gtk3               Debian.*
+user    ibus-qt4                Debian.*
 user    ibus-mozc               Debian.*
 user    ispell                  Debian.* Ubuntu.14.04
 user    keepass2                Debian.* Ubuntu.14.04
