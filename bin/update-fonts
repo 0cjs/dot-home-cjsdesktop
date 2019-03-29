@@ -1,34 +1,40 @@
 #!/usr/bin/env bash
-set -e
+set -e -o pipefail
 
 # XXX This is a pretty bad hack
 
-inconsolata() {
-    local name=Inconsolata
-    local filename=$name.zip
-    local url=https://fonts.google.com/download?family=$name
+google() {
+    local name="$1"
+    [[ $name ]] || exit 99
+    local filename="$name.zip"
+    local url=https://fonts.google.com/download?family="$name"
     local file=~/Downloads/"$filename"
 
-    [ -s $file ] || wget -O "$file" "$url"
+    [[ -s $file ]] || wget -O "$file" "$url"
     cd ~/Downloads
-    unzip -oq $file
+    unzip -oq "$file"
     #rm OFL.txt
-    mv Inconsolata*.ttf ~/.fonts/
+    echo "===== Installing $name"
+    ls -lh "$name"*.ttf
+    mv "$name"*.ttf ~/.fonts/
 }
 
 source_code_pro() {
+    echo '===== Installing Source Code Pro'
     local site=https://github.com/adobe-fonts/source-code-pro
     # The archive includes both ro[man] and [it]alic.
     local dir=2.030R-ro file=1.050R-it
 
-    mkdir -p ~/tmp/; cd ~/tmp
-    wget $site/archive/$dir/$file.tar.gz
+    cd ~/Downloads
+    [[ -s $file.tar.gz ]] || wget $site/archive/$dir/$file.tar.gz
     tar xf $file.tar.gz
+    ls -lh source-code-pro-*/OTF/*.otf
     mv source-code-pro-*/OTF/*.otf ~/.fonts
-    rm -r $file.tar.gz source-code-pro-*
+    rm -r source-code-pro-*
 }
 
 ubuntu-font-family() {
+    echo '===== Installing Ubuntu Font Family'
     local site=https://assets.ubuntu.com/v1
     local filename=fad7939b-ubuntu-font-family-0.83.zip
     local url="$site/$filename" file=~/Downloads/"$filename"
@@ -36,13 +42,13 @@ ubuntu-font-family() {
     [ -s $file ] || wget -O "$file" "$url"
     cd ~/Downloads
     unzip -oq $file
+    ls -lh ubuntu-font-family-0.83/*.ttf
     mv ubuntu-font-family-0.83/*.ttf ~/.fonts/
     #rm -r ubuntu-font-family-0.83/
 }
 
 
 mkdir -p ~/.fonts   # XXX should be ~/.local/...
-inconsolata
+google Inconsolata
 source_code_pro
 ubuntu-font-family
-
