@@ -10,7 +10,7 @@ google() {
     local url=https://fonts.google.com/download?family="$name"
     local file=~/Downloads/"$filename"
 
-    [[ -s $file ]] || wget -O "$file" "$url"
+    [[ -s $file ]] || curl -o "$file" "$url"
     cd ~/Downloads
     unzip -oq "$file"
     #rm OFL.txt
@@ -26,7 +26,7 @@ source_code_pro() {
     local dir=2.030R-ro file=1.050R-it
 
     cd ~/Downloads
-    [[ -s $file.tar.gz ]] || wget $site/archive/$dir/$file.tar.gz
+    [[ -s $file.tar.gz ]] || curl -o $site/archive/$dir/$file.tar.gz
     tar xf $file.tar.gz
     ls -lh source-code-pro-*/OTF/*.otf
     mv source-code-pro-*/OTF/*.otf ~/.fonts
@@ -39,7 +39,7 @@ ubuntu-font-family() {
     local filename=fad7939b-ubuntu-font-family-0.83.zip
     local url="$site/$filename" file=~/Downloads/"$filename"
 
-    [ -s $file ] || wget -O "$file" "$url"
+    [ -s $file ] || curl -o "$file" "$url"
     cd ~/Downloads
     unzip -oq $file
     ls -lh ubuntu-font-family-0.83/*.ttf
