@@ -113,7 +113,7 @@ Rxvt.secondaryScreen: 	true
 Rxvt.secondaryScroll: 	false
 Rxvt.tripleclickwords:	true
 Rxvt.cutchars:		:/`""''&()*,;<=>?@[]^{|}
-Rxvt.perl-ext-common:	default,confirm-paste,font-size
+Rxvt.perl-ext-common:	default,-selection,confirm-paste,font-size
 Rxvt.scrollBar:		false
 Rxvt.scrollTtyOutput:	false
 Rxvt.scrollWithBuffer:	true
