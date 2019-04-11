@@ -504,11 +504,11 @@ AddToMenu menu-applications
 DestroyMenu menu-applications-browsers
 AddToMenu menu-applications-browsers
     + "Browsers"                        Title
-    + "Chrome &App Launcher"            Exec exec google-chrome-stable --show-app-list
-    + "&Chromium"                       Exec exec chromium-browser
+    + "Chrome &App Launcher"            Exec exec elerun google-chrome-stable --show-app-list
+    + "&Chromium"                       Exec exec elerun chromium-browser
     + "&Firefox"                        Exec exec firefox
-    + "&Google Chrome"                  Exec exec google-chrome-stable
-    + "Google Chrome &Beta"             Exec exec google-chrome-beta
+    + "&Google Chrome"                  Exec exec elerun google-chrome-stable
+    + "Google Chrome &Beta"             Exec exec elerun google-chrome-beta
     + "&Opera"                          Exec exec opera
     + "&Seamonkey"                      Exec exec seamonkey
 
@@ -516,7 +516,7 @@ DestroyMenu menu-applications-chat
 AddToMenu menu-applications-chat
     + "Chat"                            Title
     + "IR&C (XChat)"                    Exec exec xchat
-    + "&Gitter"                         Exec exec gitter
+    + "&Gitter"                         Exec exec elerun gitter
     + "&Hangouts"                       Exec exec google-chrome-stable --profile-directory=Default --app-id=knipolnnllmklapflnccelgolnpehhpl
     + "&IM (Pidgin)"                    Exec exec pidgin
     + "&Mumble"                         Exec exec mumble

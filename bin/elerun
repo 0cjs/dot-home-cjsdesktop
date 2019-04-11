@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+#
+#   elerun - start Chrome or an Electron application
+#
+#   Google Chrome and Electron applications do not appear to use any
+#   of the standard X11 DPI settings, always rending their UIs at the
+#   same pixel size regardless of screen size or DPI.
+#
+#   They can, however, be started with the `--force-device-scale-factor`
+#   option (where 1 is default scaling) to change the scaling. Here
+#   we use this to choose something comfortable for various screen
+#   sizes and DPIs.
+
+
+#   This gives root window size, not screen size, but we don't use
+#   a virtual desktop larger than root and this is easiest to parse.
+#width=$(xwininfo -root | sed -ne 's/ *Width: //p')
+height=$(xwininfo -root | sed -ne 's/ *Height: //p')
+
+                          scale=1.00    # 4k, QHD (2560×1440)
+[[ $height -lt 1400 ]] && scale=0.85    # FullHD, or approaching it
+[[ $height -lt 1000 ]] && scale=0.75    # > HD
+[[ $height -lt  800 ]] && scale=0.65    # 1366x768 or HD
+
+[[ -z $1 ]] && { echo 1>&2 "Usage: $(basename "$0") command ..."; exit 2; }
+command="$1"; shift
+"$command" --force-device-scale-factor="$scale" "$@"
