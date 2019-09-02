@@ -17,8 +17,8 @@
 #width=$(xwininfo -root | sed -ne 's/ *Width: //p')
 height=$(xwininfo -root | sed -ne 's/ *Height: //p')
 
-                          scale=1.00    # 4k, QHD (2560×1440)
-[[ $height -lt 1400 ]] && scale=0.85    # FullHD, or approaching it
+                          scale=1.00    # 4k
+[[ $height -lt 1450 ]] && scale=0.85    # approaching FullHD or QHD (2560×1440)
 [[ $height -lt 1000 ]] && scale=0.75    # > HD
 [[ $height -lt  800 ]] && scale=0.65    # 1366x768 or HD
 
