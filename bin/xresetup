@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
 #  xresetup - (re-)do all idempotent X desktop setup, including env vars
 #
@@ -24,10 +24,15 @@ xrdb -cpp cpp $HOME/.Xresources
 
 xmodmap $HOME/.xmodmaprc
 
-# If we're potentially using a Lenovo Bluetooth Thinkpad Keyboard,
-# set up the function keys.
-tpck=~/co/github.com/lentinj/tp-compact-keyboard/tp-compact-keyboard
-[ -x $tpck ] && sudo $tpck --fn-lock-enable
+[[ $(uname -r) < 3.17 ]] && {
+    #   When using a Lenovo Bluetooth Thinkpad Keyboard on Linux < 3.17
+    #   we need to use this to switch from "device keys" to function keys.
+    tpck=~/co/github.com/lentinj/tp-compact-keyboard/tp-compact-keyboard
+    if [ -x $tpck ]
+        then sudo $tpck --fn-lock-enable
+        else echo 1>&2 "WARNING: skipping tp-compact-keyboard setup"
+        fi
+}
 
 # Set up Thinkpad/TrackPoint scrolling
 # https://wiki.debian.org/InstallingDebianOn/Thinkpad/Trackpoint
