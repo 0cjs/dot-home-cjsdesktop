@@ -1,5 +1,20 @@
 #!/usr/bin/env bash
 
+view_zathura() {
+    #   Like XPDF, zathura displays only one document at a time. We might
+    #   want to use https://tools.suckless.org/tabbed/ to change this.
+    #
+    #   Zathura doesn't have a -g option. It does have a `window-height`
+    #   setting in zathurarc(5), but there seems to be no way to pass in
+    #   commands from the command line, à la vim's `-e` option. Possibly
+    #   tabbed could also be used to 
+    #
+    for f in "${files[@]}"; do
+        #echo \
+        zathura --fork "${options[@]}" "$f"
+    done
+}
+
 view_xpdf() {
     for f in "${files[@]}"; do
         #echo \
@@ -7,13 +22,22 @@ view_xpdf() {
     done
 }
 
-view_showopts() {
+view_showargs() {
     echo '      $@:' "$@"
     echo '  $files:' "${files[@]}"
     echo '$options:' "${options[@]}"
 }
 
 ####################################################################
+
+viewerpreflist=(zathura okular kpdf xpdf)
+for viewer in ${viewerpreflist[@]}; do
+    type $viewer >/dev/null 2>&1 && break
+done
+case "$1" in
+    -zathura|-okular|-kpdf|-xpdf|-showargs)
+        viewer="${1#-}"; shift;;
+esac
 
 #   Generate $files and $options for programs where we want to start
 #   a separate instance for each file.
@@ -25,16 +49,9 @@ for i in ${!options[@]}; do
     unset options[$i]
 done
 
-viewer=view_xpdf
-case "$1" in
-    -zathura)   shift; viewer=view_zathura;;
-    -xpdf)      shift; viewer=view_xpdf;;
-    -showopts)  shift; viewer=view_showopts;;
-esac
-
 # It would be nice here to check the document first to see if it's in
 # PDF or landscape format, and if it has a separate ToC, so that we
 # could change the dimensions of the window appropriately.
 geometry=1340x1520          # Assume 4K display
 
-$viewer "$@"
+view_$viewer "$@"
