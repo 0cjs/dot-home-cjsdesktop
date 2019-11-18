@@ -1,11 +1,23 @@
 #!/usr/bin/env bash
 
-# It would be nice here to check the document first to see if it's in
-# PDF or landscape format, and if it has a separate ToC, so that we
-# could change the dimensions of the window appropriately.
+view_xpdf() {
+    for f in "${files[@]}"; do
+        #echo \
+        xpdf -z page -g $geometry "${options[@]}" "$f" &
+    done
+}
 
-options=("$@"); options_len=${#options[@]}
-files=()
+view_showopts() {
+    echo '      $@:' "$@"
+    echo '  $files:' "${files[@]}"
+    echo '$options:' "${options[@]}"
+}
+
+####################################################################
+
+#   Generate $files and $options for programs where we want to start
+#   a separate instance for each file.
+files=(); options=("$@")
 for i in ${!options[@]}; do
     [[ ${options[$i]} =~ \.pdf$ ]] || continue
     # It ends in `.pdf` so we guess that it's a file to display, not an option.
@@ -13,9 +25,16 @@ for i in ${!options[@]}; do
     unset options[$i]
 done
 
+viewer=view_xpdf
+case "$1" in
+    -zathura)   shift; viewer=view_zathura;;
+    -xpdf)      shift; viewer=view_xpdf;;
+    -showopts)  shift; viewer=view_showopts;;
+esac
+
+# It would be nice here to check the document first to see if it's in
+# PDF or landscape format, and if it has a separate ToC, so that we
+# could change the dimensions of the window appropriately.
 geometry=1340x1520          # Assume 4K display
 
-for f in "${files[@]}"; do
-    #echo \
-    xpdf -z page -g $geometry "${options[@]}" "$f" &
-done
+$viewer "$@"
