@@ -1,2 +1,39 @@
-map <Button4> zoom in
-map <Button5> zoom out
+#   Default bindings are marked with "(default)" and are here to just
+#   document what's available and currently used keys.
+
+#   These mappings don't seem to work, though xev reports mouse wheel as 4/5.
+map <Button4>   zoom in
+map <Button5>   zoom out
+
+#   Page navigation
+#
+map b           navigate previous
+map f           navigate next
+map g           goto
+
+#map m          mark_add                # set mark (default)
+#map '          mark_evaluate           # jump to mark (default)
+
+#   Zoom and view modes
+#
+#map r          rotate rotate-cw        # (default)
+map R           rotate rotate-ccw
+
+#map d          ?                       # dual-page view (default)
+map D           toggle_page_mode        # allegedly "multiple pages per row"
+map w           adjust_window width
+map e           adjust_window best-fit  # mnemonic: "entire page"
+map i           zoom in
+map u           zoom out                # mnemonic: "up"
+
+map s           toggle_fullscreen
+#map <Tab>      toggle_index            # (default)
+
+#   Other
+#
+
+#   Startup options
+#
+set window-height 900                   # height of ThinkPad T200s screen
+set window-width  695                   # proportional width for 8½×11
+set adjust-open best-fit
