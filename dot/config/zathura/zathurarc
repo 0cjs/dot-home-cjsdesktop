@@ -31,9 +31,15 @@ map s           toggle_fullscreen
 
 #   Other
 #
+map z           reload
 
 #   Startup options
 #
 set window-height 900                   # height of ThinkPad T200s screen
 set window-width  695                   # proportional width for 8½×11
 set adjust-open best-fit
+
+#   This can easily use 1 GB of RAM, but most of my systems are 8 GB
+#   so no big deal. On small-memory systems it may be good to quit and
+#   restart to clear the cache.
+set page-cache-size 300                 # (default=15)
