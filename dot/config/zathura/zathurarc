@@ -9,6 +9,9 @@ map <Button5>   zoom out
 #
 map b           navigate previous
 map f           navigate next
+map <Space>     navigate next           # default is scroll down
+map J           scroll full-down        # like ^F (def. navigate next)
+map K           scroll full-up          # like ^B (def. navigate previous)
 map g           goto
 
 #map m          mark_add                # set mark (default)
