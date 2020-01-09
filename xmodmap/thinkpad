@@ -35,10 +35,10 @@ clear Lock
 ! Japanese keyboard customizations
 !--------------------------------------------------
 
-! yen left of backspace
-  keycode 132 = asciitilde yen
-! underbar left of right-shift
-  keycode 97 = grave underscore
+! keytop yen/bar left of backspace
+  keycode 132 = underscore yen
+! keytop backslash/underscore left of right-shift
+  keycode 97 = grave asciitilde
   keycode 131 = Muhenkan Muhenkan Muhenkan
   keycode 129 = Henkan Mae_Koho Zen_Koho
   keycode 208 = Hiragana Katakana Romaji
