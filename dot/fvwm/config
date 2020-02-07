@@ -313,13 +313,17 @@ AddToMenu menu-windowops
     + "&d	 demaximize/resize-maximize" Function ResizeMaximizeToggle
     + "&f	 maximize vertically"   Maximize 0 100
     + "&g	 grow horizontally"     Maximize grow 0
-    + "&h	 maximize both"         ResizeMoveMaximize -25p -25p 25p 0
+    + "&b	 maximize both"         ResizeMoveMaximize -25p -25p 25p 0
                                         # -25 to avoid covering panel at left
     + ""                                Nop
 
-    + "&k	 lower"                 Lower
-    + "&j	 raise"                 Raise
-    + ""                                Nop
+    + "&h	 Left"      Direction West  (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise -5p 50
+    + "&j	 Down"      Direction South (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise -5p 50
+    + "&k	 Up"        Direction North (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise -5p 50
+    + "&l	 Right"     Direction East  (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise -5p 50
+    + "&u	 raise"     Raise
+    + "&i	 lower"     Lower
+    + ""                    Nop
 
     + "&1	 (de)iconify"           Iconify
     + "&2	 (un)windowshade"       Function WindowshadeToggle
@@ -331,12 +335,12 @@ AddToMenu menu-windowops
     + "&t	 move to desktop"       Popup menu-windowops-movetodesk
     + ""                                Nop
 
+    + "&x	 Destroy"               Destroy
     + "&c	 Close"                 Close
     + "&v	 Delete"                Delete
-    + "&b	 Destroy"               Destroy
     + ""                                Nop
 
-    + "&i	 Insert Keystroke"      Popup menu-windowops-keystroke
+    + "&o	 Insert Keystroke"      Popup menu-windowops-keystroke
     + ""                                Nop
 
     + "&?	 Identify Window"       Module FvwmIdent
@@ -344,8 +348,10 @@ AddToMenu menu-windowops
     + ""                                Nop
 
     + "&.	 Refresh Screen"        Refresh
-    + "&;	 quick shell"           Exec XTITLE=QuickShell exec choose xterm -geometry 80x25-200+200 -title "QuickShell"
-    + "&l	 lock screen"           Exec exec lock-screen
+    + "&'	 quick shell"           Exec XTITLE=QuickShell exec choose xterm -geometry 80x25-200+200 -title "QuickShell"
+    + "&;	 lock screen"           Exec exec lock-screen
+
+
 
 #   If maximized, return to original size.
 #   If not maximized, let user resize and set that as maximized size.
@@ -471,6 +477,7 @@ AddToMenu menu-root
     + "&ispell"         Exec exec choose xterm  -g 50x5-0+0 -title "ispell" -e 'ispell -a'
     + ""                Nop
     + "&Lock Screen"    Exec exec lock-screen
+    + "&;Lock Screen"   Exec exec lock-screen
     + "Old Root"        Popup MenuFvwmRoot
     + "E&xit options"   Popup menu-quit
 
