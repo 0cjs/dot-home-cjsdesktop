@@ -463,7 +463,7 @@ AddToMenu menu-root
     + "&Shell"          Exec exec choose xterm
     + "x&term"          Exec exec xterm
     + "u&rxvt"          Exec exec urxvt
-    + "&; quick shell"  Exec XTITLE=QuickShell exec choose xterm -geometry 80x25-200+200 -title "QuickShell"
+    + "&' quick shell"  Exec XTITLE=QuickShell exec choose xterm -geometry 80x25-200+200 -title "QuickShell"
     + "&4-Up"           Popup menu-4up
     + ""                Nop
     + "C&ynic Hosts"    Popup menu-hosts-cynic
