@@ -19,8 +19,8 @@ map g           goto
 
 #   Zoom and view modes
 #
-#map r          rotate rotate-cw        # (default)
-map R           rotate rotate-ccw
+map r           rotate rotate-ccw       # default is rotate-cw
+map t           rotate rotate-cw        # default is scroll full-left
 
 #map d          ?                       # dual-page view (default)
 map D           toggle_page_mode        # allegedly "multiple pages per row"
