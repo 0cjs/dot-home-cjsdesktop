@@ -1,14 +1,20 @@
 [hosts-cynic]
 TITLE = Cynic Hosts
+&cjsh           = SUBMENU hosts-cjsh
+&dyadic         = SUBMENU hosts-xen-dyadic
+0               = NOP
 &attic          = cjslogin attic.cynic.net.
 &beatific       = cjslogin beatific.cynic.net.
-&critic.cjs     = cjslogin wifi.critic.cjs.cynic.net.
-&dyadic         = SUBMENU hosts-xen-dyadic
 &epistolic      = cjslogin epistolic.cynic.net.
-&homeric.cjs    = cjslogin homeric.cjs.cynic.net.
 &pessimistic    = cjslogin pessimistic.cynic.net.
 0               = NOP
 Production      = SUBMENU Production
+
+[hosts-cjsh]
+TITLE = cjsh hosts
+ia&mbic         = cjslogin iambic.cjsh.cynic.net.
+&idyllic        = cjslogin idyllic.cjsh.cynic.net.
+&logarithmic    = cjslogin logarithmic.cjsh.cynic.net.
 
 [hosts-xen-dyadic]
 TITLE           = xen-dyadic
