@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+mount=/dos1
+source='DCIM/101_PANA/P*'
+dldir=~/Downloads/DCIM/
+
+mkdir -p "$dldir"
+mount /dos1
+compgen -G "$mount/$source" >/dev/null \
+    && mv -i "$mount/"$source "$dldir"     # XXX breaks w/spaces in $source
+sync
+umount /dos1
