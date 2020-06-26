@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+[[ -n $1 ]] && { devarg="-tv device=$1"; shift; }
+
+mplayer -vf screenshot $devarg tv://
