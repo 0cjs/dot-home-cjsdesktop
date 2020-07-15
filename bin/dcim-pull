@@ -2,7 +2,8 @@
 set -euo pipefail
 
 mount=/dos1
-source='DCIM/101_PANA/P*'
+#source='DCIM/101_PANA/P*'  # Panasonic
+source='DCIM/*/P*'          # Olympus
 dldir=~/Downloads/DCIM/
 
 mkdir -p "$dldir"
