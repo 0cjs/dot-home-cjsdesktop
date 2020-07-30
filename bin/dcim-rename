@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+do=echo
+[[ $1 == -f ]] && do=
+
+for i in P*.JPG; do
+    ts=$(exiftime "$i" | sed -n -e 's/.*d: //p' | head -1 \
+        | sed -e 's/^20//' -e 's/://g' -e 's/ /-/'
+        )
+    $do mv "$i" "$ts.jpeg"
+done
