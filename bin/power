@@ -23,7 +23,13 @@ lock_and() {
     sudo -v
     xdg-screensaver lock
     sleep 0.5
-    sudo "$@"
+    if [[ $1 == pm-hibernate ]]; then
+        #   For some reason on my X201s `pm-hibernate` no longer works
+        #   in Debian 9, but systemctl hibernate does.
+        sudo "$@" || sudo systemctl hibernate
+    else
+        sudo "$@"
+    fi
 }
 
 usage() {
