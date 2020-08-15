@@ -393,10 +393,11 @@ DestroyMenu menu-windowops-resize
 AddToMenu menu-windowops-resize
     + "Resize" Title
     + "&u	80c width"          Resize 80c keep
-    + "&i	120c width"         Resize 120c keep
-    + "&o	160c width"         Resize 160c keep
-    + "&p	200c width"         Resize 200c keep
-    + "&[	256c width"         Resize 256c keep
+    + "&i	100c width"         Resize 100c keep
+    + "&o	120c width"         Resize 120c keep
+    + "&p	160c width"         Resize 160c keep
+    + "&[	200c width"         Resize 200c keep
+    + "&]	256c width"         Resize 256c keep
     + Nop
     + "&1	10c height"         Resize keep 10c
     + "&2	25c height"         Resize keep 25c
