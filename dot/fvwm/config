@@ -219,29 +219,6 @@ Key F10                 A N     GotoDesk 0 10
 Key F11                 A N     GotoDesk 0 11
 Key F12                 A N     GotoDesk 0 12
 
-# Alt-1 to Alt-=, select desktop
-#
-# Useful as an alternative when function keys are not available or are
-# inconvenient to use.
-#
-# This potentially conflicts with some graphical programs, but at
-# least it doesn't conflict with Ctrl-1 etc. used in Chrome to switch
-# tabs and Ctrl-^ (char 0x1e) in text-mode and terminal programs.
-# (Note that urxvt takes Ctrl-Shift for ISO 14755 input.)
-#
-Key 1                   A M     GotoDesk 0 1
-Key 2                   A M     GotoDesk 0 2
-Key 3                   A M     GotoDesk 0 3
-Key 4                   A M     GotoDesk 0 4
-Key 5                   A M     GotoDesk 0 5
-Key 6                   A M     GotoDesk 0 6
-Key 7                   A M     GotoDesk 0 7
-Key 8                   A M     GotoDesk 0 8
-Key 9                   A M     GotoDesk 0 9
-Key 0                   A M     GotoDesk 0 10
-Key minus               A M     GotoDesk 0 11
-Key equal               A M     GotoDesk 0 12
-
 
 ######################################################################
 # Mouse Bindings
