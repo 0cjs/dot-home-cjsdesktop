@@ -10,7 +10,6 @@ view_zathura() {
     #   tabbed could also be used to 
     #
     for f in "${files[@]}"; do
-        #echo \
         zathura --fork "${options[@]}" "$f"
     done
 }
@@ -43,7 +42,7 @@ esac
 #   a separate instance for each file.
 files=(); options=("$@")
 for i in ${!options[@]}; do
-    [[ ${options[$i]} =~ \.pdf$ ]] || continue
+    [[ ${options[$i]} =~ \.[Pp][Dd][Ff]$ ]] || continue
     # It ends in `.pdf` so we guess that it's a file to display, not an option.
     files+=("${options[$i]}")
     unset options[$i]
