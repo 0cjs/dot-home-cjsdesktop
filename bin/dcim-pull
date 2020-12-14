@@ -6,9 +6,44 @@ mount=/dos1
 source='DCIM/*/P*'          # Olympus
 dldir=~/Downloads/DCIM/
 
-mkdir -p "$dldir"
-mount /dos1
-compgen -G "$mount/$source" >/dev/null \
-    && mv -i "$mount/"$source "$dldir"     # XXX breaks w/spaces in $source
-sync
-umount /dos1
+do_download() {
+    mkdir -p "$dldir"
+    cd "$dldir"         # mainly for do_rename_in_cwd()
+    mount /dos1
+    compgen -G "$mount/$source" >/dev/null  && {
+        $verbose && echo "$mount/$source → $dldir"
+        $dry_run || mv -i "$mount/"$source ./   # XXX breaks w/spaces in $source
+    }
+    sync
+    umount /dos1
+}
+
+do_rename_in_cwd() {
+    local do=''
+
+    for i in P*.JPG; do
+        ts=$(exiftime "$i" | sed -n -e 's/.*d: //p' | head -1 \
+            | sed -e 's/^20//' -e 's/://g' -e 's/ /-/'
+            )
+        $verbose && echo "$i → $ts.jpeg"
+        $dry_run || mv "$i" "$ts.jpeg"
+    done
+}
+
+####################################################################
+
+dry_run=false
+verbose=false
+download=true
+rename=true
+
+while [[ ${#@} -gt 0 ]]; do case "$1" in
+    --dry-run)  shift; dry_run=true; verbose=true;;
+    -v)         shift; verbose=true;;
+    -d)         shift; rename=false;;
+    -r)         shift; download=false;;
+    *)          break;;
+esac; done
+
+$download && do_download
+$rename && do_rename_in_cwd
