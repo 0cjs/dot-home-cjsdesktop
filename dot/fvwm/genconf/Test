@@ -12,5 +12,5 @@ pytest *.py
 ./sshmenus.py ./sshmenus.inb4 > .build/conf.1
 
 echo ===== Comparison Test
-../generate-menus > .build/conf.0
+./sshmenus.py > .build/conf.0
 diff -u .build/conf.[01]
