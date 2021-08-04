@@ -15,6 +15,10 @@ TITLE = cjsh hosts
 ia&mbic         = cjslogin iambic.cjsh.cynic.net.
 &idyllic        = cjslogin idyllic.cjsh.cynic.net.
 &logarithmic    = cjslogin logarithmic.cjsh.cynic.net.
+0               = NOP
+&agnostic       = cjslogin agnostic.cjsh.cynic.net.
+mo&notonic      = cjslogin monotonic.cjsh.cynic.net.
+&telephonic     = cjslogin telephonic.cjsh.cynic.net.
 
 [hosts-xen-dyadic]
 TITLE           = xen-dyadic
