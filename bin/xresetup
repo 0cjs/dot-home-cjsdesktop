@@ -53,6 +53,10 @@ for pointer in \
     xinput set-prop "$pointer" 'Device Accel Constant Deceleration' 2
     xinput set-prop "$pointer" 'Device Accel Profile' 2
     xinput set-prop "$pointer" 'Device Accel Velocity Scaling' 20
+
+    # Sensitivity way down for Debian 10
+    xinput set-prop "$pointer" \
+        "Coordinate Transformation Matrix" .25 0 0 0  .25 0 0 0 1
 done 2>&1 | 1>&2 grep -v '^unable to find device '
 
 #   Note: if xscreensaver is running, these DPMS settings are ignored.
