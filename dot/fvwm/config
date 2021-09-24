@@ -65,9 +65,9 @@ ColormapFocus   FollowsMouse
 Colorset  99 Foreground Black,  Background Black
 Colorset 100 Foreground Grey85, Background #006058      # Dark: Menus
 Colorset 101 Foreground Grey85, Background #008078
-#   Title bars: Inverted for focused, light for not
+#   Title bars: Reddish for focused, light for not
 Colorset 102 Foreground Black,    Background #98b0a0
-Colorset 103 Foreground #a8c0b0,  Background #20342c
+Colorset 103 Foreground Black,    Background #c8b0a0
 
 #  Borders and titlebars
 BorderStyle     -- Flat
