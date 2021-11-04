@@ -509,8 +509,6 @@ AddToMenu menu-applications-chat
     + "S&lack"                          Exec exec slack
     + "&Signal"                         Exec exec google-chrome-stable --profile-directory=Default --app-id=bikioccmkafdpakkkcpdbppfkghcmihk
     + "&Telegram"                       Exec exec Telegram
-    + ""                                Nop
-    + "&pavucontrol"                    Exec exec pavucontrol
 
 DestroyMenu menu-applications-ja
 AddToMenu menu-applications-ja
@@ -531,7 +529,8 @@ AddToMenu menu-utils
     + "dump &Environment"		Exec exec bash -c '/usr/bin/env >~/tmp/dumped-environment 2>&1'
     + "&gconf-editor"                   Exec exec gconf-editor
     + "&Htop"                           Exec exec xterm -g 106x24-0+0 -e htop
-    + "instant-markdown-d &previewer"	Exec exec instant-markdown-d
+    + "instant-&markdown-d previewer"	Exec exec instant-markdown-d
+    + "pa&vucontrol"			Exec exec pavucontrol
     + "&Session Properties"             Exec exec gnome-session-properties
     + "show-terminal-&colors"		Exec exec urxvt -g 80x50+400+0 -e show-terminal-colors -t urxvt
     + "show-&xterminal-colors"		Exec exec xterm -g 80x50+400+0 -e show-terminal-colors -t xterm
