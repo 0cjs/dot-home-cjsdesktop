@@ -1,5 +1,14 @@
-# fvwm2 configuration for cjs
-# Comment lines must begin with `#`
+#   fvwm2 configuration for cjs
+#
+#   Notes:
+#
+#   * Lines beginning with `#` are ignored. No EOL comments (I think),
+#     except where that's a comment in a shell command.
+#   * Search the manpage for `Style stylename options ...` for more
+#     details. _stylename_ may be a window's class, name or resource string
+#     with wildcards `*` and `?`.
+#   * See end of file for `Style` overrides for particular applications.
+#
 
 ######################################################################
 # X server setup before the config is processed.
@@ -17,12 +26,6 @@
 #   `numlockx` and setting `/etc/default/numlockx` to turn it off.
 
 IgnoreModifiers L25
-
-######################################################################
-# Misc. Configuration
-
-# This is needed to fix keyboard focus issues in Wine
-Style Wine FPLenient
 
 ######################################################################
 # Desktop Configuration 
@@ -54,8 +57,8 @@ ClickTime 750
 OpaqueMoveSize unlimited
 
 ######################################################################
-# Menu/Window Styles
-
+#   Menu/Window Styles
+#
 ColormapFocus   FollowsMouse
 
 
@@ -854,3 +857,17 @@ AddToFunc ExitFunction
 #    + M PipeRead 'echo Exec exec transset-df -p 1 -i $[w.id]'
 # -- that's just from reading the docs for transset-df.
 # Obviously, the commands you give xcompmgr will need defining.
+
+
+######################################################################
+#   Application Tweaks
+#
+#   These must be _after_ the `Style *` declarations to override them.
+#   See notes at top for more on `Style`.
+
+# This is needed to fix keyboard focus issues in Wine
+Style Wine FPLenient
+
+#   Drop-down/pop-up menus in web pages break with normal MouseFocus handling.
+#   But even ClickToFocus, Lenience doesn't seem to fix it.
+#Style Google-chrome ClickToFocus, Lenience
