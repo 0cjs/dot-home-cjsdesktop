@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#
+#   scap - screenshot capture to clipboard selection
+#
+
+usage() {
+    echo 2>&1 "Usage: $0 [jpeg|png]"
+    exit 2
+}
+
+format=jpeg
+case "$1" in
+    png)    shift; format=png;;
+    jpeg)   shift; format=jpeg;;
+esac
+[[ ${#@} -gt 0 ]] && usage
+
+import "$format:-" | xclip -se c -t "image/$format" -i
