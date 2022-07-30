@@ -18,9 +18,13 @@ status() {
 
 while [ -n "$1" ]; do case "$1" in
     mirror)
+        #  Only one of these may be plugged in at a time!
+        #  `disp lvds` before this you swapped one for the other.
         xrandr --output DP-1 --auto --same-as LVDS-1
+        xrandr --output VGA-1 --auto --same-as LVDS-1
         ;;
     lvds)
+        xrandr --output VGA-1 --off
         xrandr --output DP-1 --off
         xrandr --output LVDS-1 --auto
         ;;
