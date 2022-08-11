@@ -3,6 +3,12 @@
 #   scap - screenshot capture to clipboard selection
 #
 
+prereq() {
+    echo 1>&2 "Cannot run '$1'."; shift;
+    echo 1>&2 "Consider installing package $@."
+    exit 3
+}
+
 usage() {
     echo 2>&1 "Usage: $0 [jpeg|png]"
     exit 2
@@ -14,5 +20,9 @@ case "$1" in
     jpeg)   shift; format=jpeg;;
 esac
 [[ ${#@} -gt 0 ]] && usage
+
+import --version >/dev/null 2>&1 \
+    || prereq import "graphicsmagick or imagemagick"
+xclip -version   >/dev/null 2>&1 || prereq xclip xclip
 
 import "$format:-" | xclip -se c -t "image/$format" -i
