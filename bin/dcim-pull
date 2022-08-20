@@ -37,6 +37,11 @@ verbose=false
 download=true
 rename=true
 
+type exiftime >/dev/null || {
+    echo 1>&2 "exiftime not found; install exiftags package?"
+    exit 9
+}
+
 while [[ ${#@} -gt 0 ]]; do case "$1" in
     --dry-run)  shift; dry_run=true; verbose=true;;
     -v)         shift; verbose=true;;
