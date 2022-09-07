@@ -12,7 +12,7 @@ user    cpp                     CentOS.7
 user    blueman                 Debian.*
 user    chromium                Debian.*
 user    clusterssh              Debian.* Ubuntu.14.04 CentOS.7
-user    #flashplugin-nonfree    Debian.8
+#user   flashplugin-nonfree    Debian.8
 user    flashplugin-installer   Ubuntu.14.04
 user    fonts-droid             Debian.8 Ubuntu.14.04
 user    fonts-droid-fallback    Debian.9
