@@ -25,6 +25,7 @@ user    ibus-gtk                Debian.*
 user    ibus-gtk3               Debian.*
 user    ibus-qt4                Debian.8 Debian.9   # gone on Debian.10,11
 user    ibus-mozc               Debian.*
+user    imagemagick             Debian.* Ubuntu.* CentOS.*
 user    ispell                  Debian.* Ubuntu.14.04
 user    keepass2                Debian.* Ubuntu.14.04
 user    keepassx2               CentOS.7
