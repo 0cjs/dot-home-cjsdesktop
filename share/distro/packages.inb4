@@ -43,6 +43,7 @@ user    rxvt-unicode-256color   Debian.*
 user    ssh-askpass-fullscreen  Debian.* Ubuntu.14.04
 user    vim-X11                 CentOS.7
 user    vim-gtk                 Debian.* Ubuntu.14.04
+user    xclip                   Debian.* Ubuntu.* CentOS.*
 user    xcompmgr                Debian.* Ubuntu.14.04
 user    xdotool                 Debian.* Ubuntu.14.04 CentOS.7
 user    xfce4                   Debian.* Ubuntu.14.04
