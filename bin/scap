@@ -10,19 +10,28 @@ prereq() {
 }
 
 usage() {
-    echo 2>&1 "Usage: $0 [jpeg|png]"
+    cat 2>&1 <<'____'
+Usage: $0 -jpeg|-png [import-arg ...]
+  -jpeg|-png must be given as the first argument.
+  All other arguments will be passed to ImageMagick `import`. E.g:
+    -window root        capture full screen
+    -frame              include window manager border
+    -screen             include windows (e.g. menus) overlying selected window
+____
     exit 2
 }
 
-format=jpeg
-case "$1" in
-    png)    shift; format=png;;
-    jpeg)   shift; format=jpeg;;
-esac
-[[ ${#@} -gt 0 ]] && usage
+format=
+while [[ ${#@} -gt 0 ]]; do case "$1" in
+    -jpeg)  shift; format=jpeg;;
+    -jpg)   shift; format=jpeg;;
+    -png)   shift; format=png;;
+    *)      break;;
+esac; done
+[[ -n $format ]] || usage
 
 import --version >/dev/null 2>&1 \
     || prereq import "graphicsmagick or imagemagick"
 xclip -version   >/dev/null 2>&1 || prereq xclip xclip
 
-import "$format:-" | xclip -se c -t "image/$format" -i
+import "$@" "$format:-" | xclip -se c -t "image/$format" -i
