@@ -1,5 +1,5 @@
 # XScreenSaver Preferences File
-# Written by xscreensaver-demo 5.36 for cjs on Wed Dec  5 10:15:25 2018.
+# Written by xscreensaver-demo 5.45 for cjs on Fri Sep  9 22:01:27 2022.
 # https://www.jwz.org/xscreensaver/
 
 timeout:	0:05:00
@@ -267,6 +267,25 @@ programs:								      \
 - GL: 				raverhoop -root				    \n\
 - GL: 				splodesic -root				    \n\
 - GL: 				unicrud -root				    \n\
+				scooter -root				    \n\
+- GL: 				esper -root				    \n\
+- GL: 				vigilance -root				    \n\
+- GL: 				crumbler -root				    \n\
+				filmleader -root			    \n\
+				glitchpeg -root				    \n\
+- GL: 				handsy -root				    \n\
+- GL: 				maze3d -root				    \n\
+- GL: 				peepers -root				    \n\
+- GL: 				razzledazzle -root			    \n\
+				vfeedback -root				    \n\
+- GL: 				deepstars -root				    \n\
+- GL: 				gravitywell -root			    \n\
+- GL: 				beats -root				    \n\
+- GL: 				covid19 -root				    \n\
+- GL: 				etruscanvenus -root			    \n\
+- GL: 				gibson -root				    \n\
+- GL: 				headroom -root				    \n\
+- GL: 				sphereeversion -root			    \n\
 
 
 pointerPollTime:    0:00:05
