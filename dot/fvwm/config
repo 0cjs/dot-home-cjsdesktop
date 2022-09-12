@@ -175,22 +175,16 @@ Key Pause               A SM    Restart /usr/bin/fvwm
 #
 Key Muhenkan            A N     WindowList (CurrentDesk)    Root c c        CurrentAtEnd,IconifiedAtEnd,NoGeometryWithInfo,NoDeskNum,NoNumInDeskTitle
 Key Muhenkan            A S     WindowList                  Root c c        CurrentAtEnd,IconifiedAtEnd,NoGeometryWithInfo,NoDeskNum,NoNumInDeskTitle,NoCurrentDeskTitle,TitleForAllDesks
-Key Tab                 A M     WindowList (CurrentDesk)    Root c c        CurrentAtEnd,IconifiedAtEnd,NoGeometryWithInfo,NoDeskNum,NoNumInDeskTitle
 Key Muhenkan            A C     Menu menu-gotodesk
-Key Muhenkan            A CS    Close
+Key Tab                 A M     WindowList (CurrentDesk)    Root c c        CurrentAtEnd,IconifiedAtEnd,NoGeometryWithInfo,NoDeskNum,NoNumInDeskTitle
 
 Key Henkan_Mode         A N     Menu menu-windowops
-Key Henkan_Mode         A S     Menu menu-root
-Key Henkan_Mode         A C     Stick
+Key Henkan_Mode         A S     Stick
 Key Henkan_Mode         A CS    Close
 
 Key Hiragana            A N     Menu menu-root
-Key Hiragana            A C     Stick
-Key Hiragana            A CS    Close
 
 Key Hiragana_Katakana   A N     Menu menu-root
-Key Hiragana_Katakana   A C     Stick
-Key Hiragana_Katakana   A CS    Close
 
 Key H                   M C     MenuCursorLeft
 Key K                   M C     MenuMoveCursor -1
