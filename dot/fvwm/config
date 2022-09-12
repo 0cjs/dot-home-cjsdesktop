@@ -285,51 +285,51 @@ AddToMenu menu-windowops
     #    For some reason if we start on the move... menu popup, hotkey
     #    switching to another item in the list that does the same popup (&q)
     #    doesn't work. So we start with an empty item at the top to avoid this.
-    + "& 	"                       Nop
+    + "&        "                       Nop
 
-    + "&a	 move"                  Move
-    + "&z	 move"                  Move
-    + "&s	 resize"                Resize
-    + "&d	 demaximize/resize-maximize" Function ResizeMaximizeToggle
-    + "&f	 maximize vertically"   Maximize 0 100
-    + "&g	 grow horizontally"     Maximize grow 0
-    + "&b	 maximize both"         ResizeMoveMaximize -25p -25p 25p 0
+    + "&a        move"                  Move
+    + "&z        move"                  Move
+    + "&s        resize"                Resize
+    + "&d        demaximize/resize-maximize" Function ResizeMaximizeToggle
+    + "&f        maximize vertically"   Maximize 0 100
+    + "&g        grow horizontally"     Maximize grow 0
+    + "&b        maximize both"         ResizeMoveMaximize -25p -25p 25p 0
                                         # -25 to avoid covering panel at left
     + ""                                Nop
 
-    + "&h	 Left"      Direction West  (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise -5p 50
-    + "&j	 Down"      Direction South (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise -5p 50
-    + "&k	 Up"        Direction North (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise -5p 50
-    + "&l	 Right"     Direction East  (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise -5p 50
-    + "&u	 raise"     Raise
-    + "&i	 lower"     Lower
+    + "&h        Left"      Direction West  (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise -5p 50
+    + "&j        Down"      Direction South (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise -5p 50
+    + "&k        Up"        Direction North (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise -5p 50
+    + "&l        Right"     Direction East  (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise -5p 50
+    + "&u        raise"     Raise
+    + "&i        lower"     Lower
     + ""                    Nop
 
-    + "&1	 (de)iconify"           Iconify
-    + "&2	 (un)windowshade"       Function WindowshadeToggle
-    + "&3	 (un)windowshade"       Function WindowshadeToggle
-    + "&q	 window move..."        Popup menu-windowops-moveto
-    + "&w	 window move..."        Popup menu-windowops-moveto
-    + "&e	 (un)stick"             Stick
-    + "&r	 Resize..."             Popup menu-windowops-resize
-    + "&t	 move to desktop"       Popup menu-windowops-movetodesk
+    + "&1        (de)iconify"           Iconify
+    + "&2        (un)windowshade"       Function WindowshadeToggle
+    + "&3        (un)windowshade"       Function WindowshadeToggle
+    + "&q        window move..."        Popup menu-windowops-moveto
+    + "&w        window move..."        Popup menu-windowops-moveto
+    + "&e        (un)stick"             Stick
+    + "&r        Resize..."             Popup menu-windowops-resize
+    + "&t        move to desktop"       Popup menu-windowops-movetodesk
     + ""                                Nop
 
-    + "&x	 Destroy"               Destroy
-    + "&c	 Close"                 Close
-    + "&v	 Delete"                Delete
+    + "&x        Destroy"               Destroy
+    + "&c        Close"                 Close
+    + "&v        Delete"                Delete
     + ""                                Nop
 
-    + "&o	 Insert Keystroke"      Popup menu-windowops-keystroke
+    + "&o        Insert Keystroke"      Popup menu-windowops-keystroke
     + ""                                Nop
 
-    + "&?	 Identify Window"       Module FvwmIdent
-    + "&/	 Refresh Window"        RefreshWindow
+    + "&?        Identify Window"       Module FvwmIdent
+    + "&/        Refresh Window"        RefreshWindow
     + ""                                Nop
 
-    + "&.	 Refresh Screen"        Refresh
-    + "&'	 quick shell"           Exec XTITLE=QuickShell exec choose xterm -geometry 80x25-200+200 -title "QuickShell"
-    + "&;	 lock screen"           Exec exec lock-screen
+    + "&.        Refresh Screen"        Refresh
+    + "&'        quick shell"           Exec XTITLE=QuickShell exec choose xterm -geometry 80x25-200+200 -title "QuickShell"
+    + "&;        lock screen"           Exec exec lock-screen
 
 
 
@@ -338,7 +338,7 @@ AddToMenu menu-windowops
 DestroyFunc ResizeMaximizeToggle
 AddToFunc ResizeMaximizeToggle
 + I Current (Maximized) Maximize False
-+ I TestRc  (Match) 	Break
++ I TestRc  (Match)     Break
 + I ResizeMaximize
 
 #   When closing windowshade, warp the cursor to keep the titlebar focused.
@@ -351,45 +351,45 @@ AddToFunc WindowshadeToggle
 DestroyMenu menu-windowops-moveto
 AddToMenu menu-windowops-moveto
     + "Move to..." Title
-    + "&a	pointer move"       Move
+    + "&a       pointer move"       Move
     + ""                            Nop
-    + "&k	upper edge"         Move       keep       0  Warp
-    + "&j	lower edge"         Move       keep      -0  Warp
-    + "&g	vertical centre"    Move       keep  50-50w  Warp
-    + "&h	horizontal centre"  Move     50-50w    keep  Warp
+    + "&k       upper edge"         Move       keep       0  Warp
+    + "&j       lower edge"         Move       keep      -0  Warp
+    + "&g       vertical centre"    Move       keep  50-50w  Warp
+    + "&h       horizontal centre"  Move     50-50w    keep  Warp
     + ""                            Nop
-    + "&q	left+0*width"       Move   35p+000w    keep  Warp
-    + "&w	left+1*width"	    Move   35p+100w    keep  Warp
-    + "&e	left+2+width"       Move   35p+200w    keep  Warp
-    + "&r	left+3+width"       Move   35p+300w    keep  Warp
-    + "&t	left+4+width"       Move   35p+400w    keep  Warp
-    + "&y	right-4*width"      Move      -400w    keep  Warp
-    + "&u	right-3*width"      Move      -300w    keep  Warp
-    + "&i	right-2*width"      Move      -200w    keep  Warp
-    + "&o	right-1*width"      Move      -100w    keep  Warp
-    + "&p	right-0*width"      Move         -0    keep  Warp
+    + "&q       left+0*width"       Move   35p+000w    keep  Warp
+    + "&w       left+1*width"       Move   35p+100w    keep  Warp
+    + "&e       left+2+width"       Move   35p+200w    keep  Warp
+    + "&r       left+3+width"       Move   35p+300w    keep  Warp
+    + "&t       left+4+width"       Move   35p+400w    keep  Warp
+    + "&y       right-4*width"      Move      -400w    keep  Warp
+    + "&u       right-3*width"      Move      -300w    keep  Warp
+    + "&i       right-2*width"      Move      -200w    keep  Warp
+    + "&o       right-1*width"      Move      -100w    keep  Warp
+    + "&p       right-0*width"      Move         -0    keep  Warp
 
 DestroyMenu menu-windowops-resize
 AddToMenu menu-windowops-resize
     + "Resize" Title
-    + "&u	80c width"          Resize 80c keep
-    + "&i	100c width"         Resize 100c keep
-    + "&o	120c width"         Resize 120c keep
-    + "&p	160c width"         Resize 160c keep
-    + "&[	200c width"         Resize 200c keep
-    + "&]	256c width"         Resize 256c keep
+    + "&u       80c width"          Resize 80c keep
+    + "&i       100c width"         Resize 100c keep
+    + "&o       120c width"         Resize 120c keep
+    + "&p       160c width"         Resize 160c keep
+    + "&[       200c width"         Resize 200c keep
+    + "&]       256c width"         Resize 256c keep
     + Nop
-    + "&1	10c height"         Resize keep 10c
-    + "&2	25c height"         Resize keep 25c
-    + "&3	35c height"         Resize keep 35c
-    + "&4	45c height"         Resize keep 45c
-    + "&5	55c height"         Resize keep 55c
-    + "&6	65c height"         Resize keep 65c
-    + "&7	75c height"         Resize keep 75c
-    + "&8	85c height"         Resize keep 85c
-    + "&9	95c height"         Resize keep 95c
-    + "&0	105c height"        Resize keep 105c
-    + "&f	full height"        ResizeMove keep 99 keep 0
+    + "&1       10c height"         Resize keep 10c
+    + "&2       25c height"         Resize keep 25c
+    + "&3       35c height"         Resize keep 35c
+    + "&4       45c height"         Resize keep 45c
+    + "&5       55c height"         Resize keep 55c
+    + "&6       65c height"         Resize keep 65c
+    + "&7       75c height"         Resize keep 75c
+    + "&8       85c height"         Resize keep 85c
+    + "&9       95c height"         Resize keep 95c
+    + "&0       105c height"        Resize keep 105c
+    + "&f       full height"        ResizeMove keep 99 keep 0
     + Nop
 
 DestroyMenu menu-windowops-movetodesk
@@ -529,14 +529,14 @@ DestroyMenu menu-utils
 AddToMenu menu-utils
     + "Utilities"                       Title
     + "&Beep"                           Beep
-    + "dump &Environment"		Exec exec bash -c '/usr/bin/env >~/tmp/dumped-environment 2>&1'
+    + "dump &Environment"               Exec exec bash -c '/usr/bin/env >~/tmp/dumped-environment 2>&1'
     + "&gconf-editor"                   Exec exec gconf-editor
     + "&Htop"                           Exec exec xterm -g 106x24-0+0 -e htop
-    + "instant-&markdown-d previewer"	Exec exec instant-markdown-d
-    + "pa&vucontrol"			Exec exec pavucontrol
+    + "instant-&markdown-d previewer"   Exec exec instant-markdown-d
+    + "pa&vucontrol"                    Exec exec pavucontrol
     + "&Session Properties"             Exec exec gnome-session-properties
-    + "show-terminal-&colors"		Exec exec urxvt -g 80x50+400+0 -e show-terminal-colors -t urxvt
-    + "show-&xterminal-colors"		Exec exec xterm -g 80x50+400+0 -e show-terminal-colors -t xterm
+    + "show-terminal-&colors"           Exec exec urxvt -g 80x50+400+0 -e show-terminal-colors -t urxvt
+    + "show-&xterminal-colors"          Exec exec xterm -g 80x50+400+0 -e show-terminal-colors -t xterm
 
 PipeRead "$HOME/.fvwm/genconf/sshmenus.py
 
