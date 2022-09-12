@@ -32,21 +32,21 @@ Mouse Bindings:
 
     Contexts:
         P       during placement of a new window
-        R	root window
-        W	application window
-        D	desktop application (e.g., kdesktop or Nautilus desktop)
-        T	window title bar
-        S	window side top or bottom bar ([, ], -, _ sides/top/bottom only)
-        F	window frame (corners)
-        I	icon window
-        0-9	title bar buttons
+        R       root window
+        W       application window
+        D       desktop application (e.g., kdesktop or Nautilus desktop)
+        T       window title bar
+        S       window side top or bottom bar ([, ], -, _ sides/top/bottom only)
+        F       window frame (corners)
+        I       icon window
+        0-9     title bar buttons
                 odd on left, even on right: 1 3 5 7 9 0 8 6 4 2.
-        A	any context
+        A       any context
 
     Modifiers:
-        N	none
-        S	shift
-        C	control
-        M	meta
-        L	caps lock
-        A	any
+        N       none
+        S       shift
+        C       control
+        M       meta
+        L       caps lock
+        A       any

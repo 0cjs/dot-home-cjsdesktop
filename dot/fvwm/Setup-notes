@@ -108,8 +108,8 @@ gconftool-2 doesn't appear to have any easy way of editing the list. But
 if you're brave, just replace the list value:
 
     gconftool-2 --type=list --list-type=string \
-	--set /desktop/gnome/session/required_components_list \
-	'[windowmanager,panel]'
+        --set /desktop/gnome/session/required_components_list \
+        '[windowmanager,panel]'
 
 This will take effect after you log out and log in.
 
@@ -119,7 +119,7 @@ If you wish to use Emacs key bindings in Gnome programs, set this
 preference:
 
     gconftool-2 --type string \
-	--set /desktop/gnome/interface/gtk_key_theme Emacs
+        --set /desktop/gnome/interface/gtk_key_theme Emacs
 
 In versions of Xfce after 4.4.0, it has its own setting separate from the
 Gnome setting, and you need:
@@ -136,7 +136,7 @@ parameters (-c and -t options) of ssh-add. To use your own ssh agent
 instead:
 
     gconftool-2 --type boolean \
-	--set /apps/gnome-keyring/daemon-components/ssh false
+        --set /apps/gnome-keyring/daemon-components/ssh false
 
 This takes effect only when gnome-keyring-daemon is started, and in
 typical ssh startup configurations (which check for SSH_AUTH_SOCK in the
@@ -156,11 +156,11 @@ chord the left and right buttons.
 Add the following to `/etc/X11/xorg.conf`:
 
     Section "InputDevice"
-	Identifier     "Configured Mouse"
-	Driver         "mouse"
-	Option         "EmulateWheel" "yes"
-	Option         "EmulateWheelButton" "2"
-	Option         "Emulate3Buttons" "yes"
+        Identifier     "Configured Mouse"
+        Driver         "mouse"
+        Option         "EmulateWheel" "yes"
+        Option         "EmulateWheelButton" "2"
+        Option         "Emulate3Buttons" "yes"
     EndSection
 
 #### Ubuntu 8.10 - 9.10, newer XOrg systems
@@ -168,8 +168,8 @@ Add the following to `/etc/X11/xorg.conf`:
 For systems that use evdev for input, confirm we can confirm the device
 is there and see the current settings with:
 
-    xinput list-props "TPPS/2 IBM TrackPoint"	# IBM USB Keyboards and Laptops
-    xinput list-props "DualPoint Stick"		# Dell Precision M4400
+    xinput list-props "TPPS/2 IBM TrackPoint"   # IBM USB Keyboards and Laptops
+    xinput list-props "DualPoint Stick"         # Dell Precision M4400
 
 To duplicate the above xorg.conf settings, edit
 `/etc/hal/fdi/policy/thinkpad.fdi` to read:
@@ -202,14 +202,14 @@ Create file /usr/share/X11/xorg.conf.d/20-thinkpad.conf
 (on 10.04 systems use, /usr/lib/... instead) with:
 
     Section "InputClass"
-	Identifier	"Trackpoint Wheel Emulation"
-	MatchProduct	"TPPS/2 IBM TrackPoint|DualPoint Stick|Synaptics Inc. Composite TouchPad / TrackPoint|ThinkPad USB Keyboard with TrackPoint|USB Trackpoint pointing device|Composite TouchPad / TrackPoint"
-	MatchDevicePath	"/dev/input/event*"
-	Option		"EmulateWheel"		"true"
-	Option		"EmulateWheelButton"	"2"
-	Option		"Emulate3Buttons"	"false"
-	Option		"XAxisMapping"		"6 7"
-	Option		"YAxisMapping"		"4 5"
+        Identifier      "Trackpoint Wheel Emulation"
+        MatchProduct    "TPPS/2 IBM TrackPoint|DualPoint Stick|Synaptics Inc. Composite TouchPad / TrackPoint|ThinkPad USB Keyboard with TrackPoint|USB Trackpoint pointing device|Composite TouchPad / TrackPoint"
+        MatchDevicePath "/dev/input/event*"
+        Option          "EmulateWheel"          "true"
+        Option          "EmulateWheelButton"    "2"
+        Option          "Emulate3Buttons"       "false"
+        Option          "XAxisMapping"          "6 7"
+        Option          "YAxisMapping"          "4 5"
     EndSection
 
 You'll need to restart XOrg. A login/logout won't do it; a reboot is
