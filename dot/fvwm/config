@@ -160,7 +160,7 @@ AddToFunc UrgencyFunc
 #
 #   Key [window] Keyname Context Modifiers Function
 #     Keyname:   From /usr/include/X11/keysymdef.h
-#     Context:   (see mouse bindings below)
+#     Context:   A=any M=menu; see config-notes for more
 #     Modifiers: NCSMLA None Control Shift Meta capsLock Any
 #     Function:  function name or '-' to remove fwvm binding
 #
