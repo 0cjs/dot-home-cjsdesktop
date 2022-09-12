@@ -181,6 +181,11 @@ Key Tab                 A M     WindowList (CurrentDesk)    Root c c        Curr
 Key Henkan_Mode         A N     Menu menu-windowops
 Key Henkan_Mode         A S     Stick
 Key Henkan_Mode         A CS    Close
+Key Henkan_Mode         A C     Exec xmessage \
+                                -nearmouse  -g 75x75 -name 'LocateCursor' \
+                                -timeout 1 -buttons '' -bg red -fg white ''
+Style LocateCursor              UsePPosition, NoTitle, NoHandles, BorderWidth 37
+
 
 Key Hiragana            A N     Menu menu-root
 
