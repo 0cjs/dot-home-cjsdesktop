@@ -52,6 +52,7 @@ user    xinput                  Debian.*
 user    xorg-x11-xinit-session  CentOS.7
 user    xpdf                    Debian.* Ubuntu.14.04 CentOS.7
 user    xscreensaver            Debian.* Ubuntu.14.04 CentOS.7
+user    zathura                 Debian.11
 
 #   CentOS.7 notes:
 #   * Stuff still to work on:
