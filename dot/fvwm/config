@@ -508,7 +508,7 @@ AddToMenu menu-applications-chat
     + "&Mumble"                         Exec exec mumble
     + "S&kype"                          Exec exec skype
     + "S&lack"                          Exec exec slack
-    + "&Signal"                         Exec exec google-chrome-stable --profile-directory=Default --app-id=bikioccmkafdpakkkcpdbppfkghcmihk
+    + "&Signal"                         Exec exec signal-desktop
     + "&Telegram"                       Exec exec Telegram
 
 DestroyMenu menu-applications-ja
