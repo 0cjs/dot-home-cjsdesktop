@@ -313,23 +313,15 @@ AddToMenu menu-windowops
     + "&t        move to desktop"       Popup menu-windowops-movetodesk
     + ""                                Nop
 
-    + "&x        Destroy"               Destroy
-    + "&c        Close"                 Close
-    + "&v        Delete"                Delete
-    + ""                                Nop
-
-    + "&o        Insert Keystroke"      Popup menu-windowops-keystroke
-    + ""                                Nop
-
+    + "&c        Close Window..."       Popup menu-windowops-close
     + "&?        Identify Window"       Module FvwmIdent
     + "&/        Refresh Window"        RefreshWindow
-    + ""                                Nop
-
     + "&.        Refresh Screen"        Refresh
+
+    + ""                                Nop
+    + "&o        Insert Keystroke"      Popup menu-windowops-keystroke
     + "&'        quick shell"           Exec XTITLE=QuickShell exec choose xterm -geometry 80x25-200+200 -title "QuickShell"
     + "&;        lock screen"           Exec exec lock-screen
-
-
 
 #   If maximized, return to original size.
 #   If not maximized, let user resize and set that as maximized size.
@@ -405,6 +397,13 @@ AddToMenu menu-windowops-movetodesk
     + "&0" MoveToDesk 0 10
     + "&-" MoveToDesk 0 11
     + "&=" MoveToDesk 0 12
+
+DestroyMenu menu-windowops-close
+AddToMenu menu-windowops-close
+    + "Window close..." Title
+    + "&c        Close"                 Close
+    + "&v        Delete"                Delete
+    + "&x        Destroy"               Destroy
 
 DestroyMenu menu-windowops-keystroke
 AddToMenu menu-windowops-keystroke
