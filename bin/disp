@@ -17,6 +17,23 @@ status() {
 }
 
 while [ -n "$1" ]; do case "$1" in
+    #
+    #   New way: per-machine specific configurations
+    #
+    x2f)    # X201s external VGA FHD 1920x1080
+        xrandr --output VGA1 --mode 1920x1080 --same-as LVDS1
+        xrandr --output LVDS1 --panning 1920x1080
+        ;;
+    x2q)    # X201s external VGA QHD 2560x1440
+        xrandr --output VGA1 --mode 2560x1440 --same-as LVDS1
+        xrandr --output LVDS1 --panning 2560x1440
+        ;;
+    x2i)    # X201s internal display only
+        xrandr --output VGA1 --off --output LVDS1 --auto --fb 1440x900
+        ;;
+    #
+    #   Old way: generic configs
+    #
     mirror)
         #  Only one of these may be plugged in at a time!
         #  `disp lvds` before this you swapped one for the other.
