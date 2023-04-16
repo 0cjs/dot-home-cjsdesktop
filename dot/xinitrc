@@ -31,8 +31,14 @@ ibus-daemon --xim --daemonize
 xfce4-power-manager &
 nm-applet &
 blueman-applet &
-redshift-gtk &              # `fluxgui` doesn't work on newer kernels
 xscreensaver -no-splash &
+
+#   "Night light" for less blue light in evenings. We now use redshift
+#   because it's maintained; fluxgui does not work on newer kernels. The
+#   default GeoClue client may fail becuase it's not installed, location
+#   services have been disabled in the GTK configuration, etc., so for
+#   simplicity we just manually set the location to near Tokyo.
+redshift-gtk -l 35:139 &              # `fluxgui` doesn't work on newer kernels
 
 #   Do not autostart dropbox sync if we don't have a sync'd copy.
 if [[ -r ~/Dropbox/0-desc ]]; then
