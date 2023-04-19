@@ -60,12 +60,14 @@ while [ -n "$1" ]; do case "$1" in
         xrandr --output DP-1 --off --output VGA-1 --off \
             --output LVDS-1 --auto --fb $FHD
         ;;
-    t5vq)    # T510 external VGA QHD 2560x1440
+    t5vq)    # T510 2560x1440 via VGA
+        xrandr --output DP-1 --off
         xrandr --output VGA-1 --mode $QHD --same-as LVDS-1
         xrandr --output LVDS-1 --panning $QHD
         ;;
-    t5dq)   # T510 2560x1440 external DP/HDMI
-        xrandr --addmode DP-1 $QHD
+    t5dq)   # T510 2560x1440 via DP/HDMI
+        xrandr --output VGA-1 --off
+        xrandr --addmode DP-1 $QHD  # No-op when monitor already provided mode.
         xrandr --output DP-1 --mode $QHD --same-as LVDS-1
         xrandr --output LVDS-1 --panning $QHD
         ;;
