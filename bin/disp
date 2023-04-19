@@ -72,7 +72,8 @@ while [ -n "$1" ]; do case "$1" in
         ;;
 
     t5i)    # T510 internal display only
-        xrandr --output VGA-1 --off --output LVDS-1 --auto --fb $FHD
+        xrandr --output DP-1 --off --output VGA-1 --off \
+            --output LVDS-1 --auto --fb $FHD
         ;;
     t5vq)    # T510 external VGA QHD 2560x1440
         xrandr --output VGA-1 --mode $QHD --same-as LVDS-1
