@@ -20,6 +20,7 @@ while [ -n "$1" ]; do case "$1" in
     #
     #   New way: per-machine specific configurations
     #
+
     x2f)    # X201s external VGA FHD 1920x1080
         xrandr --output VGA1 --mode 1920x1080 --same-as LVDS1
         xrandr --output LVDS1 --panning 1920x1080
@@ -31,6 +32,15 @@ while [ -n "$1" ]; do case "$1" in
     x2i)    # X201s internal display only
         xrandr --output VGA1 --off --output LVDS1 --auto --fb 1440x900
         ;;
+
+    t5i)    # T510 internal display only
+        xrandr --output VGA-1 --off --output LVDS-1 --auto --fb $FHD
+        ;;
+    t5q)    # T510 external VGA QHD 2560x1440
+        xrandr --output VGA-1 --mode $QHD --same-as LVDS-1
+        xrandr --output LVDS-1 --panning $QHD
+        ;;
+
     #
     #   Old way: generic configs
     #
