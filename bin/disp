@@ -35,40 +35,25 @@ while [ -n "$1" ]; do case "$1" in
         xrandr --output VGA1 --mode 1920x1080 --same-as LVDS1
         xrandr --output LVDS1 --panning 1920x1080
         ;;
-    x2vq)    # X201s external VGA QHD 2560x1440
-        # Assumes automatically generated 2560x1440 mode from 23" monitor.
-        #   2560x1440 (0x1ee) 241.500MHz +HSync +VSync +preferred
-        # h: width  2560 start 2608 end 2640 total 2720 skew    0 clock  88.79KHz
-        # v: height 1440 start 1443 end 1448 total 1481           clock  59.95Hz
+    x2h)    # X201s 1920x1200 on external VGA to HDMI converter
+            #       (This is pushing the converter to its frequency limits.)
+        xrandr --newmode 1920x1200R  154.00  \
+            1920 1968 2000 2080  1200 1203 1209 1235 +HSync +VSync  # cvt -r
+        xrandr --addmode VGA1 1920x1200R
+        xrandr --output VGA1 --mode 1920x1200R --same-as LVDS1
+        xrandr --output LVDS1 --panning 1920x1200
+        ;;
+    x2q)    # X201s external VGA QHD 2560x1440
+       ##   Supplied by QNIX QHD2410R DP 23" monitor.
+       #xrandr --newmode QNIX 241.5 \
+       #    2560 2608 2640 2720  1440 1443 1448 1481  +HSync +VSync
         xrandr --output VGA1 --mode 2560x1440 --same-as LVDS1
-        xrandr --output LVDS1 --panning 2560x1440
-        ;;
-    x2hq)   # X201s 2560x1440 external VGA to HDMI converter
-        err 'x2hq produces doubled display for both modelines'
-        xrandr --newmode x2hq \
-            241.50  2560 2608 2640 2720  1440 1443 1448 1481 # from x2vq above
-        #   312.25  2560 2752 3024 3488  1440 1443 1448 1493 # cvt 2560 1440
-        xrandr --addmode VGA1 x2hq
-        xrandr --output VGA1 --mode x2hq --same-as LVDS1
-        # XXX xrandr --output VIRTUAL1 --same-as LVDS1
         xrandr --output LVDS1 --panning $QHD
-        ;;
-    x2hw)   # X201s 2560x1600 WQXGA via external VGA to HDMI converter
-        err 'x2hw produces no display'
-        xrandr --newmode x2hw \
-            348.50  2560 2760 3032 3504  1600 1603 1609 1658 \
-            -HSync +VSync # cvt 2560 1600
-        xrandr --addmode VGA1 x2hw
-        xrandr --output VGA1 --mode x2hw --same-as LVDS1
-        # XXX xrandr --output VIRTUAL1 --same-as LVDS1
-        xrandr --output LVDS1 --panning $WQXGA
         ;;
     x2clear)
         xrandr --output VGA1 --off
-        xrandr --delmode VGA1 x2hq
-        xrandr --delmode VGA1 x2hw
-        xrandr --rmmode x2hq
-        xrandr --rmmode x2hw
+        xrandr --delmode VGA1 1920x1200R
+        xrandr --rmmode       1920x1200R
         ;;
 
     t5i)    # T510 internal display only
