@@ -6,6 +6,7 @@
      FHD=1920x1080
    QWXGA=2048x1152
      QHD=2560x1440
+   WQXGA=2560x1600
 
 status() {
     xrandr | sed \
@@ -37,9 +38,25 @@ while [ -n "$1" ]; do case "$1" in
     t5i)    # T510 internal display only
         xrandr --output VGA-1 --off --output LVDS-1 --auto --fb $FHD
         ;;
-    t5q)    # T510 external VGA QHD 2560x1440
+    t5vq)    # T510 external VGA QHD 2560x1440
         xrandr --output VGA-1 --mode $QHD --same-as LVDS-1
         xrandr --output LVDS-1 --panning $QHD
+        ;;
+    t5dq)   # T510 2560x1440 external DP/HDMI
+        xrandr --addmode DP-1 $QHD
+        xrandr --output DP-1 --mode $QHD --same-as LVDS-1
+        xrandr --output LVDS-1 --panning $QHD
+        ;;
+    t5dw)   # T510 2560x1600 external portable DP→HDMI
+        echo 1>&2 "XXX broken mode"; exit 1
+        #   XXX --addmode does not work; need to use cvt and --newmode?
+        xrandr --addmode DP-1 $WQXGA
+        #   From: cvt 2560 1600 60
+        #   XXX fails with "BadName (named color or font does not exist"
+        xrandr --newmode DP-1 "$WQXGA" \
+                348.50  2560 2760 3032 3504  1600 1603 1609 1658
+        xrandr --output DP-1 --mode $WQXGA --same-as LVDS-1
+        xrandr --output LVDS-1 --panning $WQXGA
         ;;
 
     #
