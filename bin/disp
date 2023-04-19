@@ -8,6 +8,11 @@
      QHD=2560x1440
    WQXGA=2560x1600
 
+err() {
+    echo 1>&2 ERROR: "$@"
+    exit 1
+}
+
 status() {
     xrandr | sed \
     -e 's/minimum[^,]*, //'     \
@@ -30,9 +35,40 @@ while [ -n "$1" ]; do case "$1" in
         xrandr --output VGA1 --mode 1920x1080 --same-as LVDS1
         xrandr --output LVDS1 --panning 1920x1080
         ;;
-    x2q)    # X201s external VGA QHD 2560x1440
+    x2vq)    # X201s external VGA QHD 2560x1440
+        # Assumes automatically generated 2560x1440 mode from 23" monitor.
+        #   2560x1440 (0x1ee) 241.500MHz +HSync +VSync +preferred
+        # h: width  2560 start 2608 end 2640 total 2720 skew    0 clock  88.79KHz
+        # v: height 1440 start 1443 end 1448 total 1481           clock  59.95Hz
         xrandr --output VGA1 --mode 2560x1440 --same-as LVDS1
         xrandr --output LVDS1 --panning 2560x1440
+        ;;
+    x2hq)   # X201s 2560x1440 external VGA to HDMI converter
+        err 'x2hq produces doubled display for both modelines'
+        xrandr --newmode x2hq \
+            241.50  2560 2608 2640 2720  1440 1443 1448 1481 # from x2vq above
+        #   312.25  2560 2752 3024 3488  1440 1443 1448 1493 # cvt 2560 1440
+        xrandr --addmode VGA1 x2hq
+        xrandr --output VGA1 --mode x2hq --same-as LVDS1
+        # XXX xrandr --output VIRTUAL1 --same-as LVDS1
+        xrandr --output LVDS1 --panning $QHD
+        ;;
+    x2hw)   # X201s 2560x1600 WQXGA via external VGA to HDMI converter
+        err 'x2hw produces no display'
+        xrandr --newmode x2hw \
+            348.50  2560 2760 3032 3504  1600 1603 1609 1658 \
+            -HSync +VSync # cvt 2560 1600
+        xrandr --addmode VGA1 x2hw
+        xrandr --output VGA1 --mode x2hw --same-as LVDS1
+        # XXX xrandr --output VIRTUAL1 --same-as LVDS1
+        xrandr --output LVDS1 --panning $WQXGA
+        ;;
+    x2clear)
+        xrandr --output VGA1 --off
+        xrandr --delmode VGA1 x2hq
+        xrandr --delmode VGA1 x2hw
+        xrandr --rmmode x2hq
+        xrandr --rmmode x2hw
         ;;
 
     t5i)    # T510 internal display only
@@ -48,7 +84,7 @@ while [ -n "$1" ]; do case "$1" in
         xrandr --output LVDS-1 --panning $QHD
         ;;
     t5dw)   # T510 2560x1600 external portable DP→HDMI
-        echo 1>&2 "XXX broken mode"; exit 1
+        err "t5dw is a broken mode"
         #   XXX --addmode does not work; need to use cvt and --newmode?
         xrandr --addmode DP-1 $WQXGA
         #   From: cvt 2560 1600 60
