@@ -83,6 +83,19 @@ while [ -n "$1" ]; do case "$1" in
         xrandr --output LVDS-1 --panning $WQXGA
         ;;
 
+    x3i)    # X230 internal display only
+        xrandr --output VGA-1 --output DP-1 --off \
+            --output LVDS-1 --auto --fb 1366x768
+        ;;
+    x3f)    # X230 external VGA FHD 1920x1080
+        xrandr --output VGA-1 --mode 1920x1080 --same-as LVDS-1
+        xrandr --output LVDS-1 --panning $FHD
+        ;;
+    x3w)    # X230 external DP WQXGA 2560x1600
+        xrandr --output DP-1 --mode 2560x1600 --same-as LVDS-1
+        xrandr --output LVDS-1 --panning $WQXGA
+        ;;
+
     #
     #   Old way: generic configs
     #
