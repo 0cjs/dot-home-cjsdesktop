@@ -9,6 +9,8 @@ view_zathura() {
     #   commands from the command line, à la vim's `-e` option. Possibly
     #   tabbed could also be used to 
     #
+    #   See dot/config/zathura/zathurarc for more info and docs.
+    #
     for f in "${files[@]}"; do
         zathura --fork "${options[@]}" "$f"
     done

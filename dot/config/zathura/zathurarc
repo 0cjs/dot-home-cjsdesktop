@@ -1,5 +1,7 @@
 #   Default bindings are marked with "(default)" and are here to just
 #   document what's available and currently used keys.
+#
+#   Good docs/hints at: https://wiki.archlinux.org/title/Zathura
 
 #   These mappings don't seem to work, though xev reports mouse wheel as 4/5.
 map <Button4>   zoom in
@@ -23,7 +25,9 @@ map r           rotate rotate-ccw       # default is rotate-cw
 map t           rotate rotate-cw        # default is scroll full-left
 
 #map d          ?                       # dual-page view (default)
-map D           toggle_page_mode        # allegedly "multiple pages per row"
+map D set "first-page-column 1:1"
+map <C-d> set "first-page-column 1:2"
+#map D       toggle_page_mode        # allegedly "multiple pages per row"
 map w           adjust_window width
 map e           adjust_window best-fit  # mnemonic: "entire page"
 map i           zoom in
