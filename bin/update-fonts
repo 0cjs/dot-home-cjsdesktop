@@ -23,14 +23,15 @@ source_code_pro() {
     echo '===== Installing Source Code Pro'
     local site=https://github.com/adobe-fonts/source-code-pro
     # The archive includes both ro[man] and [it]alic.
-    local dir=2.030R-ro file=1.050R-it
+    local dir=releases/download/2.038R-ro%2F1.058R-it%2F1.018R-VAR
+    local file=OTF-source-code-pro-2.038R-ro-1.058R-it.zip
 
     cd ~/Downloads
-    [[ -s $file.tar.gz ]] || curl -o $site/archive/$dir/$file.tar.gz
-    tar xf $file.tar.gz
-    ls -lh source-code-pro-*/OTF/*.otf
-    mv source-code-pro-*/OTF/*.otf ~/.fonts
-    rm -r source-code-pro-*
+    [[ -s $file ]] || curl -O "$site/$dir/$file"
+    unzip $file
+    ls -lh SourceCodePro-*/OTF/*.otf
+    mv SourceCodePro-*.otf ~/.fonts
+    rm -r SourceCodePro-*
 }
 
 ubuntu-font-family() {
@@ -50,5 +51,5 @@ ubuntu-font-family() {
 
 mkdir -p ~/.fonts   # XXX should be ~/.local/...
 google Inconsolata
-source_code_pro
+#source_code_pro    # can't seem to get download link from GitHub
 ubuntu-font-family
