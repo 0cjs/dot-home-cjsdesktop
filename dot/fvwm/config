@@ -500,6 +500,7 @@ AddToMenu menu-applications-browsers
 DestroyMenu menu-applications-chat
 AddToMenu menu-applications-chat
     + "Chat"                            Title
+    + "&Discord"                        Exec exec discord
     + "IR&C (XChat)"                    Exec exec xchat
     + "&Gitter"                         Exec exec elerun gitter
     + "&Hangouts"                       Exec exec google-chrome-stable --profile-directory=Default --app-id=knipolnnllmklapflnccelgolnpehhpl
