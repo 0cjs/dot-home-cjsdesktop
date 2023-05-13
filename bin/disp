@@ -87,11 +87,24 @@ while [ -n "$1" ]; do case "$1" in
         xrandr --output VGA-1 --output DP-1 --off \
             --output LVDS-1 --auto --fb 1366x768
         ;;
-    x3f)    # X230 external VGA FHD 1920x1080
+    x3vf)   # X230 external VGA FHD 1920x1080
         xrandr --output VGA-1 --mode 1920x1080 --same-as LVDS-1
         xrandr --output LVDS-1 --panning $FHD
         ;;
-    x3w)    # X230 external DP WQXGA 2560x1600
+    x3hw)   # X230 external HDMI QHD 2560x1440
+        #   XXX This does not work on the QNIX monitor w/miniDP→DVI cable
+        #   Gives `xrandr: Configure crtc 1 failed`, though 1920x1080 works ok.
+        xrandr --newmode QNIX 241.5 \
+            2560 2608 2640 2720  1440 1443 1448 1481  +HSync +VSync
+        # Monitor ranges (GTF): 23-76 Hz V, 15-99 kHz H, max dotclock 250 MHz
+        # DTD 1:  2560x1440   59.951 Hz  16:9    88.787 kHz 241.500 MHz
+        #        Hfront   48 Hsync  32 Hback  80 Hpol P
+        #        Vfront    3 Vsync   5 Vback  33 Vpol P
+        xrandr --addmode HDMI-1 QNIX
+        xrandr --output HDMI-1 --mode QNIX --same-as LVDS-1
+        xrandr --output LVDS-1 --panning $WQXGA
+        ;;
+    x3dw)   # X230 external DP WQXGA 2560x1600
         xrandr --output DP-1 --mode 2560x1600 --same-as LVDS-1
         xrandr --output LVDS-1 --panning $WQXGA
         ;;
