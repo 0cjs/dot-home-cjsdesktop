@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#
+#   capslock - toggle caps lock
+#
+exec xdotool key Caps_Lock
