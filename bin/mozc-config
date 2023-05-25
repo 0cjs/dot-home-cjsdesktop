@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -eu -o pipefail
+
+usage() {
+    echo 1>&2 "Usage: $(basename $0) info|conf|dict|word"
+    exit 2
+}
+
+[[ ${#@} -eq 1 ]] || usage
+mode=
+case $1 in
+    info*)  mode=;;
+    conf*)  mode=--mode=config_dialog;;
+    dict*)  mode=--mode=dictionary_tool;;
+    word*)  mode=--mode=word_register_dialog;;
+    *)      usage;;
+esac
+exec /usr/lib/mozc/mozc_tool $mode
