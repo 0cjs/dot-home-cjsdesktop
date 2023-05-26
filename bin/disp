@@ -91,7 +91,7 @@ while [ -n "$1" ]; do case "$1" in
         xrandr --output VGA-1 --mode 1920x1080 --same-as LVDS-1
         xrandr --output LVDS-1 --panning $FHD
         ;;
-    x3hw)   # X230 external HDMI QHD 2560x1440
+    x3hq)   # X230 external HDMI QHD 2560x1440
         #   XXX This does not work on the QNIX monitor w/miniDP→DVI cable
         #   Gives `xrandr: Configure crtc 1 failed`, though 1920x1080 works ok.
         xrandr --newmode QNIX 241.5 \
@@ -103,6 +103,10 @@ while [ -n "$1" ]; do case "$1" in
         xrandr --addmode HDMI-1 QNIX
         xrandr --output HDMI-1 --mode QNIX --same-as LVDS-1
         xrandr --output LVDS-1 --panning $WQXGA
+        ;;
+    x3dq)   # X230 external DP QHD 2560x1440
+        xrandr --output DP-1 --mode 2560x1440 --same-as LVDS-1
+        xrandr --output LVDS-1 --panning $QHD
         ;;
     x3dw)   # X230 external DP WQXGA 2560x1600
         xrandr --output DP-1 --mode 2560x1600 --same-as LVDS-1
