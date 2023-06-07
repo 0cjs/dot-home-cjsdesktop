@@ -7,6 +7,7 @@
    QWXGA=2048x1152
      QHD=2560x1440
    WQXGA=2560x1600
+     UHD=3840x2160      # 4K UHD-1
 
 err() {
     echo 1>&2 ERROR: "$@"
@@ -29,9 +30,9 @@ while [ -n "$1" ]; do case "$1" in
         cat <<_____
 $(basename "$0"): Set X11 display resolution, output and mirroring.
 External modes are full resolution, with the internal display mirroring
-it and panning across these smae resolution. The modes are coded as MMFO,
-where MM is a macine code, F is a resolution code, and optional O is
-a physical output code.
+it and panning across the same resolution. The modes are coded as MMOF,
+where MM is a macine code, optional O is an output connector code,
+and F is a resolution code.
 _____
         grep ')  *#' "$0"       # Finds new-format configs only.
         exit 0
@@ -124,6 +125,11 @@ _____
     x3hw|x3dw)   # X230 external DP WQXGA 2560x1600
         xrandr --output DP-1 --mode 2560x1600 --same-as LVDS-1
         xrandr --output LVDS-1 --panning $WQXGA
+        ;;
+    x3u)    #  X230 external DP 4K UHD1 3840x2160
+        xrandr --output DP-1 --mode $UHD --same-as LVDS-1
+        xrandr --output LVDS-1 --panning $UHD
+        echo 'Run `xresetup` to fix DPI etc.'
         ;;
 
     #
