@@ -24,6 +24,19 @@ status() {
 }
 
 while [ -n "$1" ]; do case "$1" in
+
+    -\?|-h|--help)  # Show display modes.
+        cat <<_____
+$(basename "$0"): Set X11 display resolution, output and mirroring.
+External modes are full resolution, with the internal display mirroring
+it and panning across these smae resolution. The modes are coded as MMFO,
+where MM is a macine code, F is a resolution code, and optional O is
+a physical output code.
+_____
+        grep ')  *#' "$0"       # Finds new-format configs only.
+        exit 0
+        ;;
+
     #
     #   New way: per-machine specific configurations
     #
@@ -60,7 +73,7 @@ while [ -n "$1" ]; do case "$1" in
         xrandr --output DP-1 --off --output VGA-1 --off \
             --output LVDS-1 --auto --fb $FHD
         ;;
-    t5vq)    # T510 2560x1440 via VGA
+    t5vq)   # T510 2560x1440 via VGA
         xrandr --output DP-1 --off
         xrandr --output VGA-1 --mode $QHD --same-as LVDS-1
         xrandr --output LVDS-1 --panning $QHD
@@ -153,8 +166,7 @@ while [ -n "$1" ]; do case "$1" in
         break
         ;;
     *)
-        echo >&2 "$(basename "$0"): Unknown argument: $1"
-        echo >&2 "  Opts: lvds -lvds +lvds -pan +pan 2k5 vga"
+        echo >&2 "$(basename "$0"): Unknown argument: '$1'. Use -h for help."
         exit 1
         ;;
 esac; shift; done
