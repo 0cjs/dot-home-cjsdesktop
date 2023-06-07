@@ -108,7 +108,7 @@ while [ -n "$1" ]; do case "$1" in
         xrandr --output DP-1 --mode 2560x1440 --same-as LVDS-1
         xrandr --output LVDS-1 --panning $QHD
         ;;
-    x3dw)   # X230 external DP WQXGA 2560x1600
+    x3hw|x3dw)   # X230 external DP WQXGA 2560x1600
         xrandr --output DP-1 --mode 2560x1600 --same-as LVDS-1
         xrandr --output LVDS-1 --panning $WQXGA
         ;;
