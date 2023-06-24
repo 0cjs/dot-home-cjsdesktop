@@ -40,10 +40,12 @@ user    network-manager-applet  CentOS.7
 user    python                  Debian.8 Debian.9 Debian.10 Ubuntu.14.04
 user    python2                 Debian.11
 user    redshift-gtk            Debian.*
-user    rxvt-unicode-256color   Debian.*
+user    rxvt-unicode-256color   Debian.8 Debian.9 Debian.10 Debian.11
+user    rxvt-unicode            Debian.12
 user    ssh-askpass-fullscreen  Debian.* Ubuntu.14.04
 user    vim-X11                 CentOS.7
-user    vim-gtk                 Debian.* Ubuntu.14.04
+user    vim-gtk                 Debian.8 Debian.9 Debian.10 Debian.11 Ubuntu.14.04
+user    vim-gtk3                Debian.12
 user    xclip                   Debian.* Ubuntu.* CentOS.*
 user    xcompmgr                Debian.* Ubuntu.14.04
 user    xdotool                 Debian.* Ubuntu.14.04 CentOS.7
