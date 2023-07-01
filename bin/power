@@ -10,8 +10,8 @@ assert_have() {
 
 pshutdown() {
     sudo -v
-    while [[ $(pgrep -c chrom) -gt 0 ]]; do
-        echo "Waiting for chrom* processes to exit..."
+    while [[ $(pgrep -c google-chrom) -gt 0 ]]; do
+        echo "Waiting for google-chrom* processes to exit..."
         sleep 5
     done
     /sbin/shutdown $1 now
