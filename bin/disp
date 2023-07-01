@@ -105,6 +105,10 @@ _____
         xrandr --output VGA-1 --mode 1920x1080 --same-as LVDS-1
         xrandr --output LVDS-1 --panning $FHD
         ;;
+    x3df)   # X230 external DP FHD 1920x1080
+        xrandr --output DP-1 --mode 1920x1080 --same-as LVDS-1
+        xrandr --output LVDS-1 --panning $FHD
+        ;;
     x3hq)   # X230 external HDMI QHD 2560x1440
         #   XXX This does not work on the QNIX monitor w/miniDP→DVI cable
         #   Gives `xrandr: Configure crtc 1 failed`, though 1920x1080 works ok.
@@ -123,6 +127,11 @@ _____
         xrandr --output LVDS-1 --panning $QHD
         ;;
     x3hw|x3dw)   # X230 external DP WQXGA 2560x1600
+      #     XXX if 2560x1600 does not already appear in the available modes,
+      #     it probaby means an HDMI adapter that doesn't support high-res.
+      # xrandr --newmode "$WQXGA" \
+      #         348.50  2560 2760 3032 3504  1600 1603 1609 1658 +HSync +VSync
+      # xrandr --addmode DP-1 "$WQXGA"
         xrandr --output DP-1 --mode 2560x1600 --same-as LVDS-1
         xrandr --output LVDS-1 --panning $WQXGA
         ;;
