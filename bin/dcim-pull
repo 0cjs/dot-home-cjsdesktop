@@ -42,12 +42,21 @@ type exiftime >/dev/null || {
     exit 9
 }
 
+usage() {
+    cat 1>&2 <<_____
+$(basename "$0") [-v] [-d] [-r] [--dry-run]
+  -v  verbose
+  -d  do not rename based on date
+  -r  do not download, just rename
+_____
+}
+
 while [[ ${#@} -gt 0 ]]; do case "$1" in
     --dry-run)  shift; dry_run=true; verbose=true;;
     -v)         shift; verbose=true;;
     -d)         shift; rename=false;;
     -r)         shift; download=false;;
-    *)          break;;
+    *)          usage; exit 1;;
 esac; done
 
 $download && do_download
