@@ -34,4 +34,4 @@ import --version >/dev/null 2>&1 \
     || prereq import "graphicsmagick or imagemagick"
 xclip -version   >/dev/null 2>&1 || prereq xclip xclip
 
-import "$@" "$format:-" | xclip -se c -t "image/$format" -i
+import "$@" "$format:-" | xclip -sel clip -t "image/$format" -i
