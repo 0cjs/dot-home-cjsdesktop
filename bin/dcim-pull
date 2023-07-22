@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
+#
+#   This mounts /m/camera; an fstab entry for it should look something like:
+#
+#       /dev/disk/by-id/usb-OLYMPUS_E-M5MarkII_BFKA29904-0:0-part1
+#           /m/camera  vfat  rw,user,noauto
+#
 set -euo pipefail
 
-mount=/dos1
+mount=/m/camera
 #source='DCIM/101_PANA/P*'  # Panasonic
 source='DCIM/*/P*'          # Olympus
 dldir=~/Downloads/DCIM/
@@ -9,13 +15,13 @@ dldir=~/Downloads/DCIM/
 do_download() {
     mkdir -p "$dldir"
     cd "$dldir"         # mainly for do_rename_in_cwd()
-    mount /dos1
+    mount $mount
     compgen -G "$mount/$source" >/dev/null  && {
         $verbose && echo "$mount/$source → $dldir"
         $dry_run || mv -i "$mount/"$source ./   # XXX breaks w/spaces in $source
     }
     sync
-    umount /dos1
+    umount $mount
 }
 
 do_rename_in_cwd() {
