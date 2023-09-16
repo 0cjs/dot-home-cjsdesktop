@@ -153,6 +153,9 @@ AddToFunc UrgencyFunc
 + I FlipFocus
 + I Raise
 + I WarpToWindow 50p 50p
+DestroyFunc UrgencyDoneFunc
+AddToFunc UrgencyDoneFunc
++ I Nop
 
 
 ######################################################################
