@@ -7,7 +7,7 @@ TITLE = Cynic Hosts
 &beatific       = cjslogin beatific.cynic.net.
 &epistolic      = cjslogin epistolic.cynic.net.
 &pessimistic    = cjslogin pessimistic.cynic.net.
-0               = NOP
+1               = NOP
 Production      = SUBMENU Production
 
 [hosts-cjsh]

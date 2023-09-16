@@ -5,7 +5,7 @@ basedir=$(cd "$(dirname "$0")" && pwd -P)
 set -e
 cd "$basedir"
 [[ $1 = -C ]] && { shift; rm -rf .build/; }
-. ./activate -q --python=python2
+. ./pactivate -q
 
 echo ===== Unit tests
 pytest *.py

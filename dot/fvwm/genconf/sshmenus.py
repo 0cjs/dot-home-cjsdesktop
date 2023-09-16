@@ -1,8 +1,8 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 from    __future__ import print_function
 
-from    ConfigParser import SafeConfigParser, NoSectionError, NoOptionError
+from    configparser import ConfigParser, NoSectionError, NoOptionError
 from    os.path import expanduser
 import  sys
 
@@ -27,13 +27,15 @@ def test_read_nonexistent_config():
 
 def parseconfig(files=None):
     if isinstance(files, str): files = [files]
-    parser = SafeConfigParser()
+    parser = ConfigParser()
     parser.optionxform = lambda opt: opt    # Disable converstion to lower case
     read = parser.read(files)
     unread = set(files) - set(read)
     if unread:
         raise IOError('File(s) not found: {}'.format(', '.join(unread)))
     return parser
+
+REMOVE_AMP = str.maketrans('', '', '&')   # Remove all ampersands
 
 def printsection(name, opts):
     print('DestroyMenu menu-{}'.format(name))
@@ -48,7 +50,7 @@ def printsection(name, opts):
             print('    + "{}"\tPopup menu-{}'.format(key, menuname))
         else:
             print('    + "{}"\tExec choose xterm -title \'{}\' -e {}' \
-                .format(key, key.translate(None, '&'), value))
+                .format(key, key.translate(REMOVE_AMP), value))
     print()
 
 def main(args=sys.argv[1:]):
