@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ ! -c /dev/video9 ]]; then
+    sudo modprobe v4l2loopback video_nr=9
+        card_label=Video-Loopback exclusive_caps=1
+fi
+v4l2-ctl --list-devices
+obs
