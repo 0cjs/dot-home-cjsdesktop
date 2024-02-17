@@ -817,6 +817,7 @@ AddToFunc InitFunction
 #   Executed only on restart (after StartFunction)
 DestroyFunc RestartFunction
 AddToFunc RestartFunction
++ Exec exec xfce4-panel --restart
 
 #   Executed only on exit (before exit or restart)
 DestroyFunc ExitFunction
