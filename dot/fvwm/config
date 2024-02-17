@@ -808,13 +808,21 @@ AddToFunc StartFunction
 + I Module FvwmAnimate
 + I Module FvwmBacker
 
-#   Executed only on startup
+#   Executed only on startup (after StartFunction)
 DestroyFunc InitFunction
 AddToFunc InitFunction
 #   Normally no need to do things here that .xinitrc has already done.
 + I GotoDesk 0 3
 
-DestroyFunc SessionInitFunction
+#   Executed only on restart (after StartFunction)
+DestroyFunc RestartFunction
+AddToFunc RestartFunction
+
+#   Executed only on exit (before exit or restart)
+DestroyFunc ExitFunction
+AddToFunc ExitFunction
+
+DestroyFunc SessionInitFunction (replaces InitFunction under session manager)
 AddToFunc SessionInitFunction
 #   The GotoDesk works, but something later sends us back to desktop 0 anyway.
 + I GotoDesk 0 3
@@ -823,15 +831,8 @@ AddToFunc SessionInitFunction
 + I exec xrdb -cpp cpp -merge $HOME/.Xresources
 + I exec xsetroot -solid '#005048'
 
-#   Executed only on restart
-DestroyFunc RestartFunction
-AddToFunc RestartFunction
-
-DestroyFunc SessionRestartFunction
+DestroyFunc SessionRestartFunction (replaces RestartFunction under session mgr)
 AddToFunc SessionRestartFunction
-
-DestroyFunc ExitFunction
-AddToFunc ExitFunction
 
 ######################################################################
 # Quick Reference
