@@ -59,8 +59,8 @@ OpaqueMoveSize unlimited
 ######################################################################
 #   Menu/Window Styles
 #
-ColormapFocus   FollowsMouse
 
+ColormapFocus   FollowsMouse
 
 #  Colorsets
 #  (bin/xresetup sets root window to solid #005048)
@@ -94,6 +94,7 @@ MenuStyle *     Font "xft:DejaVu Sans:size=10"
 MenuStyle *     PopupOffset 0 95
 MenuStyle *     TitleUnderlines2, SeparatorsLong
 
+#               Focus policy can also be changed in menu-windowops-config.
 Style *         FocusFollowsMouse
 Style *         MinOverlapPercentPlacement
 Style *term     TileManualPlacement
@@ -320,6 +321,7 @@ AddToMenu menu-windowops
     + "&?        Identify Window"       Module FvwmIdent
     + "&/        Refresh Window"        RefreshWindow
     + "&.        Refresh Screen"        Refresh
+    + "&,        Fvwm Configuration"    Popup menu-windowops-config
 
     + ""                                Nop
     + "&o        Insert Keystroke"      Popup menu-windowops-keystroke
@@ -407,6 +409,22 @@ AddToMenu menu-windowops-close
     + "&c        Close"                 Close
     + "&v        Delete"                Delete
     + "&x        Destroy"               Destroy
+
+DestroyMenu menu-windowops-config
+AddToMenu menu-windowops-config
+    + "Fvwm configuration..." Title
+    #   Here we look up the translations in the locale catalog using $[gt.str].
+    #   Not necessary, but this serves as documentation on how to do it.
+    + "&s. $[gt.Sloppy Focus]"        FuncFvwmFocusPolicyChange SloppyFocus
+    + "&c. $[gt.Click To Focus]"      FuncFvwmFocusPolicyChange ClickToFocus
+    + "&f. $[gt.Focus Follows Mouse]" FuncFvwmFocusPolicyChange FocusFollowsMouse
+
+#   XXX This appears to override more specific focus policies set for
+#   certain windows, such as `Style FvwmButtons ... ClickToFocus`.
+DestroyFunc FuncFvwmFocusPolicyChange
+AddToFunc FuncFvwmFocusPolicyChange
++ I Style * $0
++ I Recapture
 
 DestroyMenu menu-windowops-keystroke
 AddToMenu menu-windowops-keystroke
@@ -569,6 +587,10 @@ AddToMenu menu-4up-midokura
     + "&2midonet"       Exec exec 4up -P -c 2midonet
     + "&3midonet"       Exec exec 4up -P -c 3midonet
 
+####################################################################
+#   Old FVWM root menu.
+#   Kept here more for documentation than actual use.
+
 DestroyMenu MenuFvwmRoot
 AddToMenu MenuFvwmRoot  "$[gt.Root Menu]"             Title
 +                       "&1. XTerm"             Exec exec xterm
@@ -703,7 +725,7 @@ AddToMenu MenuFvwmQuitVerify "$[gt.Really Quit Fvwm?]" Title
 + ""                     Nop
 + "&N. $[gt.No, Don't Quit]"   Nop
 
-######################## Sample Functions ##########################
+##### Sample Functions
 
 DestroyFunc FuncFvwmMailXmh
 AddToFunc FuncFvwmMailXmh
@@ -741,11 +763,6 @@ DestroyFunc FuncFvwmPrint
 AddToFunc FuncFvwmPrint
 + I Raise
 + I Exec xdpr -id $w
-
-DestroyFunc FuncFvwmFocusPolicyChange
-AddToFunc FuncFvwmFocusPolicyChange
-+ I Style * $0
-+ I Recapture
 
 ######################################################################
 # Modules
