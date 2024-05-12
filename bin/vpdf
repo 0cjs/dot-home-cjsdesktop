@@ -41,10 +41,13 @@ case "$1" in
 esac
 
 #   Generate $files and $options for programs where we want to start
-#   a separate instance for each file.
+#   a separate instance for each file. We can't do a real options parse
+#   because we don't know which options are followed by an argument.
+shopt -s nocasematch  # for =~ below
 files=(); options=("$@")
 for i in ${!options[@]}; do
-    [[ ${options[$i]} =~ \.[Pp][Dd][Ff]$ ]] || continue
+   #echo "checking options[$i]=${options[$i]}"
+    [[ ${options[$i]} =~ \.(PDF|DJVU)$ ]] || continue
     # It ends in `.pdf` so we guess that it's a file to display, not an option.
     files+=("${options[$i]}")
     unset options[$i]
@@ -55,4 +58,4 @@ done
 # could change the dimensions of the window appropriately.
 geometry=1340x1520          # Assume 4K display
 
-view_$viewer "$@"
+view_$viewer
