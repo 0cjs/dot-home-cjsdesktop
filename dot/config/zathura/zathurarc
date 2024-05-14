@@ -33,7 +33,8 @@ map e           adjust_window best-fit  # mnemonic: "entire page"
 map i           zoom in
 map u           zoom out                # mnemonic: "up"
 
-map s           toggle_fullscreen
+#map s          toggle_fullscreen       # can't seem to untoggle once pressed
+                                        # just use window manager toggle
 #map <Tab>      toggle_index            # (default)
 
 #   Other
