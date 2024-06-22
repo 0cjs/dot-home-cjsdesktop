@@ -54,11 +54,11 @@ for pointer in \
     xinput set-prop "$pointer" 'Device Accel Profile' 2
     xinput set-prop "$pointer" 'Device Accel Velocity Scaling' 20
 
-    #   Thinkpad X1 Carbon (post-2015)
-    #   This is not really what I want; I want the pre-accel speed to
-    #   be faster. But `xinput list-props` doesn't show anything that
-    #   appears to be able to set that.
-    xinput set-prop 'TPPS/2 IBM TrackPoint' 'libinput Accel Speed' .15
+    #   Thinkpad X1 Carbon Gen 4 (post-2015). Accel seems fine at the
+    #   default 0 now that I've reverted the libinput device quirk for
+    #   this machine that set the "magic multiplier" to 1, from 0.5.
+    #   (See sedoc for details.)
+    #xinput set-prop 'TPPS/2 IBM TrackPoint' 'libinput Accel Speed' 0
 
     # Sensitivity way down for Debian 10, but breaks Debian 11!
    #xinput set-prop "$pointer" \
