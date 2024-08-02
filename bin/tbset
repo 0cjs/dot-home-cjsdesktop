@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+#
+#   tbset - Set ThinkPad battery charge level
+#
+set -Eeuo pipefail
+
+die() { local ec="$1"; shift; echo 1>&2 "ERROR ($ec):" "$@"; exit "$ec"; }
+
+show_state() {
+    #   `tlp-stat` provides more info, but too much, and needs root
+    BAT0=/sys/class/power_supply/BAT0
+    current=$(cat "$BAT0/capacity")
+    cstart=$(cat "$BAT0/charge_control_start_threshold")
+    cend=$(cat "$BAT0/charge_control_end_threshold")
+    echo "BAT0: cur=$current, thresh=$cstart,$cend"
+}
+
+[[ $# -gt 1 ]] && die "0 or 1 args"
+[[ $# -eq 1 ]] && {
+    sudo bash -c 'command -v tlp >/dev/null' \
+        || die 3 'No tlp command; install `tlp` package?'
+    #   XXX Not `[[` here because that tries to evaluate plain names as vars
+    [ $1 -eq $1 ] 2>/dev/null || die 2 "Not number: $1"
+    [[ ("$1" -ge 20) ]] && [[ ("$1" -le 98) ]] \
+        || die 2 "Not between 20 and 98: $1"
+    sudo tlp setcharge $(($1-2)) $(($1+2))
+}
+show_state
