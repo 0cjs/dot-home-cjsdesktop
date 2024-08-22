@@ -474,6 +474,7 @@ AddToMenu menu-root
     + "&KeePass2 auto-type" Exec exec keepass2 --auto-type
     + "&Utilities"      Popup menu-utils
     + "&ispell"         Exec exec choose xterm  -g 50x5-0+0 -title "ispell" -e 'ispell -a'
+    + "&Grab image"     Exec exec scap -png
     + ""                Nop
     + "&Lock Screen"    Exec exec lock-screen
     + "&;Lock Screen"   Exec exec lock-screen
