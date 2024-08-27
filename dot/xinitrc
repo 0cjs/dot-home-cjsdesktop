@@ -37,8 +37,10 @@ xscreensaver -no-splash &
 #   because it's maintained; fluxgui does not work on newer kernels. The
 #   default GeoClue client may fail becuase it's not installed, location
 #   services have been disabled in the GTK configuration, etc., so for
-#   simplicity we just manually set the location to near Tokyo.
-redshift-gtk -t 6500:3500 -l 35:139 &
+#   simplicity we just manually set the location. Tokyo is at 139 (E),
+#   but due to my _very_ late hours, it's best to move that three hours
+#   (45 degrees) west.
+redshift-gtk -t 6500:3500 -l 35:94 &
 
 #   Do not autostart dropbox sync if we don't have a sync'd copy.
 if [[ -r ~/Dropbox/0-desc ]]; then
