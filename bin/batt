@@ -23,11 +23,16 @@ generic_status() {
     echo $(b type) $(b technology) \
         "$(b manufacturer) $(b model_name) (s/n $(b serial_number))," \
         "$(b0 voltage_now) V (min $(b0 voltage_min_design))"
-    echo $(b status), thresholds \
-        ⏵$(b charge_control_start_threshold)% \
-        ⏹$(b charge_control_end_threshold)%, \
-        energy $(b0 ${energy}_now) / $(b0 ${energy}_full) \
-        "(design $(b0 ${energy}_full_design))"
+
+    local ccstart=$(b charge_control_start_threshold)
+    local ccend=$(b charge_control_end_threshold)
+    local ennow=$(b0 ${energy}_now)
+    local enfull=$(b0 ${energy}_full)
+    local endesign=$(b0 ${energy}_full_design)
+    local enpercent=$(echo "100*$ennow/$enfull" | bc)
+    echo \
+        $(b status) "$enpercent% ($ennow/$enfull, design $endesign)," \
+        thresholds ⏵$ccstart% ⏹$ccend%
 }
 
 thinkpad_thresholds() {
