@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+#
+#   batt - system battery information and management
+#
+set -Eeuo pipefail
+
+die() { local ec="$1"; shift; echo 1>&2 "ERROR ($ec):" "$@"; exit "$ec"; }
+
+####################################################################
+#   Generic battery information
+
+bdir=/sys/class/power_supply/BAT0
+
+b() { echo $(cat "$bdir/$1"); }
+b0(){
+    local n=$(cat "$bdir/$1")
+    echo $(echo "scale=3; $n / 1000000" | bc -q)
+}
+
+generic_status() {
+    bc </dev/null || die 3 "This script needs the bc program."
+    local energy=$(cd $bdir && echo *_full_design | sed -e 's/_full_design//')
+    echo $(b type) $(b technology) \
+        "$(b manufacturer) $(b model_name) (s/n $(b serial_number))," \
+        "$(b0 voltage_now) V (min $(b0 voltage_min_design))"
+    echo $(b status), thresholds \
+        ⏵$(b charge_control_start_threshold)% \
+        ⏹$(b charge_control_end_threshold)%, \
+        energy $(b0 ${energy}_now) / $(b0 ${energy}_full) \
+        "(design $(b0 ${energy}_full_design))"
+}
+
+thinkpad_thresholds() {
+    #   XXX Not `[[` here because that tries to evaluate plain names as vars
+    [[ $# -eq 1 ]] || die 2 "thresholds command requires an argument"
+    [ $1 -eq $1 ] 2>/dev/null || die 2 "Not number: $1"
+    [[ ("$1" -ge 20) ]] && [[ ("$1" -le 98) ]] \
+        || die 2 "Not between 20 and 98: $1"
+    sudo bash -c 'command -v tlp >/dev/null' \
+        || die 3 'No tlp command; install `tlp` package?'
+    sudo tlp setcharge $(($1-2)) $(($1+2))
+    generic_status
+}
+
+####################################################################
+#   Main
+[[ $# -eq 0 ]] && set status    # default command
+case "$1" in
+    status|s*)      generic_status "$@";;
+    thresholds|t*)  shift; thinkpad_thresholds "$@";;
+    *)              die 2 "Unknown command '$1'";;
+esac
