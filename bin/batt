@@ -3,6 +3,7 @@
 #   batt - system battery information and management
 #
 set -Eeuo pipefail
+trap 'echo ┃◀INTERNAL ERROR ec=$? line=$LINENO cmd=$BASH_COMMAND▶┃' ERR
 
 die() { local ec="$1"; shift; echo 1>&2 "ERROR ($ec):" "$@"; exit "$ec"; }
 
@@ -24,15 +25,23 @@ generic_status() {
         "$(b manufacturer) $(b model_name) (s/n $(b serial_number))," \
         "$(b0 voltage_now) V (min $(b0 voltage_min_design))"
 
-    local ccstart=$(b charge_control_start_threshold)
-    local ccend=$(b charge_control_end_threshold)
+    #   XXX Pre-Debian 12 does not support querying the kernel for these
+    #   thresholds, even though they may be supported by tlp. We should use
+    #   TLP for these if they're not availble from /sys.
+    local ccstart=$(b charge_control_start_threshold  2>/dev/null|| true)
+    local ccend=$(b charge_control_end_threshold 2>/dev/null || true)
+    local thresholds
+    [[ -n $ccstart ]] \
+        && thresholds="⏵${ccstart}% ⏹$ccend%" \
+        || thresholds="(no kernel support)"
+
     local ennow=$(b0 ${energy}_now)
     local enfull=$(b0 ${energy}_full)
     local endesign=$(b0 ${energy}_full_design)
     local enpercent=$(echo "100*$ennow/$enfull" | bc)
     echo \
         $(b status) "$enpercent% ($ennow/$enfull, design $endesign)," \
-        thresholds ⏵$ccstart% ⏹$ccend%
+        thresholds "$thresholds"
 }
 
 thinkpad_thresholds() {
