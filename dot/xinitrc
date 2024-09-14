@@ -1,10 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 ############################################################
-# Set up logging
+#   Set up logging
 
-exec >$HOME/.xinit-errors 2>&1
+logfile="${XDG_STATE_LOG:-$HOME/.local/state}/xinit/log"
+mkdir -p "$(dirname "$logfile")"
+exec >$logfile 2>&1
 echo "===== .xinitrc startup: $(date +'%Y-%m-%d %H:%M:%S')"
-
 
 ############################################################
 # Environment and device configuration
