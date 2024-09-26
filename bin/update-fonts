@@ -10,7 +10,7 @@ google() {
     local url=https://fonts.google.com/download?family="$name"
     local file=~/Downloads/"$filename"
 
-    [[ -s $file ]] || curl -o "$file" "$url"
+    [[ -s $file ]] || curl -L -o "$file" "$url"
     cd ~/Downloads
     unzip -oq "$file"
     #rm OFL.txt
@@ -51,5 +51,6 @@ ubuntu-font-family() {
 
 mkdir -p ~/.fonts   # XXX should be ~/.local/...
 google Inconsolata
-#source_code_pro    # can't seem to get download link from GitHub
+#google Source+Code+Pro     # redirects to page where you need to run JS?
+#source_code_pro            # can't seem to get download link from GitHub
 ubuntu-font-family
