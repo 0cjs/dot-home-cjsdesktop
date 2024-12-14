@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
-set -e -o pipefail
+set -Eeuo pipefail
+trap 'ec=$?; echo 1>&2 "INTERNAL ERROR: ec=$ec line=$LINENO cmd=$BASH_COMMAND";
+      exit $ec;' ERR
 
-# XXX This is a pretty bad hack
+# XXX This is a pretty bad hack, and all Google downloads are broken.
 
 google() {
+    echo "───── Google; $1"
     local name="$1"
     [[ $name ]] || exit 99
     local filename="$name.zip"
@@ -20,7 +23,7 @@ google() {
 }
 
 source_code_pro() {
-    echo '===== Installing Source Code Pro'
+    echo '───── Source Code Pro'
     local site=https://github.com/adobe-fonts/source-code-pro
     # The archive includes both ro[man] and [it]alic.
     local dir=releases/download/2.038R-ro%2F1.058R-it%2F1.018R-VAR
@@ -35,7 +38,7 @@ source_code_pro() {
 }
 
 ubuntu-font-family() {
-    echo '===== Installing Ubuntu Font Family'
+    echo '───── Ubuntu Font Family'
     local site=https://assets.ubuntu.com/v1
     local filename=fad7939b-ubuntu-font-family-0.83.zip
     local url="$site/$filename" file=~/Downloads/"$filename"
@@ -50,7 +53,7 @@ ubuntu-font-family() {
 
 
 mkdir -p ~/.fonts   # XXX should be ~/.local/...
-google Inconsolata
-#google Source+Code+Pro     # redirects to page where you need to run JS?
-#source_code_pro            # can't seem to get download link from GitHub
 ubuntu-font-family
+#source_code_pro            # can't seem to get download link from GitHub
+#google Source+Code+Pro     # redirects to page where you need to run JS?
+google Inconsolata
