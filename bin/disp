@@ -141,6 +141,12 @@ _____
         echo 'Run `xresetup` to fix DPI etc.'
         ;;
 
+    gm)     # Back panel HDMI mirrors DP.
+        #   Both DP and HDMI on back panel are connected to 4K monitor.
+        #   (I now can't remember why.)
+        xrandr --output HDMI-A-0 --same-as DisplayPort-0
+        ;;
+
     #
     #   Old way: generic configs
     #
