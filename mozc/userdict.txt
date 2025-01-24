@@ -4,5 +4,5 @@
 いけざき	池﨑	姓	
 いさらい	小井	名詞	
 ゆうびん	〒	記号	Japan Post Symbol
-		名詞	
 ぴゅうた	ぴゅう太	名詞	Tomy Tutor
+ーー	—	名詞	em-dash
