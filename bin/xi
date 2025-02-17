@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+#
+#   xi - set window icon
+#
+#   BUGS
+#   • Currently this always makes you select the window; ideally it should
+#     be able to detect the current window, but that (and the setting of
+#     the icon itself) works only if there's a connection back to the X11
+#     server available. And the image files are probably only available on
+#     the machine hosting the server.
+#
+#   Xseticon is most easily avaialble from:
+#     https://github.com/xeyownt/xseticon.git
+#
+#
+set -Eeuo pipefail
+trap 'ec=$?; echo 1>&2 "INTERNAL ERROR: ec=$ec line=$LINENO cmd=$BASH_COMMAND";
+      exit $ec;' ERR
+
+die() { local ec=$1; echo 1>&2 "$@"; exit $ec; }
+
+####################################################################
+
+prog="$(basename "$0")"
+imagedir=~/Dropbox/cjs-library/images
+
+usage() {
+    cat 1>&2 <<_____
+Usage: $prog image-spec
+_____
+}
+
+while [[ ${#@} -gt 0 ]]; do case "$1" in
+    -*)     usage; exit 2;;
+    *)      break;;
+esac; done
+[[ ${#@} -eq 1 ]] || { usage; exit 2; }
+
+case "$1" in
+    c)      image="$imagedir/cjs/cynic-net-square-x128.png";;
+    */*)    image="$1";;
+    *)      die 2 "$prog: Unknown image: $1";;
+esac
+
+xseticon "$image"
