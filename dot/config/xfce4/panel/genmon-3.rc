@@ -2,5 +2,5 @@ Command=genmon-vclock
 UseLabel=0
 Text=(genmon)
 UpdatePeriod=1000
-Font=(default)
+Font=Sans 10
 
