@@ -46,4 +46,4 @@ zone() {
     local zone="$1"
     echo "$(TZ="$zone" date +"%Y-%m-%d  %H:%M")  $zone"
 }
-echo -e "<tool>$(zone US/Central)$v$(zone US/Pacific)$v$(zone UTC)$v$(zone Europe/London)$v$(zone Asia/Tokyo)</tool>"
+echo -e "<tool>$(zone US/Pacific)$v$(zone US/Eastern)$v$(zone UTC)$v$(zone Europe/London)$v$(zone Asia/Tokyo)</tool>"
