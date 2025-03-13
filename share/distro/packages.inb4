@@ -32,6 +32,7 @@ user    keepassx2               CentOS.7
 #   libappindicator is used by google-chrome and similar apps
 user    libappindicator1        Debian.9 Debian.10
 user    libayatana-appindicator1 Debian.11
+user    libinput-tools          Debian.* Ubuntu.*
 user    libXScrnSaver           CentOS.7
 user    meld                    Debian.* Ubuntu.14.04 CentOS.7
 user    network-manager-applet  CentOS.7
