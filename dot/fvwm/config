@@ -78,7 +78,10 @@ Style *         Borders, !Handles, BorderWidth 1
 Style *         BorderColorset 99, HilightBorderColorset 99
 TitleStyle      -- Flat
 Style *         Title, TitleAtBottom, Colorset 102, HilightColorset 103
-Style *         Font "xft:Noto Serif:size=7"
+#   size=8 is good for high-DPI displays (e.g., 27" 4K), but size=7 is
+#   better for laptops, etc. We just hard-code it to 8 right now, but
+#   should use a #define from a generated #include file instead.
+Style *         Font "xft:Noto Serif:size=8"
 #Style *        TitleFormat %n | class=%c res=%r # Debugging
 
 # Alternate fonts: default, bitmap, scaled
