@@ -38,6 +38,7 @@ esac; done
 
 case "$1" in
     c)      image="$imagedir/cjs/cynic-net-square-x128.png";;
+    s)      image="$imagedir/cjs/starling-software-logo-80x80.png";;
     slack)  image="$imagedir/logo/Slack-Logo-180x180.png";;
     */*)    image="$1";;
     *)      die 2 "$prog: Unknown image: $1";;
