@@ -9,25 +9,54 @@ set -Eeuo pipefail
 #     │ 1  │   │ 1 │   │   0      0      1    │
 #     └    ┘   └   ┘   └                      ┘
 
+#   When changing the TrackPoint scaling, we get a weird "jump" when we
+#   activate the window resize command; the cursor moves to about the
+#   current position times the scaling factor from the upper left corner
+#   of the window. This must be a window manager thing; not sure how to
+#   deal with this. Maybe change the scaling factor of the virtual core
+#   core pointer doesn't change scaling factor at all.
+
+####################################################################
+
+show_cmatrix() {
+    xinput --list-props "$device" | sed -n -e '
+        /^Device/p
+        /Coordinate Transformation Matrix/ {
+            s/^[ \t] *//
+            s/$/,/              # so all numbers terminate the same
+            s/0*,/,/g
+            s/\.,/,/g
+            s/,$//              # undo comma afer last number
+            p
+        }
+    '
+}
+
+####################################################################
+#   Main
+
 property='Coordinate Transformation Matrix'
 device='TPPS/2 IBM TrackPoint'
 
+xtrans=0; ytrans=0      # xinput's default values
 while [[ $# -gt 0 ]]; do case "$1" in
     -d)     shift; device="$1"; shift;;
-    -l )    exec xinput --list;;
+    -l)     exec xinput --list;;
+    -t)     shift; xtrans="$1"; shift; ytrans="$1"; shift;;
     -*)     echo 1>&2 "Bad option $1"; exit 2;;
     *)      break;;
 esac; done
 [[ $# -gt 1 ]] && { echo 1>&2 "Too many params."; exit 2; }
 
 if [[ $# -eq 0 ]]; then
-    xinput --list-props "$device"
+    show_cmatrix
 else
     xscale="$1"
     yscale="$1"
-    exec xinput --set-prop "$device" "$property" \
-        "$xscale" 0.000000  0.000000 \
-        0.000000  "$yscale" 0.000000 \
-        0.000000  0.000000  1.000000 \
+    xinput --set-prop "$device" "$property" \
+        "$xscale" 0.000000  "$xtrans" \
+        0.000000  "$yscale" "$ytrans" \
+        0.000000  0.000000  1.000000  \
         #
+    show_cmatrix
 fi
