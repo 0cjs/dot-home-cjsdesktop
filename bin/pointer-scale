@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+#   Transformation matrix (see picture at "Affine Transformations"):
+#   https://en.wikipedia.org/wiki/Transformation_matrix#Affine_transformations
+#     ┌    ┐   ┌   ┐   ┌                      ┐
+#     │ x′ │   │ x │   │ Xscale Ysheer Xtrans │
+#     │ y′ │ = │ y │ • │ Xsheer Yscale Ytrans │
+#     │ 1  │   │ 1 │   │   0      0      1    │
+#     └    ┘   └   ┘   └                      ┘
+
+property='Coordinate Transformation Matrix'
+device='TPPS/2 IBM TrackPoint'
+
+while [[ $# -gt 0 ]]; do case "$1" in
+    -d)     shift; device="$1"; shift;;
+    -l )    exec xinput --list;;
+    -*)     echo 1>&2 "Bad option $1"; exit 2;;
+    *)      break;;
+esac; done
+[[ $# -gt 1 ]] && { echo 1>&2 "Too many params."; exit 2; }
+
+if [[ $# -eq 0 ]]; then
+    xinput --list-props "$device"
+else
+    xscale="$1"
+    yscale="$1"
+    exec xinput --set-prop "$device" "$property" \
+        "$xscale" 0.000000  0.000000 \
+        0.000000  "$yscale" 0.000000 \
+        0.000000  0.000000  1.000000 \
+        #
+fi
