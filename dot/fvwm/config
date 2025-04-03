@@ -849,7 +849,8 @@ AddToFunc InitFunction
 #   Executed only on restart (after StartFunction)
 DestroyFunc RestartFunction
 AddToFunc RestartFunction
-+ I Exec exec xfce4-panel --restart
++ I Exec bash -c \
+    'pgrep xfce4-panel && exec xfce4-panel --restart || xfce4-panel'
 
 #   Executed only on exit (before exit or restart)
 DestroyFunc ExitFunction
