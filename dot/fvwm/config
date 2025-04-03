@@ -308,6 +308,7 @@ AddToMenu menu-windowops
     + "&l        Right"     Direction East  (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise -5p 50
     + "&u        raise"     Raise
     + "&i        lower"     Lower
+    + "&y        focus"     Function ForceFocusWithClick
     + ""                    Nop
 
     + "&1        (de)iconify"           Iconify
@@ -330,6 +331,16 @@ AddToMenu menu-windowops
     + "&o        Insert Keystroke"      Popup menu-windowops-keystroke
     + "&'        quick shell"           Exec LC_NOTLC_XTITLE=QuickShell exec choose xterm -geometry 80x25-200+200 -title "QuickShell"
     + "&;        lock screen"           Exec exec lock-screen
+
+#   This is an attempt to force focus into Wine windows when I'm using
+#   point-to-focus and pointing (and even clicking) in the window doesn't
+#   transfer focus to it. It doesn't work, unfortunately.
+DestroyFunc ForceFocusWithClick
+AddToFunc ForceFocusWithClick
++ I Focus
+#+ I FakeClick depth 2 press 1 wait 50 release 1
++ I FakeClick depth 0 press 1 wait 50 release 1
++ I Focus
 
 #   If maximized, return to original size.
 #   If not maximized, let user resize and set that as maximized size.
