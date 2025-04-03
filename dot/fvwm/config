@@ -442,7 +442,7 @@ AddToMenu menu-windowops-keystroke
     + "F&9"         Function FuncSendFKey 9
     + "F1&0"        Function FuncSendFKey 10
     + "F11 (&-)"    Function FuncSendFKey 11
-    + "F12"(&=)"    Function FuncSendFKey 12
+    + "F12 (&=)"    Function FuncSendFKey 12
 
 DestroyFunc FuncSendFKey
 AddToFunc FuncSendFKey
