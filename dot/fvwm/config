@@ -429,9 +429,9 @@ AddToMenu menu-windowops-config
     + "Fvwm configuration..." Title
     #   Here we look up the translations in the locale catalog using $[gt.str].
     #   Not necessary, but this serves as documentation on how to do it.
-    + "&s. $[gt.Sloppy Focus]"        FuncFvwmFocusPolicyChange SloppyFocus
-    + "&c. $[gt.Click To Focus]"      FuncFvwmFocusPolicyChange ClickToFocus
     + "&f. $[gt.Focus Follows Mouse]" FuncFvwmFocusPolicyChange FocusFollowsMouse
+    + "&c. $[gt.Click To Focus]"      FuncFvwmFocusPolicyChange ClickToFocus
+    + "&s. $[gt.Sloppy Focus]"        FuncFvwmFocusPolicyChange SloppyFocus
 
 #   XXX This appears to override more specific focus policies set for
 #   certain windows, such as `Style FvwmButtons ... ClickToFocus`.
