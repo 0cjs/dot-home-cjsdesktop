@@ -62,5 +62,5 @@ thinkpad_thresholds() {
 case "$1" in
     status|s*)      generic_status "$@";;
     thresholds|t*)  shift; thinkpad_thresholds "$@";;
-    *)              die 2 "Unknown command '$1'";;
+    *)              die 2 "Unknown command '$1' ('status', 'threholds')";;
 esac
