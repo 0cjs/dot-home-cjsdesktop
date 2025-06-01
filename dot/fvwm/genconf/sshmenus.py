@@ -18,7 +18,7 @@ def test_read_config():
         assert conf.get('hosts-cynic', 'badvalue')
     with pytest.raises(NoSectionError):
         assert conf.get('badsection', '')
-    assert conf.get('hosts-cynic', '&dyadic')        # May use & in options
+    assert conf.get('hosts-cynic', '&cjsh')        # May use & in options
     assert 'TITLE' in conf.options('hosts-cynic')
 
 def test_read_nonexistent_config():

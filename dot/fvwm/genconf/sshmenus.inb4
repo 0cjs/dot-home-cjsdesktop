@@ -1,36 +1,25 @@
 [hosts-cynic]
 TITLE = Cynic Hosts
 &cjsh           = SUBMENU hosts-cjsh
-&dyadic         = SUBMENU hosts-xen-dyadic
-0               = NOP
-&attic          = cjslogin attic.cynic.net.
-&beatific       = cjslogin beatific.cynic.net.
-&epistolic      = cjslogin epistolic.cynic.net.
-&pessimistic    = cjslogin pessimistic.cynic.net.
+&wacademic      = cjslogin wacademic.cynic.net.
+&monotonic      = cjslogin monotonic.cynic.net.
 1               = NOP
-Production      = SUBMENU Production
+Other           = SUBMENU Other
 
 [hosts-cjsh]
 TITLE = cjsh hosts
-ia&mbic         = cjslogin iambic.cjsh.cynic.net.
-&idyllic        = cjslogin idyllic.cjsh.cynic.net.
+&academic       = cjslogin academic.cynic.net.
+&wacademic      = cjslogin wacademic.cynic.net.
+&iambic         = cjslogin iambic.cjsh.cynic.net.
+i&dyllic        = cjslogin idyllic.cjsh.cynic.net.
 &logarithmic    = cjslogin logarithmic.cjsh.cynic.net.
 0               = NOP
 &agnostic       = cjslogin agnostic.cjsh.cynic.net.
-mo&notonic      = cjslogin monotonic.cjsh.cynic.net.
+&monotonic      = cjslogin monotonic.cjsh.cynic.net.
 &telephonic     = cjslogin telephonic.cjsh.cynic.net.
 
-[hosts-xen-dyadic]
-TITLE           = xen-dyadic
-Dom&0           = cjslogin dyadic.cynic.net.
-pri&v.dyadic    = cjslogin priv.dyadic.cynic.net.
-&stage.dyadic   = cjslogin stage.dyadic.cynic.net.
-&prod.dyadic    = cjslogin prod.dyadic.cynic.net.
-t&1.dyadic      = cjslogin t1.dyadic.cynic.net.
-t&2.dyadic      = cjslogin t2.dyadic.cynic.net.
-
-[Production]
-TITLE = Cynic Production
+[Other]
+TITLE = Other
 &nbpkg          = cjslogin nbpkg.cynic.net.
 starling &repo  = cjslogin starling.repo.cynic.net.
 &staging        = cjslogin staging.cynic.net.
