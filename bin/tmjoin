@@ -1,0 +1,129 @@
+#!/usr/bin/env bash
+#
+#   tmjoin - open windows and join tmate sessions
+#
+#   See usage() below for details.
+#
+set -Eeuo pipefail
+
+die() { ec=$1; shift; echo 1>&2 "$@"; exit $ec; }
+
+confirm_tools() {
+    for cmd in xsel xdotool; do
+        $cmd --version >/dev/null || die 3 "Cannot find $cmd"
+    done
+}
+
+#   Start the user's preferred terminal, as best we can guess it,
+#   with the parameters supplied, and as a background process,
+#   setting the global $terminal_pid to the PID of the process started.
+start_terminal() {
+    declare -g terminal_pid=XXX1
+    local termprog
+    if type choose >/dev/null 2>&1; then
+        #   `choose` is a program from the cjsdesktop dot-home repo that
+        #   will search for and run the most appropriate terminal program
+        #   when you execute `choose xterm …`. Most people probably don't
+        #   have this.
+        termprog='choose xterm'
+    elif type x-terminal-emulator >/dev/null 2>&1; then
+        #   Debian-based systems provide `x-terminal-emulator` to give
+        #   the default, updated with `update-alternatives`. To list
+        #   the options: `update-alternatives --list x-terminal-emulator`.
+        termprog='x-terminal-emulator'
+    else
+        #   We could just try `xterm` here or something like that, but
+        #   it's probably better to fail here if we couldn't use one
+        #   of the generic methods above, to let the user work things
+        #   out (and maybe update this script).
+        die 3 "Cannot determine terminal program to run."
+    fi
+    #   Note we do _not_ quote $termprog because it may include
+    #   additional arguments.
+    $termprog "$@" &
+    terminal_pid=$!
+    sleep 0.5
+}
+
+#   Given a name, guess a good width for the terminal, in chars.
+#   Generally, "build" windows are 120, others are 80.
+termwidth() {
+    local name="$1"; shift
+    case "$name" in
+        build*)     echo 120;;
+        *)          echo  80;;
+    esac
+}
+
+#   Windows are placed from right to left; $right_x is the offset from
+#   the right edge of the screen for the next window. This is updated
+#   by resize().
+right_x=0
+
+#   Given the PID of a terminal window, resize it vertically to 90%
+#   of the screen height and update $right_x to be the left edge of
+#   that window.
+resize() {
+    declare -g right_x
+    local pid=$1; shift
+    #   In theory I should be able to use command chaining to find the
+    #   window and then manipulate it, but I keep getting mysterious error
+    #   messages that seem to indicate that it's misinterpreting the search
+    #   command when I add additional commands.
+    local windowid=$(xdotool search --pid $pid || true)
+    #   Awkwardly, we must specify a width when resizing a window, so get
+    #   the existing width so we can use it.
+    local width=$(xdotool getwindowgeometry --shell $windowid \
+        | sed -n -e 's/^WIDTH=//p')
+    xdotool windowsize $windowid $width 90%
+    right_x=$(($right_x + $width))
+}
+
+####################################################################
+
+usage() {
+    cat <<_____
+Usage: $(basename "$0"), after loading the clipboard selection
+
+This expects the clipboard selection to have lines of the form
+'name: ssh …@….tmate.io'; any lines not matching this are ignored.
+For each matching line, a new terminal is opened with a name (in the
+title bar and for the icon) generated from the above, that runs the
+given ssh command. It's expected that pair-programming partners will
+paste into text chat something like the following, which you copy and
+then run this program.
+
+    build: ssh xxxxxxxxxxxx@sgp1.tmate.io
+    edit: ssh yyyyyyyyyyyy@sgp1.tmate.io
+_____
+}
+
+
+[[ $# -gt 0 ]] && { usage; exit 0; }
+
+confirm_tools
+
+tmate_line_pat='([^:]*): ssh ([^ ]**@[^ ]*.tmate.io)'
+found_tmate_line=false
+next_width=120      # width of next terminal, in chars
+while read line; do
+    #   Ignore any lines that are not tmate connect lines.
+    [[ $line =~ $tmate_line_pat ]] || continue
+    found_tmate_line=true
+    name="${BASH_REMATCH[1]}"
+    addr="${BASH_REMATCH[2]}"
+    case name in                    # abbreviations
+        b)  name=build;;
+        e)  name=edit;;
+        t)  name=third;;
+    esac
+    title="rTM: $name    ($addr)"
+    start_terminal -g $(termwidth "$name")x24-${right_x}+0 \
+        -T "$title" -n "$title" -e bash -c \
+        "ssh $addr.; echo -n 'EXIT (press Enter): '; read x"
+    sleep 0.2   # give some time for window to come up
+    resize $terminal_pid
+    next_width=80       # all terminals after the first are 80 chars wide
+done < <(xsel -o -b; echo)   # final line is dropped if it has no newline
+
+$found_tmate_line || echo 1>&2 "Warning: no 'ssh …@…tmate.io' lines found"
