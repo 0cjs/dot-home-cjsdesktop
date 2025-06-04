@@ -121,7 +121,7 @@ while read line; do
     found_tmate_line=true
     name="${BASH_REMATCH[1]}"
     addr="${BASH_REMATCH[2]}"
-    case name in                    # abbreviations
+    case $name in                   # abbreviations
         b)  name=build;;
         e)  name=edit;;
         t)  name=third;;
