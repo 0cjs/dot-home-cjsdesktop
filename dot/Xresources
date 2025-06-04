@@ -109,17 +109,17 @@ Xft.rgba: none
 Rxvt.geometry:          80x45
 Rxvt.saveLines:         8192
 Rxvt.utmpInhibit:       true
-Rxvt.secondaryScreen: 	true
-Rxvt.secondaryScroll: 	false
-Rxvt.tripleclickwords:	true
-Rxvt.cutchars:		:/`""''&()*,;<=>?@[]^{|}
-Rxvt.perl-ext-common:	default,-selection,confirm-paste,font-size
-Rxvt.scrollBar:		false
-Rxvt.scrollTtyOutput:	false
-Rxvt.scrollWithBuffer:	true
-Rxvt.scrollTtyKeypress:	true
-Rxvt.letterSpace: 	-1.5
-Rxvt.visualBell:	true
+Rxvt.secondaryScreen:   true
+Rxvt.secondaryScroll:   false
+Rxvt.tripleclickwords:  true
+Rxvt.cutchars:          :/`""''&()*,;<=>?@[]^{|}
+Rxvt.perl-ext-common:   default,-selection,confirm-paste,font-size
+Rxvt.scrollBar:         false
+Rxvt.scrollTtyOutput:   false
+Rxvt.scrollWithBuffer:  true
+Rxvt.scrollTtyKeypress: true
+Rxvt.letterSpace:       -1.5
+Rxvt.visualBell:        true
 
 !   Font settings
 !   (Originally: 9x15,xft:Kochi Gothic)
@@ -139,10 +139,10 @@ Rxvt.visualBell:	true
 #endif
 
 ! For font-size extension (+/-/0 mapped by default)
-Rxvt.keysym.C-equal:	font-size:increase
-Rxvt.keysym.C-Up:	font-size:increase
-Rxvt.keysym.C-Down:	font-size:decrease
-Rxvt.keysym.C-slash:	font-size:show
+Rxvt.keysym.C-equal:    font-size:increase
+Rxvt.keysym.C-Up:       font-size:increase
+Rxvt.keysym.C-Down:     font-size:decrease
+Rxvt.keysym.C-slash:    font-size:show
 
 !----------------------------------------------------------------------
 ! Xterm
@@ -177,7 +177,7 @@ XTerm*VT100*wideFont:  -misc-fixed-medium-r-normal-ja-13-125-75-75-c-120-iso1064
 
 ! Fonts: 0=default, 1=unreadable, 2=tiny, 3=small, 4=medium, 5=large, 6=huge
 ! 
-! !XTerm*font1: fixedgr		! unreadable = Greek
+! !XTerm*font1: fixedgr         ! unreadable = Greek
 ! 
 ! ! Courier set
 ! !XTerm*font2: -*-courier-medium-r-normal-*-10-*-75-*-*-*-iso8859-*
@@ -261,11 +261,11 @@ XBiff*foreground:       C_bg
 XBiff*background:       C_desktop
 
 ! xpdf
-xpdf.initialZoom:	140
-xpdf.t1libControl:	aa
-xpdf.freeTypeControl:	aa
-xpdf.viKeys:		true
-xpdf.urlCommand:	netscape -remote 'openURL(%s)'
+xpdf.initialZoom:       140
+xpdf.t1libControl:      aa
+xpdf.freeTypeControl:   aa
+xpdf.viKeys:            true
+xpdf.urlCommand:        netscape -remote 'openURL(%s)'
 
 ! XMbmon
 XMBmon*cmtcpu:  chip
