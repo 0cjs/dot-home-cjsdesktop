@@ -40,7 +40,7 @@ start_terminal() {
     fi
     #   Note we do _not_ quote $termprog because it may include
     #   additional arguments.
-    $termprog "$@" &
+    $dry_run $termprog "$@" &
     terminal_pid=$!
     sleep 0.5
 }
@@ -95,18 +95,27 @@ then run this program.
 
     build: ssh xxxxxxxxxxxx@sgp1.tmate.io
     edit: ssh yyyyyyyyyyyy@sgp1.tmate.io
+
+Using the `--dry-run` option will simply print what it would do.
 _____
 }
 
 
+dry_run=
+while [[ $# -gt 0 ]]; do case "$1" in
+    --dry-run)  shift; dry_run=echo;;
+    --)         break;;
+    *)          break;;
+esac; done
 [[ $# -gt 0 ]] && { usage; exit 0; }
 
 confirm_tools
 
-tmate_line_pat='([^:]*): ssh ([^ ]**@[^ ]*.tmate.io)'
+tmate_line_pat='([^:]*):  *ssh ([^ ]**@[^ ]*.tmate.io)'
 found_tmate_line=false
 next_width=120      # width of next terminal, in chars
 while read line; do
+    [[ -n $dry_run ]] && echo "━━ '$line'"
     #   Ignore any lines that are not tmate connect lines.
     [[ $line =~ $tmate_line_pat ]] || continue
     found_tmate_line=true
@@ -122,7 +131,7 @@ while read line; do
         -T "$title" -n "$title" -e bash -c \
         "ssh $addr.; echo -n 'EXIT (press Enter): '; read x"
     sleep 0.2   # give some time for window to come up
-    resize $terminal_pid
+    $dry_run resize $terminal_pid
     next_width=80       # all terminals after the first are 80 chars wide
 done < <(xsel -o -b; echo)   # final line is dropped if it has no newline
 
