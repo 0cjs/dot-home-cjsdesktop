@@ -127,9 +127,21 @@ while read line; do
         t)  name=third;;
     esac
     title="rTM: $name    ($addr)"
+    #   Unfortunately, detaching from a tmate session is considered an
+    #   error by `ssh`, giving exit code 1 or 255. The same is true if the
+    #   tmate session exits, or even if you can't connect. So though
+    #   ideally we would like to wait for a key before exiting (and thus
+    #   closing the window only on errors," and not via a "normal"
+    #   disconnect, we have no way to distinguish these. We leave the exit
+    #   code test with an exit code that will never match as an example of
+    #   testing that in case we want to try to fix this later.
     start_terminal -g $(termwidth "$name")x24-${right_x}+0 \
-        -T "$title" -n "$title" -e bash -c \
-        "ssh $addr.; echo -n 'EXIT (press Enter): '; read x"
+        -T "$title" -n "$title" \
+        -e bash -c '
+            ssh '"$addr"'.
+            [[ $? = never_matches ]] \
+                || { echo -n "exitcode=$?; press Enter: "; read x; }
+        '
     sleep 0.2   # give some time for window to come up
     $dry_run resize $terminal_pid
     next_width=80       # all terminals after the first are 80 chars wide
