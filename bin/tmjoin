@@ -96,16 +96,16 @@ then run this program.
     build: ssh xxxxxxxxxxxx@sgp1.tmate.io
     edit: ssh yyyyyyyyyyyy@sgp1.tmate.io
 
-Using the `--dry-run` option will simply print what it would do.
+Using the `--dry-run`/`-n` option will simply print what it would do.
 _____
 }
 
 
 dry_run=
 while [[ $# -gt 0 ]]; do case "$1" in
-    --dry-run)  shift; dry_run=echo;;
-    --)         break;;
-    *)          break;;
+    --dry-run|-n)       shift; dry_run=echo;;
+    --)                 break;;
+    *)                  break;;
 esac; done
 [[ $# -gt 0 ]] && { usage; exit 0; }
 
