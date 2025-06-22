@@ -111,7 +111,7 @@ esac; done
 
 confirm_tools
 
-tmate_line_pat='([^:]*):  *ssh ([^ ]**@[^ ]*.tmate.io)'
+tmate_line_pat='(([^:]*): *)?\bssh ([^ ]**@[^ ]*.tmate.io)'
 found_tmate_line=false
 next_width=120      # width of next terminal, in chars
 while read line; do
@@ -119,9 +119,11 @@ while read line; do
     #   Ignore any lines that are not tmate connect lines.
     [[ $line =~ $tmate_line_pat ]] || continue
     found_tmate_line=true
-    name="${BASH_REMATCH[1]}"
-    addr="${BASH_REMATCH[2]}"
+    name="${BASH_REMATCH[2]}"
+    addr="${BASH_REMATCH[3]}"
+    [[ -n $dry_run ]] && echo "name='$name' addr='$addr'"
     case $name in                   # abbreviations
+        '') name="${addr:0:8}";;
         b)  name=build;;
         e)  name=edit;;
         t)  name=third;;
