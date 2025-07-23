@@ -96,7 +96,7 @@ then run this program.
     build: ssh xxxxxxxxxxxx@sgp1.tmate.io
     edit: ssh yyyyyyyyyyyy@sgp1.tmate.io
 
-Using the `--dry-run`/`-n` option will simply print what it would do.
+Using the \`--dry-run\`/\`-n\` option will simply print what it would do.
 _____
 }
 
