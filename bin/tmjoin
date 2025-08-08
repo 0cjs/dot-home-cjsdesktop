@@ -111,7 +111,15 @@ esac; done
 
 confirm_tools
 
-tmate_line_pat='(([^:]*): *)?\bssh ([^ ]**@[^ ]*.tmate.io)'
+#   We match:
+#   • Group 1: optionally, everything up to the first colon and its trailing
+#     spaces. This is the "build window:" or similar prefix which is dropped.
+#   • A word starting 'ssh ', which is dropped.
+#   • Group 2: all arguments to the `ssh` command, including any options
+#     (such as `-p 12345` that tmate will generate if the port is not the
+#     default). The server must be *.tmate.io or the known IP address of
+#     the cynic.net test server.
+tmate_line_pat='(([^:]*): *)?\bssh (.*@([^ ]*.tmate.io|122.249.238.158))'
 found_tmate_line=false
 next_width=120      # width of next terminal, in chars
 while read line; do
@@ -121,14 +129,15 @@ while read line; do
     found_tmate_line=true
     name="${BASH_REMATCH[2]}"
     addr="${BASH_REMATCH[3]}"
-    [[ -n $dry_run ]] && echo "name='$name' addr='$addr'"
+    [[ -n $dry_run ]] && printf '• name: %s\n• addr: %s\n' "$name" "$addr"
     case $name in                   # abbreviations
-        '') name="${addr:0:8}";;
+        '') name="${addr##* }";;    # just the …@… addr at the end
         b)  name=build;;
         e)  name=edit;;
         t)  name=third;;
     esac
-    title="rTM: $name    ($addr)"
+    title="rTM: ${name:0:16}   ($addr)"    # limit name to 16 chars
+    [[ -n $dry_run ]] && printf '• title: %s\n' "$title"
     #   Unfortunately, detaching from a tmate session is considered an
     #   error by `ssh`, giving exit code 1 or 255. The same is true if the
     #   tmate session exits, or even if you can't connect. So though
