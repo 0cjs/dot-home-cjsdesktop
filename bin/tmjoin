@@ -50,8 +50,8 @@ start_terminal() {
 termwidth() {
     local name="$1"; shift
     case "$name" in
-        build*)     echo 120;;
-        *)          echo  80;;
+        [Bb]uild*)      echo 120;;
+        *)              echo  80;;
     esac
 }
 
