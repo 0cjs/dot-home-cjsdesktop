@@ -12,14 +12,14 @@
 !   This color scheme does not fix the issue with different colors for
 !   xterm and urxvt in vim, I think because urxvt is 256 color.
 !
-*.color2:               #00a000
-*.color3:               yellow4
-*.color4:               Blue3
-*.color7:               LightSlateGray
-*.color10:              #00d000
-*.color11:              #a0a000
-*.color12:              Blue
-*.color15:              gray
+!*.color2:               #00a000
+!*.color3:               yellow4
+!*.color4:               Blue3
+!*.color7:               LightSlateGray
+!*.color10:              #00d000
+!*.color11:              #a0a000
+!*.color12:              Blue
+!*.color15:              gray
 
 !----------------------------------------------------------------------
 ! Solarized color defs from https://github.com/altercation/solarized.git
