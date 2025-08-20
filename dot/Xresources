@@ -2,7 +2,7 @@
 !   Generic color configuration
 
 #define C_fg            black
-#define C_bg            lightyellow
+#define C_bg            #FFFFE8
 #define C_desktop       #005048
 
 *.foreground:           C_fg
