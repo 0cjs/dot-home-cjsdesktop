@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+#
+#   gphotos - extract ZIP download from Google Photos to ~/Pictures/
+#
+set -Eeuo pipefail
+trap 'ec=$?; echo "INTERNAL ERROR: ec=$ec line=$LINENO"; exit $ec;' ERR
+
+die() { local ec="$1"; shift; echo 1>&2 "$@"; exit $ec; }
+
+photozip=../Downloads/Photos-1-001.zip 
+
+mkdir -p ~/Pictures; cd ~/Pictures
+[[ -f $photozip ]] || die 1 "File not found: $photozip"
+rm -f *.zip *.jpg
+unzip $photozip
+mv $photozip ./
