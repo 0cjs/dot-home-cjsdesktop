@@ -35,7 +35,7 @@ fi
 # Panel Text
 spc="<span size='xx-small'>                        </span>$v"
 mw="<span color='$clow' size='small'>$(date +%0d)$v$(date +%a)</span>$v"
-ct="<span color='$cmed' size='xx-small'>$(TZ=US/Eastern date +%H) ET</span>$v"
+ct="<span color='$cmed' size='xx-small'>$(TZ=US/Pacific date +%H) PT</span>$v"
 utc="<span color='$cmed' size='xx-small'>$(date -u +%H) UT</span>$v"
 hm="<span color='$chigh' size='medium'>$(date +%H)$dsep$(date +%M)</span>"
 echo -e "<txt>$sep$v$mw$sep$v$ct$utc$sep$v$hm$v$sep</txt>"
