@@ -1,3 +1,5 @@
+!   WARNNG: No EOL comments, just lines starting with `!`.
+
 !----------------------------------------------------------------------
 !   Generic color configuration
 
@@ -8,18 +10,31 @@
 *.foreground:           C_fg
 *.background:           C_bg
 
-!   Colors 4 and 12 are urxvt defaults; we tweak xterm etc. to be the same
-!   This color scheme does not fix the issue with different colors for
-!   xterm and urxvt in vim, I think because urxvt is 256 color.
+!   The comments give terminal colour name and urxvt default color mapping
+!   from the urxvt manpage. We tweak some colors (particularly yellows)
+!   to be more visible against our cream-coloured background. Use
+!   cjs0:bin/show-terminal-colors to see a sample.
 !
-!*.color2:               #00a000
-!*.color3:               yellow4
-!*.color4:               Blue3
-!*.color7:               LightSlateGray
-!*.color10:              #00d000
-!*.color11:              #a0a000
-!*.color12:              Blue
-!*.color15:              gray
+! color0        (black)             = Black
+! color1        (red)               = Red3
+! color2        (green)             = Green3
+! color3        (yellow)            = Yellow3
+*.color3: Yellow4
+! color4        (blue)              = Blue3
+! color5        (magenta)           = Magenta3
+! color6        (cyan)              = Cyan3
+! color7        (white)             = AntiqueWhite
+! color8        (bright black)      = Grey25
+! color9        (bright red)        = Red
+! color10       (bright green)      = Green
+! color11       (bright yellow)     = Yellow
+*.color11: Orange
+! color12       (bright blue)       = Blue
+! color13       (bright magenta)    = Magenta
+! color14       (bright cyan)       = Cyan
+! color15       (bright white)      = White
+! foreground                        = Black
+! background                        = White
 
 !----------------------------------------------------------------------
 ! Solarized color defs from https://github.com/altercation/solarized.git
