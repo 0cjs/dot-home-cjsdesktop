@@ -1,5 +1,9 @@
 #   fvwm2 configuration for cjs
 #
+#   We don't use tabs for indentation, but do use them in menu labels
+#   for placement: left ▷ intended ▷ right-justified.
+#       vim: ts=4:sw=4:expandtab:
+#
 #   Notes:
 #
 #   * Lines beginning with `#` are ignored. No EOL comments (I think),
@@ -286,45 +290,45 @@ AddToMenu menu-gotodesk
 
 DestroyMenu menu-windowops
 AddToMenu menu-windowops
-    + "Window Ops"                      Title
-    + "&a        move"                  Move
-    + "&s        resize"                Resize
-    + "&d        demaximize/resize-maximize" Function ResizeMaximizeToggle
-    + "&f        maximize vertically"   Maximize 0 100
-    + "&g        grow horizontally"     Maximize grow 0
-    + "&b        maximize both"         ResizeMoveMaximize -25p -25p 25p 0
-                                        # -25 to avoid covering panel at left
-    + ""                                Nop
+    + "Window Ops"              Title
 
-    + "&h        Left"      Direction West  (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise -5p 50
-    + "&j        Down"      Direction South (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise -5p 50
-    + "&k        Up"        Direction North (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise -5p 50
-    + "&l        Right"     Direction East  (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise -5p 50
-    + "&u        raise"     Raise
-    + "&i        lower"     Lower
-    + "&y        focus"     Function ForceFocusWithClick
-    + ""                    Nop
+    + "&h	move focus left"    Direction West  (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise -5p 50
+    + "&j	move focus down"    Direction South (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise -5p 50
+    + "&k	move focus up"      Direction North (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise -5p 50
+    + "&l	move focus right"   Direction East  (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise -5p 50
+    + "&y	set focus"          Function ForceFocusWithClick
+    + ""                        Nop
 
-    + "&1        (de)iconify"           Iconify
-    + "&2        (un)windowshade"       Function WindowshadeToggle
-    + "&3        (un)windowshade"       Function WindowshadeToggle
-    + "&q        window move..."        Popup menu-windowops-moveto
-    + "&w        window move..."        Popup menu-windowops-moveto
-    + "&e        (un)stick"             Stick
-    + "&r        Resize..."             Popup menu-windowops-resize
-    + "&t        move to desktop"       Popup menu-windowops-movetodesk
-    + ""                                Nop
+    + "&u	raise"              Raise
+    + "&i	lower"              Lower
+    + "&a	move"               Move
+    + "&s	resize"             Resize
+    + "&d	temp size/restore"  Function ResizeMaximizeToggle
+    + "&f	maximize vert"      Maximize 0 100
+    + "&g	grow horiz"         Maximize grow 0
+    + "&b	maximize"           ResizeMoveMaximize -25p -25p 25p 0 # -25 to avoid covering panel at left
+    + ""                        Nop
 
-    + "&c        Close Window..."       Popup menu-windowops-close
-    + "&?        Identify Window"       Module FvwmIdent
-    + "&/        Refresh Window"        RefreshWindow
-    + "&.        Refresh Screen"        Refresh
-    + "&,        Fvwm Configuration"    Popup menu-windowops-config
+    + "&1	(de)iconify"        Iconify
+    + "&2	(un)windowshade"    Function WindowshadeToggle
+    + "&3	(un)windowshade"    Function WindowshadeToggle
+    + "&q	window move…"       Popup menu-windowops-moveto
+    + "&w	window move…"       Popup menu-windowops-moveto
+    + "&e	(un)stick"          Stick
+    + "&r	Resize…"            Popup menu-windowops-resize
+    + "&t	move to desktop"    Popup menu-windowops-movetodesk
+    + ""                        Nop
 
-    + ""                                Nop
-    + "&o        Insert Keystroke"      Popup menu-windowops-keystroke
-    + "&'        quick shell"           Exec LC_NOTLC_XTITLE=QuickShell exec choose xterm -geometry 80x25-200+200 -title "QuickShell"
-    + "&;        lock screen"           Exec exec lock-screen
+    + "&c	close window…"      Popup menu-windowops-close
+    + "&?	identify window"    Module FvwmIdent
+    + "&/	refresh window"     RefreshWindow
+    + "&.	refresh screen"     Refresh
+    + "&,	fvwm configuration" Popup menu-windowops-config
+    + ""                        Nop
+
+    + "&o	Insert Keystroke"   Popup menu-windowops-keystroke
+    + "&'	quick shell"        Exec LC_NOTLC_XTITLE=QuickShell exec choose xterm -geometry 80x25-200+200 -title "QuickShell"
+    + "&;	lock screen"        Exec exec lock-screen
 
 #   This is an attempt to force focus into Wine windows when I'm using
 #   point-to-focus and pointing (and even clicking) in the window doesn't
