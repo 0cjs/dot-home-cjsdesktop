@@ -287,13 +287,7 @@ AddToMenu menu-gotodesk
 DestroyMenu menu-windowops
 AddToMenu menu-windowops
     + "Window Ops"                      Title
-    #    For some reason if we start on the move... menu popup, hotkey
-    #    switching to another item in the list that does the same popup (&q)
-    #    doesn't work. So we start with an empty item at the top to avoid this.
-    + "&        "                       Nop
-
     + "&a        move"                  Move
-    + "&z        move"                  Move
     + "&s        resize"                Resize
     + "&d        demaximize/resize-maximize" Function ResizeMaximizeToggle
     + "&f        maximize vertically"   Maximize 0 100
