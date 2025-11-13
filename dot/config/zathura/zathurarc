@@ -1,5 +1,5 @@
-#   Default bindings are marked with "(default)" and are here to just
-#   document what's available and currently used keys.
+#   Lines starting with `#df` instead of `map` document default bindings.
+#   The new/changed bindings emulate less(1) or vi(1) where appropriate.
 #
 #   Good docs/hints at: https://wiki.archlinux.org/title/Zathura
 
@@ -7,35 +7,45 @@
 map <Button4>   zoom in
 map <Button5>   zoom out
 
-#   Page navigation
-#
-map b           navigate previous
-map f           navigate next
-map <Space>     navigate next           # default is scroll down
-map J           scroll full-down        # like ^F (def. navigate next)
-map K           scroll full-up          # like ^B (def. navigate previous)
-map g           goto
+#   Scroll movement
+map <Space> scroll full-down        # full screen forward (default)
+map <C-f>   scroll full-down        #   (as vim)
+map b       scroll full-up          # full screen backwards
+map <C-b>   scroll full-up          #   (as vim)
+map J       scroll half-down
+#df <C-d>   scroll half-down
+map K       scroll half-up
+map K       scroll half-up
+#   j,k already scroll a few lines
 
-#map m          mark_add                # set mark (default)
-#map '          mark_evaluate           # jump to mark (default)
+#   Page navigation/movement
+map f       navigate next           # top of next page of doc (also PgDn)
+#ap d       navigate previous       # XXX figure out how to remap `d` first
+map F       navigate previous       # top of prev page of doc (also PgUp)
+#df H                               # top of current page
+#df L                               # bottom of current page
+map g       goto                    # take page no.; note: disables `gg`
+
+#   Other navigation/movement
+#df m       mark_add                # set mark (default)
+#df '       mark_evaluate           # jump to mark (default)
 
 #   Zoom and view modes
-#
-map r           rotate rotate-ccw       # default is rotate-cw
-map t           rotate rotate-cw        # default is scroll full-left
+map r       rotate rotate-ccw       # default is rotate-cw
+map R       rotate rotate-cw        # default is scroll full-left
+map t       rotate rotate-cw        # default is scroll full-left
 
-#map d          ?                       # dual-page view (default)
-map D set "first-page-column 1:1"
-map <C-d> set "first-page-column 1:2"
-#map D       toggle_page_mode        # allegedly "multiple pages per row"
-map w           adjust_window width
-map e           adjust_window best-fit  # mnemonic: "entire page"
-map i           zoom in
-map u           zoom out                # mnemonic: "up"
-
-#map s          toggle_fullscreen       # can't seem to untoggle once pressed
-                                        # just use window manager toggle
-#map <Tab>      toggle_index            # (default)
+#ap s      ?                        # "split" dual-page view (ex-'d')
+map D set   "first-page-column 1:1"
+map <C-d>   set "first-page-column 1:2"
+#df D       toggle_page_mode        # allegedly "multiple pages per row"
+map w       adjust_window width
+map e       adjust_window best-fit  # mnemonic: "entire page"
+map i       zoom in
+map u       zoom out                # mnemonic: "up"
+#map S      toggle_fullscreen       # can't seem to untoggle once pressed
+                                    # just use window manager toggle
+#map <Tab>  toggle_index            # (default)
 
 #   Other
 #
