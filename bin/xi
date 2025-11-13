@@ -11,6 +11,8 @@
 #
 #   Xseticon is most easily avaialble from:
 #     https://github.com/xeyownt/xseticon.git
+#   It requires:
+#     libxmu-dev libgd-dev
 #
 #
 set -Eeuo pipefail
