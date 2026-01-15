@@ -20,8 +20,10 @@ map K       scroll half-up
 
 #   Page navigation/movement
 map f       navigate next           # top of next page of doc (also PgDn)
-#ap d       navigate previous       # XXX figure out how to remap `d` first
+map <Return> navigate next
 map F       navigate previous       # top of prev page of doc (also PgUp)
+map B       navigate previous       # XXX won't map for some reason?
+#ap d       navigate previous       # XXX figure out how to remap `d` first
 #df H                               # top of current page
 #df L                               # bottom of current page
 map g       goto                    # take page no.; note: disables `gg`
