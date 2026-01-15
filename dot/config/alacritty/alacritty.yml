@@ -1,0 +1,18 @@
+colors:
+    primary:
+        background: '#FFFFE0'   # lightyellow
+        foreground: '#000000'   # black
+
+font:
+    size: 8.5
+    offset:
+        x: -1
+        y: 0
+    glyph_offset:
+        x: 0
+        y: 0
+    normal:
+        #family: 'monospace'
+        #style: 'Regular'
+        family: 'DejaVu Sans Mono'
+        style: 'Regular'
