@@ -292,10 +292,10 @@ DestroyMenu menu-windowops
 AddToMenu menu-windowops
     + "Window Ops"              Title
 
-    + "&h	move focus left"    Direction West  (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise -5p 50
-    + "&j	move focus down"    Direction South (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise -5p 50
-    + "&k	move focus up"      Direction North (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise -5p 50
-    + "&l	move focus right"   Direction East  (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise -5p 50
+    + "&h	move focus left"    Direction West  (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise 15p -15p
+    + "&j	move focus down"    Direction South (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise 15p -15p
+    + "&k	move focus up"      Direction North (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise 15p -15p
+    + "&l	move focus right"   Direction East  (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise 15p -15p
     + "&y	set focus"          Function ForceFocusWithClick
     + ""                        Nop
 
@@ -353,7 +353,7 @@ AddToFunc ResizeMaximizeToggle
 DestroyFunc WindowshadeToggle
 AddToFunc WindowshadeToggle
 + I WindowShade toggle
-+ I WarpToWindow -5p -5p
++ I WarpToWindow 15p -15p
 
 DestroyMenu menu-windowops-moveto
 AddToMenu menu-windowops-moveto
@@ -466,7 +466,7 @@ AddToFunc WindowListFunc
 + I Iconify off
 + I FlipFocus
 + I Raise
-+ I WarpToWindow -2p 50
++ I WarpToWindow 15p -15p
 
 DestroyMenu menu-root
 AddToMenu menu-root
