@@ -82,9 +82,11 @@ Style *         Borders, !Handles, BorderWidth 1
 Style *         BorderColorset 99, HilightBorderColorset 99
 TitleStyle      -- Flat
 Style *         Title, TitleAtBottom, Colorset 102, HilightColorset 103
-#   size=8 is good for high-DPI displays (e.g., 27" 4K), but size=7 is
-#   better for laptops, etc. We just hard-code it to 8 right now, but
-#   should use a #define from a generated #include file instead.
+#   size=8 is good for high-DPI displays (e.g., 27" 4K), and seems probably
+#   ok on FHD laptops, but size=7 might be better for non-FHD  laptops,
+#   etc. We just hard-code it to 8 right now, but should use a #define from
+#   a generated #include file instead. `WarpToWindow` verticial positions
+#   are affected by this.
 Style *         Font "xft:Noto Serif:size=8"
 #Style *        TitleFormat %n | class=%c res=%r # Debugging
 
@@ -292,10 +294,10 @@ DestroyMenu menu-windowops
 AddToMenu menu-windowops
     + "Window Ops"              Title
 
-    + "&h	move focus left"    Direction West  (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise 15p -15p
-    + "&j	move focus down"    Direction South (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise 15p -15p
-    + "&k	move focus up"      Direction North (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise 15p -15p
-    + "&l	move focus right"   Direction East  (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise 15p -15p
+    + "&h	move focus left"    Direction West  (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise 40p -18p
+    + "&j	move focus down"    Direction South (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise 40p -18p
+    + "&k	move focus up"      Direction North (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise 40p -18p
+    + "&l	move focus right"   Direction East  (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise 40p -18p
     + "&y	set focus"          Function ForceFocusWithClick
     + ""                        Nop
 
@@ -353,7 +355,7 @@ AddToFunc ResizeMaximizeToggle
 DestroyFunc WindowshadeToggle
 AddToFunc WindowshadeToggle
 + I WindowShade toggle
-+ I WarpToWindow 15p -15p
++ I WarpToWindow 40p -18p
 
 DestroyMenu menu-windowops-moveto
 AddToMenu menu-windowops-moveto
@@ -466,7 +468,7 @@ AddToFunc WindowListFunc
 + I Iconify off
 + I FlipFocus
 + I Raise
-+ I WarpToWindow 15p -15p
++ I WarpToWindow 40p -18p
 
 DestroyMenu menu-root
 AddToMenu menu-root
