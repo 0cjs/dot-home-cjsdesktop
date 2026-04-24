@@ -136,6 +136,11 @@ Rxvt.scrollTtyKeypress: true
 Rxvt.letterSpace:       -1.5
 Rxvt.visualBell:        true
 
+!!! Key input settings.
+!   Shift-Return sends CSI u keycode=13 (Return) modifier=2 (Shift) setting.
+!   • https://claude.ai/share/f6f6242a-7ce8-44a3-adbb-b0856e9d7a09
+URxvt.keysym.S-Return: \033[13;2u
+
 !   Font settings
 !   (Originally: 9x15,xft:Kochi Gothic)
 #define RXVT_FONT_COMMON_FALLBACK \
