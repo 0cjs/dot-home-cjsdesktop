@@ -119,7 +119,7 @@ confirm_tools
 #     (such as `-p 12345` that tmate will generate if the port is not the
 #     default). The server must be *.tmate.io or the known IP address of
 #     the cynic.net test server.
-tmate_line_pat='(([^:]*): *)?\bssh (.*@([^ ]*.tmate.io|122.249.238.158))'
+tmate_line_pat='(([^:]*): *)?\bssh (.*@([^ ]*\.tmate\.io|122\.249\.238\.158|.*\.com))'
 found_tmate_line=false
 next_width=120      # width of next terminal, in chars
 while read line; do
