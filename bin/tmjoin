@@ -136,7 +136,7 @@ while read line; do
         e)  name=edit;;
         t)  name=third;;
     esac
-    title="rTM: ${name:0:16}   ($addr)"    # limit name to 16 chars
+    title="⇔ ${name:0:16}   ($addr)"    # limit name to 16 chars
     [[ -n $dry_run ]] && printf '• title: %s\n' "$title"
     #   Unfortunately, detaching from a tmate session is considered an
     #   error by `ssh`, giving exit code 1 or 255. The same is true if the
