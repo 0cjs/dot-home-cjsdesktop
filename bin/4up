@@ -1,5 +1,5 @@
-#!/bin/sh
-. ~/.shrc
+#!/bin/bash
+source ~/.bashrc
 
 #xterm -e 'echo 22; exec /bin/bash -i'
 #exit
@@ -31,26 +31,26 @@ while true; do case "$1" in
 esac; done
 
 for window in $windows; do
-    if [ $window = pause ]; then
+    if [[ $window = pause ]]; then
         # Give started xterms time to map to the display
         sleep 0.2
     else
         geom=${window%,*}
         title=${window#*,}
-        [ "$title" = "$geom" ] && title=""
-        if [ -n "$host" ]; then
+        [[ $title = $geom ]] && title=""
+        if [[ -n $host ]]; then
             c="cjslogin -t $host 'c $co_dir; $prerel; $SHELL -l -i'"
         else
             c=". ~/.shrc; "
-            if [ -n "$co_dir" ]; then
+            if [[ -n $co_dir ]]; then
                 dir=$(find-co-dir -1 "$co_dir")
-                [ $? -ne 0 ] && exit 1
+                [[ $? -ne 0 ]] && exit 1
                 c="$c cd $dir; $prerel; xt $title;"
             fi
-            [ -n "$base_dir" ] && c="cd $base_dir;"
+            [[ -n $base_dir ]] && c="cd $base_dir;"
             case $geom in S-*) 
                 geom=$(echo "$geom" | sed -e 's/S-//')
-                [ -n "$sub_dir" ] && c="$c cd $sub_dir;"
+                [[ -n $sub_dir ]] && c="$c cd $sub_dir;"
             esac
             c="$c $SHELL -i;"
         fi
@@ -62,7 +62,7 @@ for window in $windows; do
     fi
     # Now that at least one window has been started, ensure that a key is
     # loaded before we continue. (XXX fails if first window was "pause"!)
-    while [ -n "$host" ] && ! cjslogin --check-agent-only $host; do
+    while [[ -n $host ]] && ! cjslogin --check-agent-only $host; do
         sleep 1
     done
 done
