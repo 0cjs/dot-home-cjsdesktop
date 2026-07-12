@@ -110,8 +110,8 @@ Style *term     TileManualPlacement
 Style *Rxvt     TileManualPlacement
 Style CSSH*     MinOverlapPercentPlacement
 Style *         SnapAttraction 10 Windows Screen
+#   No icons are fine; we use the Window list to bring things back.
 Style *         NoIcon
-#                       Because we use FvwmIconMan
 Style *         NakedTransient
 Style *         UseTransientPPosition
 Style *         FPGrabFocusTransient, FPReleaseFocusTransient
@@ -123,9 +123,7 @@ Style *         ResizeOpaque
 # Styles for various Fvwm modules:
 Style Fvwm*       NoTitle,  Sticky, WindowListSkip
 Style Fvwm*       CirculateSkipIcon, CirculateSkip
-Style FvwmConsole Title, !Sticky
 Style FvwmPager   StaysOnTop
-Style FvwmBanner  StaysOnTop
 Style FvwmButtons Icon toolbox.xpm, ClickToFocus
 
 # Things that sit in the notification area
@@ -247,7 +245,6 @@ Mouse 3 P       N       CancelPlacement
 
 # Root window mouse bindings.
 Mouse 1 R       N       Menu menu-root Nop
-#Mouse 1 R      S       Menu MenuFvwmRoot Nop   # fvwm default
 Mouse 2 R       N       WindowList (CurrentDesk) NoDeskNum,NoNumInDeskTitle,IconifiedAtEnd,NoGeometryWithInfo
 Mouse 2 R       S       WindowList TitleForAllDesks,NoDeskNum,NoNumInDeskTitle,IconifiedAtEnd,NoGeometryWithInfo
 Mouse 3 R       N       Menu menu-windowops Nop
@@ -266,12 +263,16 @@ Mouse 3 R       N       Menu menu-windowops Nop
 Mouse 1 A       MS      RaiseLower
 Mouse 2 A       MS      WindowList (CurrentDesk) NoDeskNum,NoNumInDeskTitle,IconifiedAtEnd,NoGeometryWithInfo
 Mouse 3 A       MS      Iconify
-Mouse 3 A       MCS     Menu MenuFvwmWindowOps2 Close
 
 # Mouse bindings for window control (window titlebar/frames/borders).
 Mouse 1 FST     N       FuncFvwmMoveOrRaise
 Mouse 3 FST     N       Menu menu-windowops Nop
 
+DestroyFunc FuncFvwmMoveOrRaise
+AddToFunc FuncFvwmMoveOrRaise
++ I Raise
++ M Move
++ D Lower
 
 ######################################################################
 # Menus
@@ -436,7 +437,7 @@ AddToMenu menu-windowops-config
     + "&s. $[gt.Sloppy Focus]"        FuncFvwmFocusPolicyChange SloppyFocus
 
 #   XXX This appears to override more specific focus policies set for
-#   certain windows, such as `Style FvwmButtons ... ClickToFocus`.
+#   certain windows, such as `Style Google-chrome ClickToFocus, Lenience`.
 DestroyFunc FuncFvwmFocusPolicyChange
 AddToFunc FuncFvwmFocusPolicyChange
 + I Style * $0
@@ -495,7 +496,6 @@ AddToMenu menu-root
     + ""                Nop
     + "&Lock Screen"    Exec exec lock-screen
     + "&;Lock Screen"   Exec exec lock-screen
-    + "Old Root"        Popup MenuFvwmRoot
     + "E&xit options"   Popup menu-quit
 
 DestroyMenu menu-quit
@@ -605,230 +605,8 @@ AddToMenu menu-4up-midokura
     + "&2midonet"       Exec exec 4up -P -c 2midonet
     + "&3midonet"       Exec exec 4up -P -c 3midonet
 
-####################################################################
-#   Old FVWM root menu.
-#   Kept here more for documentation than actual use.
-
-DestroyMenu MenuFvwmRoot
-AddToMenu MenuFvwmRoot  "$[gt.Root Menu]"             Title
-+                       "&1. XTerm"             Exec exec xterm
-+                       "&2. Rxvt"              Exec exec rxvt
-+                       ""              Nop
-+                       "&D. Debian Menu"             Popup "/Debian"
-+                       ""              Nop
-+                       "&R. $[gt.Remote Logins]"     Popup MenuFvwmLogins
-+                       ""              Nop
-+                       "&U. $[gt.Utilities]"         Popup MenuFvwmUtilities
-+                       ""              Nop
-+                       "&M. $[gt.Fvwm Modules]"      Popup MenuFvwmModules
-+                       "&S. $[gt.Fvwm Config Ops]"   Popup MenuFvwmConfig
-+                       ""              Nop
-+                       "&F. $[gt.Refresh Screen]"   Refresh
-+                       "&C. $[gt.Recapture Screen]" Recapture
-+                       ""              Nop
-+                       "&X. $[gt.Exit Fvwm]" Popup MenuFvwmQuitVerify
-
-DestroyMenu MenuFvwmUtilities
-AddToMenu MenuFvwmUtilities     "$[gt.Utilities]" Title
-+                       "&T. Top"       Exec exec xterm -T Top -n Top -e top
-+                       "&C. Calculator" Exec exec xcalc
-+                       "&M. Xman"      Exec exec xman
-+                       "&G. Xmag"      Exec exec xmag
-+                       "&R. Editres"   Exec exec editres
-+                       ""              Nop
-+                       "&E. XEmacs"    Exec exec xemacs
-+                       "&A. Xmh Mail"  FuncFvwmMailXmh xmh "-font fixed"
-+                       ""              Nop
-+                       "&L. XLock"     Exec exec xlock -mode random
-+                       ""              Nop
-+                       "&D. $[gt.Reset X defaults]" Exec xrdb -load $HOME/.Xresources
-
-DestroyMenu MenuFvwmConfig
-AddToMenu MenuFvwmConfig "$[gt.Fvwm Config Ops]" Title
-+ "&S. $[gt.Sloppy Focus]"        FuncFvwmFocusPolicyChange SloppyFocus
-+ "&C. $[gt.Click To Focus]"      FuncFvwmFocusPolicyChange ClickToFocus
-+ "&F. $[gt.Focus Follows Mouse]" FuncFvwmFocusPolicyChange FocusFollowsMouse
-+ "" Nop
-+ "&1. $[gt.Colormap Follows Mouse]" ColormapFocus FollowsMouse
-+ "&2. $[gt.Colormap Follows Focus]" ColormapFocus FollowsFocus
-+ "" Nop
-+ "&3. $[gt.Full Paging ON]"           EdgeScroll 100 100
-+ "&4. $[gt.All Paging OFF]"           EdgeScroll 0 0
-+ "&5. $[gt.Horizontal Paging Only]"   EdgeScroll 100 0
-+ "&6. $[gt.Vertical Paging Only]"     EdgeScroll 0 100
-+ "&7. $[gt.Partial Paging]"           EdgeScroll 50 50
-+ "&8. $[gt.Full Paging && Edge Wrap]" EdgeScroll 100000 100000
-
-# 3 different ways to log on, take your pick:
-DestroyFunc FuncFvwmRloginXterm
-AddToFunc FuncFvwmRloginXterm \
-  I Exec xterm -name $0 -title "$USER @ $0" -e rlogin $0
-DestroyFunc FuncFvwmRloginRxvt
-AddToFunc FuncFvwmRloginRxvt \
-  I Exec rxvt -name $0 -n $0 -title $USER@$0 -e rlogin $0
-DestroyFunc FuncFvwmRloginSshRxvt
-AddToFunc FuncFvwmRloginSshRxvt \
-  I Exec Exec ssh $0 rxvt -display $HOSTDISPLAY
-
-# be sure to fill these in with your correct machine names:
-DestroyMenu MenuFvwmLogins
-AddToMenu MenuFvwmLogins
-+ &dopey  FuncFvwmRloginXterm dopey
-+ &snoopy FuncFvwmRloginXterm snoopy
-+ s&ignal Exec rxterm signal
-
-DestroyMenu MenuFvwmModules
-AddToMenu MenuFvwmModules "$[gt.Fvwm Modules]"        Title
-+ "&1. $[gt.Control Animation]" Popup  MenuFvwmAnimate
-+ "&B. Button-Bar"        Module FvwmButtons
-+ "&O. IconBox"           FuncFvwmConfigureIconBox
-+ "&F. Forms"             Popup  MenuFvwmForms
-+ "&I. Identify"          Module FvwmIdent
-+ "&M. IconMan"           Module FvwmIconMan
-+ "&N. Banner"            Module FvwmBanner
-+ "&C. Console"           Module FvwmConsole -terminal xterm
-+ "&P. Pager"             Module FvwmPager 0 0
-+ "&2. Pager (2 $[gt.desks])"   Module FvwmPager 0 1
-+ "&R. Backer"            Module FvwmBacker
-+ "&S. ScrollBar"         Module FvwmScroll 50 50
-+ "&T. FvwmTaskBar"       Module FvwmTaskBar
-+ "&U. AutoRaise"         Module FvwmAuto 200 Raise Nop
-+ "&V. FvwmTabs"          Module FvwmTabs
-+ "&W. WinList"           Module FvwmWinList
-+ "&X. $[gt.Stop Module Menu]"  Popup  MenuFvwmStopModule
-
-DestroyMenu MenuFvwmStopModule
-AddToMenu MenuFvwmStopModule "$[gt.Stop Fvwm Modules]" Title
-+ "&B. $[gt.Stop] Button-Bar"  KillModule FvwmButtons
-+ "&O. $[gt.Stop] IconBox"     KillModule FvwmIconBox
-+ "&M. $[gt.Stop] IconMan"     KillModule FvwmIconMan
-+ "&P. $[gt.Stop] Pager"       KillModule FvwmPager
-+ "&R. $[gt.Stop] Backer"      KillModule FvwmBacker
-+ "&S. $[gt.Stop] ScrollBar"   KillModule FvwmScroll
-+ "&T. $[gt.Stop] FvwmTaskBar" KillModule FvwmTaskBar
-+ "&U. $[gt.Stop] AutoRaise"   KillModule FvwmAuto
-+ "&V. $[gt.Stop] FvwmTabs"    KillModule FvwmTabs
-+ "&W. $[gt.Stop] WinList"     KillModule FvwmWinList
-
-DestroyMenu MenuFvwmForms
-AddToMenu MenuFvwmForms
-+ "&C. Capture"       Module FvwmForm FvwmForm-Capture
-+ "&D. Form Defaults" Module FvwmForm FvwmForm-Form
-+ "&R. Rlogin"        Module FvwmForm FvwmForm-Rlogin
-+ "&P. RootCursor"    Module FvwmForm FvwmForm-RootCursor
-+ "&S. Setup"         Module FvwmForm FvwmForm-Setup
-+ "&T. Talk Form"     Module FvwmForm FvwmForm-Talk
-+ "&Q. QuitVerify"    Module FvwmForm FvwmForm-QuitVerify
-
-# Configure and start using an iconbox on the fly
-DestroyFunc FuncFvwmConfigureIconBox
-AddToFunc FuncFvwmConfigureIconBox
-+ I Module FvwmIconBox
-+ I Style     *  NoIcon
-
-DestroyMenu MenuFvwmQuitVerify
-AddToMenu MenuFvwmQuitVerify "$[gt.Really Quit Fvwm?]" Title
-+ "&Q. $[gt.Yes, Really Quit]" Quit
-+ ""                     Nop
-+ "&R. $[gt.Restart]"          Restart /usr/bin/fvwm
-+ ""                     Nop
-+ "&T. $[gt.Start] twm"        Restart twm
-+ "&C. $[gt.Start] ctwm"       Restart ctwm
-+ "&2. $[gt.Start] tvtwm"      Restart tvtwm
-+ "&V. $[gt.Start] vtwm"       Restart vtwm
-+ "&M. $[gt.Start] mwm"        Restart mwm
-+ "&O. $[gt.Start] olwm"       Restart /usr/openwin/bin/olwm
-+ ""                     Nop
-+ "&X. $[gt.Just an Xterm]"    Restart xterm -n '"X Console"' -T '"X Console"'
-+ ""                     Nop
-+ "&N. $[gt.No, Don't Quit]"   Nop
-
-##### Sample Functions
-
-DestroyFunc FuncFvwmMailXmh
-AddToFunc FuncFvwmMailXmh
-+ I Next [$0] Iconify false
-+ I Next [$0] Focus
-+ I None [$0] Exec $0 $1
-
-DestroyFunc FuncFvwmMoveOrRaise
-AddToFunc FuncFvwmMoveOrRaise
-+ I Raise
-+ M Move
-+ D Lower
-
-DestroyFunc FuncFvwmMaximize
-AddToFunc FuncFvwmMaximize
-+ M Maximize   0 100
-+ H Maximize   0 100
-+ C Maximize   0  80
-+ D Maximize 100 100
-
-DestroyFunc FuncFvwmMoveOrIconify
-AddToFunc FuncFvwmMoveOrIconify
-+ I Raise
-+ M Move
-+ D Iconify
-
-DestroyFunc FuncFvwmResizeOrRaise
-AddToFunc FuncFvwmResizeOrRaise
-+ I Raise
-+ M Resize
-+ D Lower
-
-# cjs: tweak this to do a capture using xwd and maybe xpr?
-DestroyFunc FuncFvwmPrint
-AddToFunc FuncFvwmPrint
-+ I Raise
-+ I Exec xdpr -id $w
-
 ######################################################################
 # Modules
-
-# To test, in FvwmConsole:
-#       KillModule FvwmButtons
-#       Module FvwmButtons
-
-DestroyModuleConfig FvwmButtons: *
-*FvwmButtons: Colorset 100
-*FvwmButtons: Geometry 100x800+0+0
-*FvwmButtons: Columns 1
-*FvwmButtons: Rows 30
-# XXX Clock breaks the entire FvwmButtons startup, for some reason.
-#*FvwmButtons: (1x1, Swallow "FvwmXclock" \
-#    'Exec xclock -name FvwmXclock \
-#    -digital  -strftime "%m-%d %H:%M %Z" -padding 2 -geometry 110x30')
-#    # -geometry 110x30
-*FvwmButtons: (1x13, Swallow (UseOld) "FvwmPager" "Module FvwmPager 0 13")
-*FvwmButtons: (1x13, Swallow (UseOld) "FvwmIconMan" "Module FvwmIconMan")
-
-DestroyModuleConfig FvwmPager: *
-*FvwmPager: Colorset * 100
-*FvwmPager: Rows 6
-*FvwmPager: Columns 2
-*FvwmPager: Font none
-*FvwmPager: SmallFont 5x8
-
-*FvwmIconBox: Resolution desk
-*FvwmIconBox: UseSkipList
-*FvwmIconBox: Back #005048
-*FvwmIconBox: Lines 4
-*FvwmIconBox: HideSC horizontal
-*FvwmIconBox: SBWidth 0
-*FvwmIconBox: FrameWidth 0 0
-*FvwmIconBox: Geometry 4x4+24-18
-
-DestroyModuleConfig FvwmIconMan: *
-*FvwmIconMan: NumManagers 1
-*FvwmIconMan: Resolution  page
-*FvwmIconMan: Colorset 100
-*FvwmIconMan: ManagerGeometry 1x20
-#*FvwmIconMan: MaxButtonWidth 115
-*FvwmIconMan: ButtonGeometry 115x16
-*FvwmIconMan: Format %i
-*FvwmIconMan: Font 6x10
-*FvwmIconMan: PlainButton flat
-*FvwmIconMan: FocusButton flat
 
 DestroyModuleConfig FvwmBacker: *
 *FvwmBacker: Command (Desk *, Page * *) -solid #005048
