@@ -194,9 +194,11 @@ Key Tab                 A M     WindowList (CurrentDesk)    Root c c        Curr
 Key Henkan_Mode         A N     Menu menu-windowops
 Key Henkan_Mode         A S     Stick
 Key Henkan_Mode         A CS    Close
-Key Henkan_Mode         A C     Exec xmessage \
-                                -nearmouse  -g 75x75 -name 'LocateCursor' \
-                                -timeout 1 -buttons '' -bg red -fg white ''
+#   xmessage is a nice hack, but xfce4-find-cursor is _much_ better.
+#Key Henkan_Mode         A C     Exec xmessage \
+#                                -nearmouse  -g 75x75 -name 'LocateCursor' \
+#                                -timeout 1 -buttons '' -bg red -fg white ''
+Key Henkan_Mode         A C     Exec xfce4-find-cursor
 Style LocateCursor              UsePPosition, NoTitle, NoHandles, BorderWidth 37
 
 
