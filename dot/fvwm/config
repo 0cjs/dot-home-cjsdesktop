@@ -575,7 +575,7 @@ AddToMenu menu-utils
     + "show-terminal-&colors"           Exec exec urxvt -g 80x50+400+0 -e show-terminal-colors -t urxvt
     + "show-&xterminal-colors"          Exec exec xterm -g 80x50+400+0 -e show-terminal-colors -t xterm
 
-PipeRead "$HOME/.fvwm/genconf/sshmenus.py
+PipeRead "$HOME/.fvwm/genconf/sshmenus.py"
 
 DestroyMenu menu-4up
 AddToMenu menu-4up
