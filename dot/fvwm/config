@@ -179,7 +179,7 @@ AddToFunc UrgencyDoneFunc
 #
 
 # Meta-shift-pause: emergency restart
-Key Pause               A SM    Restart /usr/bin/fvwm
+Key Pause               A SM    Restart
 
 # Menus
 
