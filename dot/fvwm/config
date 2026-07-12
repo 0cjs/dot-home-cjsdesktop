@@ -217,8 +217,8 @@ Key F1                  M N     MenuTearOff
 Style fvwm_menu UsePPosition
 
 # Meta PgUp/PgDn, scroll through desktops
-Key Next                A M     Desk 1
-Key Prior               A M     Desk -1
+Key Next                A M     GotoDesk 1
+Key Prior               A M     GotoDesk -1
 
 # unmodified F1-F12, select desktop
 # (See menu-windowops-keystroke for how to send F1-12 to applications.)
