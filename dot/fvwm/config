@@ -634,13 +634,13 @@ AddToFunc StartFunction
 + I Module FvwmBacker
 
 #   Executed only on startup (after StartFunction)
-DestroyFunc InitFunction
+DestroyFunc InitFunction    # would be SessionInitFunction w/session manager
 AddToFunc InitFunction
 #   Normally no need to do things here that .xinitrc has already done.
 + I GotoDesk 0 3
 
 #   Executed only on restart (after StartFunction)
-DestroyFunc RestartFunction
+DestroyFunc RestartFunction # would be SessionRestartFunction w/session manager
 AddToFunc RestartFunction
 + I Exec bash -c \
     'pgrep xfce4-panel && xfce4-panel --restart || xfce4-panel'
@@ -648,18 +648,6 @@ AddToFunc RestartFunction
 #   Executed only on exit (before exit or restart)
 DestroyFunc ExitFunction
 AddToFunc ExitFunction
-
-DestroyFunc SessionInitFunction (replaces InitFunction under session manager)
-AddToFunc SessionInitFunction
-#   The GotoDesk works, but something later sends us back to desktop 0 anyway.
-+ I GotoDesk 0 3
-+ I exec exec choose xterm -title "$(hostname -s)" -n "$(hostname -s)" -g 80x57
-+ I Wait term
-+ I exec xrdb -cpp cpp -merge $HOME/.Xresources
-+ I exec xsetroot -solid '#005048'
-
-DestroyFunc SessionRestartFunction (replaces RestartFunction under session mgr)
-AddToFunc SessionRestartFunction
 
 ######################################################################
 # Quick Reference
