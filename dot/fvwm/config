@@ -559,6 +559,9 @@ AddToMenu menu-applications-chat
     + "&Signal"                         Exec exec signal-desktop
     + "&Telegram"                       Exec exec Telegram
 
+#   Chat Styles
+Style discord           NoDecorHint, Title
+
 DestroyMenu menu-applications-ja
 AddToMenu menu-applications-ja
     + "Japanese Applications"           Title
