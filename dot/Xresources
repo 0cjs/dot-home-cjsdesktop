@@ -1,4 +1,10 @@
 !   WARNNG: No EOL comments, just lines starting with `!`.
+!   WARNNG: No quotes in comments.
+!
+!   Comments are processed as code by cpp before being removed by xrdb,
+!   so no single/double quote as these open character constants/strings,
+!   and no macro names as they're expanded. Or get around this with `!//`.
+!   Also remember, // in non-comments still are removed as comments by cpp.
 
 !----------------------------------------------------------------------
 !   Generic color configuration
@@ -97,22 +103,44 @@
 #endif
 
 !----------------------------------------------------------------------
-! Parameter for small/medium/large displays
-! Small:  FullHD 1080, WQHD 1440, WQXGA 1600
+! Parameter for small/medium/large displays.
+!
+! Keyed on MON_HEIGHT, the pixel height of the primary monitor, passed in by
+! bin/xresetup. Not on xrdb HEIGHT, which is the height of the root window:
+! under RandR that is the bounding box of every monitor, so attaching a
+! second screen silently bumps us up a class.
+#ifndef MON_HEIGHT
+#define MON_HEIGHT HEIGHT
+#endif
+!
+! Small:  HD/FHD laptops 768-1080, WQHD 1440, WQXGA 1600
 ! Medium: 4K 2160
 ! Large:  5K 2880
-#if HEIGHT <= 1620
+#if MON_HEIGHT <= 1620
 #define SML(s,m,l) s
-#elif HEIGHT <= 2700
+#elif MON_HEIGHT <= 2700
 #define SML(s,m,l) m
 #else
 #define SML(s,m,l) l
 #endif
 
 !----------------------------------------------------------------------
-! Even 4k displays work best at 96 DPI, if applications are tweaked right.
-! (E.g., Chrome looks better at 96 DPI and 125% page zoom.)
-! But anythinig >4k is likely to have menus that are too small.
+! Xft.dpi scales the application chrome (GTK/Qt menus, tabs, dialog text)
+! that we have no other way to size. Much above 4K the menus become too
+! small at 96.
+!
+! This is a pixel budget, not a physical size, which is why the classes are
+! keyed on pixel height rather than real DPI. The 15 inch 2560x1600 panel is
+! ~189 real DPI, denser than the 28 inch 4K at ~157, but it has only 1600
+! rows to spend on chrome, so it belongs at 96 while the 4K goes to 108;
+! keying on DPI reverses them. The question is how many pixels we can afford
+! to give away, not how large a pixel is.
+!
+! Beware that this compounds with the font sizes below, since Xft.dpi scales
+! point sizes too. Crossing a class boundary moves both: 108 to 120 together
+! with 11 to 12 is +21%, not +9%. The font bump is a deliberate second
+! correction, as the DPI step alone leaves terminal text too small, but it
+! does make a class change a bigger jump than either number suggests.
 
 Xft.dpi: SML(96,108,120)
 Xft.rgba: none
@@ -147,7 +175,7 @@ URxvt.keysym.S-Return: \033[13;2u
     xft:Source Han Sans,\
     xft:DejaVu Serif:size=SML(7,9,10),\
     xft:DejaVu Sans Mono:size=SML(7,9,10)
-#if HEIGHT > 1620
+#if MON_HEIGHT > 1620
 !       Inconsolata looks better on 4K monitors
     Rxvt.font:          xft:Inconsolata:size=SML(9,11,12),RXVT_FONT_COMMON_FALLBACK
     Rxvt.lineSpace:     0
@@ -171,7 +199,7 @@ XTerm*charClass: 45-46:48,47:47,58:58,
 XTerm*on4Clicks: regex .*
 XTerm*backarrowKey: true
 XTerm*ttyModes: erase ^H
-#if HEIGHT >= 1024
+#if MON_HEIGHT >= 1024
 XTerm*vt100.Geometry: 80x37
 #else
 XTerm*vt100.Geometry: 80x25

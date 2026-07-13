@@ -2,7 +2,7 @@
 #
 #  xresetup - (re-)do all idempotent X desktop setup, including env vars
 #
-#  This is intended to be sourced both on initial login and when
+#  This is intended to be sourced both on initial login and run when
 #  configuration or device changes cause the X11 configuration to be
 #  changed from that as desired. Note that environment variables will
 #  not be exported/updated unless the `source` or `.` command is used
@@ -20,7 +20,27 @@
 #  login. it may, however, execute `return 1` or similar.
 #
 
-xrdb -cpp cpp $HOME/.Xresources
+#   .Xresources classifies the display as small/medium/large to pick font
+#   sizes and Xft.dpi. We use the primary display's height as MON_HEIGHT
+#   because xrdb's HEIGHT is the root window, the sum of all above/below
+#   displays.
+#
+#   `xrandr --listmonitors` prints Wpx/Wmm x Hpx/Hmm+X+Y, w/*=primary, e.g..
+#       0: +*DisplayPort-0 3840/621x2160/341+0+0  DisplayPort-0
+#   The awk emits nothing if no output is primary in which case .Xresources
+#   falls back to HEIGHT.
+#
+#   To investigate various data set and used in the resources:
+#   • xrandr --listmonitors
+#   • xrdb -symbols                 # predefined symbols, not our defs below
+#   • xrdb -query | grep dpi        # gives resulting Xrft.dpi
+#   • appres Rxvt                   # resources seen by an app (class/instance)
+#   • cpp -DHEIGHT=3760 -DMON_HEIGHT=2160 ~/.Xresources | grep …    # dry run
+#
+xrdb -cpp cpp \
+    $(xrandr --listmonitors | awk '$2 ~ /\*/ {
+        split($3, g, /[\/x+]/); printf "-DMON_HEIGHT=%d", g[3] }') \
+    $HOME/.Xresources
 
 xmodmap $HOME/.xmodmaprc
 
