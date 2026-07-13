@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+#
+#   locallog - start a program with separate logging, rotated per invocation
+#
+#   Some programs, particularly Electron chat clients, generate a tonne of
+#   massively repeated, annoying yet utterly trivial and pointless log
+#   messages. Run the program as usual but prefixed by `locallog` to have
+#   the logs go to a better place than stdout, and rotated.
+#
+set -Eeuo pipefail
+
+rotate() {
+    declare -g LOGDIR
+    local prog="$1"; shift
+    local ver="${1:-}"; [[ -n $ver ]] && shift
+
+    if [[ -z $ver ]]; then
+        [[ -e "$LOGDIR/$prog" ]] || return 0
+        mv "$LOGDIR/$prog" "$LOGDIR/$prog.0"
+    else
+        [[ -e "$LOGDIR/$prog.$i" ]] || return 0
+        mv "$LOGDIR/$prog.$i" "$LOGDIR/$prog.$(($i+1))"
+    fi
+}
+
+
+####################################################################
+
+[[ -z ${1:-} ]] && { echo 1>&2 "Usage: locallog COMMAND …"; exit 2; }
+
+LOGDIR=${XDG_STATE_HOME:-$HOME/.local/state}/log
+mkdir -p "$LOGDIR"
+
+prog="$1"
+for i in 2 1 0; do rotate "$prog" "$i"; done;  rotate "$prog"
+exec >"$LOGDIR/$prog" 2>&1
+exec "$@"
