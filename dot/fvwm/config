@@ -34,6 +34,11 @@ IgnoreModifiers L25
 ######################################################################
 # Desktop Configuration
 
+#   Give each RandR monitor independent desktops (as opposed to 'global').
+#   (GotoDesk switches only the display the pointer is on.)
+#   XXX Explain here how the desktop names, WindowList etc. work.
+DesktopConfiguration per-monitor
+
 DeskTopSize 1x1
 DesktopName  0 B
 DesktopName  1 F1
@@ -62,7 +67,6 @@ OpaqueMoveSize unlimited
 
 ######################################################################
 #   Menu/Window Styles
-#
 
 ColormapFocus   FollowsMouse
 
