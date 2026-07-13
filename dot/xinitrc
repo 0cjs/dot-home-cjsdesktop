@@ -57,4 +57,4 @@ fi
 # Start "foreground" programs and window manager
 
 xterm -name 'start' -geometry 80x59+730+0 &
-exec fvwm
+exec fvwm3 || exec fvwm
