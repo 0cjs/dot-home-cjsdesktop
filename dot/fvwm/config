@@ -103,7 +103,7 @@ MenuStyle *     Font "xft:DejaVu Sans:size=10"
 MenuStyle *     PopupOffset 0 95
 MenuStyle *     TitleUnderlines2, SeparatorsLong
 
-#               Focus policy can also be changed in menu-windowops-config.
+#               Change per-window focus policy with menu-windowops-focus
 Style *         FocusFollowsMouse
 Style *         MinOverlapPercentPlacement
 Style *term     TileManualPlacement
@@ -328,7 +328,7 @@ AddToMenu menu-windowops
     + "&?	identify window"    Module FvwmIdent
     + "&/	refresh window"     RefreshWindow
     + "&.	refresh screen"     Refresh
-    + "&,	fvwm configuration" Popup menu-windowops-config
+    + "&,	window focus pol."  Popup menu-windowops-focus
     + ""                        Nop
 
     + "&o	Insert Keystroke"   Popup menu-windowops-keystroke
@@ -427,21 +427,28 @@ AddToMenu menu-windowops-close
     + "&v        Delete"                Delete
     + "&x        Destroy"               Destroy
 
-DestroyMenu menu-windowops-config
-AddToMenu menu-windowops-config
-    + "Fvwm configuration..." Title
-    #   Here we look up the translations in the locale catalog using $[gt.str].
-    #   Not necessary, but this serves as documentation on how to do it.
-    + "&f. $[gt.Focus Follows Mouse]" FuncFvwmFocusPolicyChange FocusFollowsMouse
-    + "&c. $[gt.Click To Focus]"      FuncFvwmFocusPolicyChange ClickToFocus
-    + "&s. $[gt.Sloppy Focus]"        FuncFvwmFocusPolicyChange SloppyFocus
+DestroyMenu menu-windowops-focus
+AddToMenu menu-windowops-focus
+    + "Focus Policy"                        Title
+    #   Example label usage: we should move this comment/example elsewhere.
+    #   Labels are looked up in the locale catalog with `$[gt.str]`. This is
+    #   not necessary — an unknown string is returned unchanged — but the
+    #   capitalised strings below are in fvwm's own catalog, so they come out
+    #   translated. The hotkey marker must stay outside the expansion.
+    + "&c	$[gt.Click To Focus]"       WindowStyle ClickToFocus
+    + "&s	$[gt.Sloppy Focus]"         WindowStyle SloppyFocus
+    + "&f	$[gt.Focus Follows Mouse]"  WindowStyle FocusFollowsMouse
+    +           ""                          Nop
+    + "&x	revert to default"          DestroyWindowStyle
 
-#   XXX This appears to override more specific focus policies set for
-#   certain windows, such as `Style Google-chrome ClickToFocus, Lenience`.
 DestroyFunc FuncFvwmFocusPolicyChange
 AddToFunc FuncFvwmFocusPolicyChange
+#   Applies to windows mapped from now on; existing windows keep their
+#   current policy. fvwm2 used `Recapture` here to re-apply styles to all
+#   existing windows, but fvwm3 dropped the command, and `Restart` is not a
+#   substitute: it re-reads config, restoring `Style * FocusFollowsMouse`.
+#   To change an existing window, use the WindowStyle entries below.
 + I Style * $0
-+ I Recapture
 
 DestroyMenu menu-windowops-keystroke
 AddToMenu menu-windowops-keystroke
