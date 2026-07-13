@@ -511,12 +511,14 @@ AddToMenu menu-quit
     + "&No, don't quit"                 Nop
     + ""                                Nop
     + "&Restart"                        Restart
-    + "Xterm-only restart"              Restart xterm -n '"X Console"' -T '"X Console"'
+    + "Restart in fvwm&2"               Restart /usr/bin/fvwm2
+    + "Restart in fvwm&3"               Restart /usr/bin/fvwm3
+    + "Xterm-&only restart"             Restart xterm -n '"X Console"' -T '"X Console"'
     + ""                                Nop
-    + "&0 - Exit fvwm"                  Quit
-    + "&1 - Quit session"               QuitSession
-    + "&2 - Save/quit session"          SaveQuitSession
-    + "&3 - Save session(no quit)"      SaveSession
+    + "&e - Exit fvwm"                  Quit
+    + "&q - Quit session"               QuitSession
+    + "&w - Save/quit session"          SaveQuitSession
+    + "&s - Save session(no quit)"      SaveSession
 
 DestroyMenu menu-applications
 AddToMenu menu-applications
