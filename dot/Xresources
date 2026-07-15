@@ -3,7 +3,7 @@
 !
 !   Comments are processed as code by cpp before being removed by xrdb,
 !   so no single/double quote as these open character constants/strings,
-!   and no macro names as they're expanded. Or get around this with `!//`.
+!   and no macro names as they are expanded. Or get around this with `!//`.
 !   Also remember, // in non-comments still are removed as comments by cpp.
 
 !----------------------------------------------------------------------
