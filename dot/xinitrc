@@ -57,4 +57,7 @@ fi
 # Start "foreground" programs and window manager
 
 xterm -name 'start' -geometry 80x59+730+0 &
+#   XXX This doesn't seem properly to fall back; if `exec fvwm3` fails the
+#   login session terminates. We can kind of live with this because we just
+#   switch to another console and `sudo apt install -y fvwm3`.
 exec fvwm3 || exec fvwm
