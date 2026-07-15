@@ -78,7 +78,7 @@ Colorset 100 Foreground Grey85, Background #006058      # Dark: Menus
 Colorset 101 Foreground Grey85, Background #008078
 #   Title bars: Reddish for focused, light for not
 Colorset 102 Foreground Black,    Background #98b0a0
-Colorset 103 Foreground Black,    Background #c8b0a0
+Colorset 103 Foreground Black,    Background #e89080
 
 #  Borders and titlebars
 BorderStyle     -- Flat
