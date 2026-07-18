@@ -48,6 +48,7 @@ user    vim-X11                 CentOS.7
 user    vim-gtk                 Debian.8 Debian.9 Debian.10 Debian.11 Ubuntu.14.04
 user    vim-gtk3                Debian.12 Debian.13
 user    xclip                   Debian.* Ubuntu.* CentOS.*
+user    xcursor-themes          Debian.* Ubuntu.*
 user    xcompmgr                Debian.* Ubuntu.14.04
 user    xdotool                 Debian.* Ubuntu.14.04 CentOS.7
 user    xfce4                   Debian.* Ubuntu.14.04
