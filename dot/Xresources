@@ -43,6 +43,12 @@
 ! background                        = White
 
 !----------------------------------------------------------------------
+!// Cursor theme names can be found with:
+!//   ls -d /usr/share/icons/*/cursors (the * part is the name)
+Xcursor.theme: redglass
+Xcursor.size:  24
+
+!----------------------------------------------------------------------
 ! Solarized color defs from https://github.com/altercation/solarized.git
 
 ! Common

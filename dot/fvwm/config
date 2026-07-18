@@ -70,6 +70,11 @@ OpaqueMoveSize unlimited
 
 ColormapFocus   FollowsMouse
 
+#   Rather than an arrow, the traditional X11 root cursor!
+#   See all cursor glyphs with `xfd -fn cursor` (odd entries are masks).
+#   The names are in /usr/include/X11/cursorfont.h
+CursorStyle ROOT dotbox
+
 #  Colorsets
 #  (bin/xresetup sets root window to solid #005048)
 #  (Generally, even is standard and odd is highlight version)
