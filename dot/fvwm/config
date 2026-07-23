@@ -495,6 +495,7 @@ AddToMenu menu-root
     + "&Shell"          Exec exec choose xterm
     + "x&term"          Exec exec xterm
     + "u&rxvt"          Exec exec urxvt
+    + "x&fce4-terminal" Exec exec xfce4-terminal
     + "&' quick shell"  Exec LC_NOTLC_XTITLE=QuickShell exec choose xterm -geometry 80x25-200+200 -title "QuickShell"
     + "tm&join"         Exec tmjoin
     + "&4-Up"           Popup menu-4up
