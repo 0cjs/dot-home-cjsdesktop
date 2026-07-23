@@ -493,9 +493,7 @@ DestroyMenu menu-root
 AddToMenu menu-root
     + "Root Menu"       Title
     + "&Shell"          Exec exec choose xterm
-    + "x&term"          Exec exec xterm
-    + "u&rxvt"          Exec exec urxvt
-    + "x&fce4-terminal" Exec exec xfce4-terminal
+    + "&Terminals"      Popup menu-terminals
     + "&' quick shell"  Exec LC_NOTLC_XTITLE=QuickShell exec choose xterm -geometry 80x25-200+200 -title "QuickShell"
     + "tm&join"         Exec tmjoin
     + "&4-Up"           Popup menu-4up
@@ -514,6 +512,13 @@ AddToMenu menu-root
     + "&Lock Screen"    Exec exec lock-screen
     + "&;Lock Screen"   Exec exec lock-screen
     + "E&xit options"   Popup menu-quit
+
+DestroyMenu menu-terminals
+AddToMenu menu-terminals
+    + "Terminal Programs"       Title
+    + "x&term"                  Exec exec xterm
+    + "u&rxvt"                  Exec exec urxvt
+    + "&xfce4-terminal"         Exec exec xfce4-terminal
 
 DestroyMenu menu-quit
 AddToMenu menu-quit
