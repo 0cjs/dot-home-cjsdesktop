@@ -174,6 +174,15 @@ DestroyFunc UrgencyDoneFunc
 AddToFunc UrgencyDoneFunc
 + I Nop
 
+#   XFixes cursor barriers for each monitor, confining the pointer to just
+#   that monitor until a CursorMove or WarpToWindow.. Re-run after any
+#   xrandr change. Destroy first so repeat calls don't stack up barriers.
+#   (XFixes is required.)
+DestroyFunc FuncCursorBarriers
+AddToFunc FuncCursorBarriers
++ I CursorBarrier destroy
++ I CursorBarrier screen DisplayPort-0
++ I CursorBarrier screen HDMI-A-0
 
 ######################################################################
 # Key Bindings
@@ -303,9 +312,20 @@ AddToMenu menu-gotodesk
     + "&-" GotoDesk  0 11
     + "&=" GotoDesk  0 12
 
+#   Warp to a window on $0 if there is one, else to the middle of it.
+DestroyFunc FuncCursorToScreen
+AddToFunc FuncCursorToScreen
++ I Next (Screen $0, CurrentDesk, !Iconic) WarpToWindow 50 50
++ I TestRc (NoMatch) CursorMove screen $0 50 50
+
 DestroyMenu menu-windowops
 AddToMenu menu-windowops
     + "Window Ops"              Title
+    + "&[	pointer → DP"       CursorMove screen DisplayPort-0 50 50
+    + "&]	pointer → HDMI"     CursorMove screen HDMI-A-0 50 50
+    + "&{	window → DP"        MoveToScreen DisplayPort-0
+    + "&}	window → HDMI"      MoveToScreen HDMI-A-0
+    + ""                        Nop
 
     + "&h	move focus left"    Direction West  (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise 40p -18p
     + "&j	move focus down"    Direction South (CurrentDesk !Overlapped AcceptsFocus) WarpToWindow !raise 40p -18p
@@ -375,21 +395,21 @@ AddToMenu menu-windowops-moveto
     + "Move to..." Title
     + "&a       pointer move"       Move
     + ""                            Nop
-    + "&k       upper edge"         Move       keep       0  Warp
-    + "&j       lower edge"         Move       keep      -0  Warp
-    + "&g       vertical centre"    Move       keep  50-50w  Warp
-    + "&h       horizontal centre"  Move     50-50w    keep  Warp
+    + "&k       upper edge"         Move screen c      keep       0  Warp
+    + "&j       lower edge"         Move screen c      keep      -0  Warp
+    + "&g       vertical centre"    Move screen c      keep  50-50w  Warp
+    + "&h       horizontal centre"  Move screen c    50-50w    keep  Warp
     + ""                            Nop
-    + "&q       left+0*width"       Move   35p+000w    keep  Warp
-    + "&w       left+1*width"       Move   35p+100w    keep  Warp
-    + "&e       left+2+width"       Move   35p+200w    keep  Warp
-    + "&r       left+3+width"       Move   35p+300w    keep  Warp
-    + "&t       left+4+width"       Move   35p+400w    keep  Warp
-    + "&y       right-4*width"      Move      -400w    keep  Warp
-    + "&u       right-3*width"      Move      -300w    keep  Warp
-    + "&i       right-2*width"      Move      -200w    keep  Warp
-    + "&o       right-1*width"      Move      -100w    keep  Warp
-    + "&p       right-0*width"      Move         -0    keep  Warp
+    + "&q       left+0*width"       Move screen c  35p+000w    keep  Warp
+    + "&w       left+1*width"       Move screen c  35p+100w    keep  Warp
+    + "&e       left+2+width"       Move screen c  35p+200w    keep  Warp
+    + "&r       left+3+width"       Move screen c  35p+300w    keep  Warp
+    + "&t       left+4+width"       Move screen c  35p+400w    keep  Warp
+    + "&y       right-4*width"      Move screen c     -400w    keep  Warp
+    + "&u       right-3*width"      Move screen c     -300w    keep  Warp
+    + "&i       right-2*width"      Move screen c     -200w    keep  Warp
+    + "&o       right-1*width"      Move screen c     -100w    keep  Warp
+    + "&p       right-0*width"      Move screen c        -0    keep  Warp
 
 DestroyMenu menu-windowops-resize
 AddToMenu menu-windowops-resize
@@ -652,6 +672,7 @@ DestroyFunc StartFunction
 AddToFunc StartFunction
 + I Module FvwmAnimate
 + I Module FvwmBacker
++ I FuncCursorBarriers
 
 #   Executed only on startup (after StartFunction)
 DestroyFunc InitFunction    # would be SessionInitFunction w/session manager
