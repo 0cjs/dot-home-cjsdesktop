@@ -190,11 +190,12 @@ Key Pause               A SM    Restart
 
 # Menus
 
-# Window switch menu. (For pair programming, we also bind Alt-Tab to
-# CurrentDesk switch menu to emulate common Gnome/Windows/etc. behaviour.)
-#
-Key Muhenkan            A N     WindowList (CurrentDesk)    Root c c        CurrentAtEnd,IconifiedAtEnd,NoGeometryWithInfo,NoDeskNum,NoNumInDeskTitle
-Key Muhenkan            A S     WindowList                  Root c c        CurrentAtEnd,IconifiedAtEnd,NoGeometryWithInfo,NoDeskNum,NoNumInDeskTitle,NoCurrentDeskTitle,TitleForAllDesks
+#   Window switch menu. (For pair programming, we also bind Alt-Tab to
+#   CurrentDesk switch menu to emulate common Gnome/Windows/etc. behaviour.)
+#   • `Rectangle…@p` always uses primary monitor, as opposed to `Root`
+#     which uses current monitor. (See fvwm3commands for other settings.)
+Key Muhenkan            A N     WindowList (CurrentDesk)    Rectangle 3840x2160+0+0@p c c   CurrentAtEnd,IconifiedAtEnd,NoGeometryWithInfo,NoDeskNum,NoCurrentDeskTitle,TitleForAllDesks
+Key Muhenkan            A S     WindowList                  Rectangle 3840x2160+0+0@p c c   CurrentAtEnd,IconifiedAtEnd,NoGeometryWithInfo,NoDeskNum,NoCurrentDeskTitle,TitleForAllDesks
 Key Muhenkan            A C     Menu menu-gotodesk
 Key Tab                 A M     WindowList (CurrentDesk)    Root c c        CurrentAtEnd,IconifiedAtEnd,NoGeometryWithInfo,NoDeskNum,NoNumInDeskTitle
 
