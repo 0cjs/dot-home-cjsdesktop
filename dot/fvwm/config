@@ -341,7 +341,8 @@ AddToMenu menu-windowops
     + "&d	temp size/restore"  Function ResizeMaximizeToggle
     + "&f	maximize vert"      Maximize 0 100
     + "&g	grow horiz"         Maximize grow 0
-    + "&b	maximize"           ResizeMoveMaximize -25p -25p 25p 0 # -25 to avoid covering panel at left
+    + "&b	maximize"           ResizeMoveMaximize -25p -25p 25p 0
+    #                               -25 to avoid covering panel at left
     + ""                        Nop
 
     + "&1	(de)iconify"        Iconify
