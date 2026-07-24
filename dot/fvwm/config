@@ -410,7 +410,11 @@ AddToMenu menu-windowops-resize
     + "&8       85c height"         Resize keep 85c
     + "&9       95c height"         Resize keep 95c
     + "&0       105c height"        Resize keep 105c
-    + "&f       full height"        ResizeMove keep 99 keep 0
+    + "&f       full height"        ResizeMove keep 99wa screen c keep 0
+    #   • `wa` resizes to % of the work area of the window's monitor, not the
+    #     viewport when monitors are above/below.
+    #   • `screen c` makes the move's y=0 the top of the *pointer's* monitor.
+    #     Same thing when invoked from this menu; not if bound to a key.
     + Nop
 
 DestroyMenu menu-windowops-movetodesk
