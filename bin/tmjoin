@@ -129,6 +129,9 @@ while read line; do
     found_tmate_line=true
     name="${BASH_REMATCH[2]}"
     addr="${BASH_REMATCH[3]}"
+    #   Fully "root" an FQDN but not an IP address because some resolvers
+    #   treat an IP address followed by a period as a domain name.
+    [[ $addr =~ @[0-9]{1,3}(\.[0-9]{1,3}){3}$ ]] || addr="$addr."
     [[ -n $dry_run ]] && printf '• name: %s\n• addr: %s\n' "$name" "$addr"
     case $name in                   # abbreviations
         '') name="${addr##* }";;    # just the …@… addr at the end
@@ -149,7 +152,7 @@ while read line; do
     start_terminal -g $(termwidth "$name")x24-${right_x}+0 \
         -T "$title" -n "$title" \
         -e bash -c '
-            ssh '"$addr"'.
+            ssh '"$addr"'
             [[ $? = never_matches ]] \
                 || { echo -n "exitcode=$?; press Enter: "; read x; }
         '
