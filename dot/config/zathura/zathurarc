@@ -3,6 +3,10 @@
 #
 #   Good docs/hints at: https://wiki.archlinux.org/title/Zathura
 
+#   Because modern versions of Zathura seem to prefer this;
+#   it's allegedly more robust.
+set database sqlite
+
 #   These mappings don't seem to work, though xev reports mouse wheel as 4/5.
 map <Button4>   zoom in
 map <Button5>   zoom out
