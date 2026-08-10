@@ -442,6 +442,9 @@ AddToMenu menu-windowops-resize
 DestroyMenu menu-windowops-movetodesk
 AddToMenu menu-windowops-movetodesk
     + "Move to Desktop" Title
+    + "&[	window → DP"        MoveToScreen DisplayPort-0
+    + "&]	window → HDMI"      MoveToScreen HDMI-A-0
+    + "" Nop
     + "&1" MoveToDesk 0 1
     + "&2" MoveToDesk 0 2
     + "&3" MoveToDesk 0 3
