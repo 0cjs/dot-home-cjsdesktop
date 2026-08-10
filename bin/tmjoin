@@ -9,9 +9,33 @@ set -Eeuo pipefail
 die() { ec=$1; shift; echo 1>&2 "$@"; exit $ec; }
 
 confirm_tools() {
-    for cmd in xsel xdotool; do
+    for cmd in xsel xdotool xrandr; do
         $cmd --version >/dev/null || die 3 "Cannot find $cmd"
     done
+}
+
+#   Geometry of the RandR monitor containing the pointer, and the derived
+#   values needed to place windows on it: X geometry negative offsets and
+#   xdotool percentages are both relative to the X screen, which is the
+#   bounding box of all monitors, not the one we're placing on.
+#   Sets: mon_{w,h,x,y}, right_bias, term_h
+monitor_setup() {
+    declare -g mon_w mon_h mon_x mon_y right_bias term_h
+    local X Y SCREEN WINDOW glob_w glob_h
+    eval "$(xdotool getmouselocation --shell)"
+    read -r mon_w mon_h mon_x mon_y < <(
+        xrandr --listmonitors | awk -v x=$X -v y=$Y '
+            NR > 1 {
+                split($3, g, "[/x+]")   # 3840/700x2160/390+0+0 -> w mmw h mmh x y
+                if (x >= g[5] && x < g[5]+g[1] && y >= g[6] && y < g[6]+g[3])
+                    { print g[1], g[3], g[5], g[6]; exit }
+            }')
+    [[ -n ${mon_w:-} ]] || die 3 'Cannot determine monitor geometry'
+    #   XXX getdisplaygeometry always returns primary monitor geometry only
+    #read -r glob_w glob_h < <(xdotool getdisplaygeometry)
+    glob_w=$(xdpyinfo | sed -n -e 's/^ *dimensions: *\([0-9]*\)x.*/\1/p')
+    right_bias=$((glob_w - mon_x - mon_w))
+    term_h=$((mon_h * 90 / 100))
 }
 
 #   Start the user's preferred terminal, as best we can guess it,
@@ -61,7 +85,7 @@ termwidth() {
 right_x=0
 
 #   Given the PID of a terminal window, resize it vertically to 90%
-#   of the screen height and update $right_x to be the left edge of
+#   of the monitor height and update $right_x to be the left edge of
 #   that window.
 resize() {
     declare -g right_x
@@ -75,7 +99,7 @@ resize() {
     #   the existing width so we can use it.
     local width=$(xdotool getwindowgeometry --shell $windowid \
         | sed -n -e 's/^WIDTH=//p')
-    xdotool windowsize $windowid $width 90%
+    xdotool windowsize $windowid $width $term_h
     right_x=$(($right_x + $width))
 }
 
@@ -110,6 +134,11 @@ esac; done
 [[ $# -gt 0 ]] && { usage; exit 0; }
 
 confirm_tools
+monitor_setup
+[[ -n $dry_run ]] && {
+    echo "• w=$mon_w h=$mon_h x=$mon_x y=$mon_y"
+    echo "• right_bias=$right_bias echo term_h=$term_h"
+}
 
 #   We match:
 #   • Group 1: optionally, everything up to the first colon and its trailing
@@ -149,7 +178,8 @@ while read line; do
     #   disconnect, we have no way to distinguish these. We leave the exit
     #   code test with an exit code that will never match as an example of
     #   testing that in case we want to try to fix this later.
-    start_terminal -g $(termwidth "$name")x24-${right_x}+0 \
+    start_terminal \
+        -g $(termwidth "$name")x24-$(($right_x+$right_bias))+$mon_y \
         -T "$title" -n "$title" \
         -e bash -c '
             ssh '"$addr"'
