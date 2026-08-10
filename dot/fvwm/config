@@ -621,7 +621,7 @@ AddToMenu menu-utils
     + "&Beep"                           Beep
     + "dump &Environment"               Exec exec bash -c '/usr/bin/env >~/tmp/dumped-environment 2>&1'
     + "&gconf-editor"                   Exec exec gconf-editor
-    + "&Htop"                           Exec exec xterm -g 106x24-0+0 -e htop
+    + "&Htop"                           Exec exec xterm -g 106x24+0+0 -e htop
     + "instant-&markdown-d previewer"   Exec exec instant-markdown-d
     + "pa&vucontrol"                    Exec exec pavucontrol
     + "&Session Properties"             Exec exec gnome-session-properties
