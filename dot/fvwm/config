@@ -1,18 +1,16 @@
-#   fvwm2 configuration for cjs
+#   fvwm3 configuration for cjs
 #
 #   We don't use tabs for indentation, but do use them in menu labels
-#   for placement: left ▷ intended ▷ right-justified.
+#   for placement: left ▷ indented ▷ right-justified.
 #       vim: ts=4:sw=4:expandtab:
 #
 #   Notes:
-#
-#   * Lines beginning with `#` are ignored. No EOL comments (I think),
-#     except where that's a comment in a shell command.
+#   * No EOL comments except where that's a comment in a shell command.
+#   * Lines where first printable char is `#` are ignored.
 #   * Search the manpage for `Style stylename options ...` for more
 #     details. _stylename_ may be a window's class, name or resource string
 #     with wildcards `*` and `?`.
 #   * See end of file for `Style` overrides for particular applications.
-#
 
 ######################################################################
 # X server setup before the config is processed.
