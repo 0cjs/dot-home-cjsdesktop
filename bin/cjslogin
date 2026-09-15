@@ -21,13 +21,11 @@ while true; do case "$1" in
 esac; done
 
 ######################################################################
-# Assume that the host is everything after the last '@' sign in the
-# first parameter that doesn't start with a '-'. (This seems to be about
-# what slogin does.)
-#
-# We force slogin to use that hostname (even if we got it wrong) by
-# passing this to slogin as the HostName parameter, which overrides any
-# hostname specified on the command line.
+#   Assume that the host is everything after the last '@' sign in the first
+#   parameter that doesn't start with a '-'. (This seems to be about what
+#   slogin does.) This can be passed as to ssh as `-o 'HostName $host'` if
+#   necessary. (But we do not do this at the moment because the HostName
+#   must be in DNS, and we often use names only in ssh_known_hosts.)
 
 host=
 for arg in "$@"; do
@@ -95,8 +93,8 @@ echo 1>&2 SSH_AUTH_SOCK=$SSH_AUTH_SOCK
 ssh-add -l | sed -e 's,.*/,  ,' | cat 1>&2
 echo 1>&2
 
-vecho ssh -e none $agent_forwarding -o "HostName $host" "$@"
-ssh -e none $agent_forwarding -o "HostName $host" "$@"
+vecho ssh -e none $agent_forwarding "$@"
+ssh -e none $agent_forwarding "$@"
 if $wait; then
     echo -n "Press ENTER: "
     read ignored
