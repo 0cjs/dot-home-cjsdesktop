@@ -262,8 +262,7 @@ Mouse 3 P       N       CancelPlacement
 
 # Root window mouse bindings.
 Mouse 1 R       N       Menu menu-root Nop
-Mouse 2 R       N       WindowList (CurrentDesk) NoDeskNum,NoNumInDeskTitle,IconifiedAtEnd,NoGeometryWithInfo
-Mouse 2 R       S       WindowList TitleForAllDesks,NoDeskNum,NoNumInDeskTitle,IconifiedAtEnd,NoGeometryWithInfo
+Mouse 2 R       N       Menu menu-windowswitch Nop
 Mouse 3 R       N       Menu menu-windowops Nop
 
 # Mouse bindings for window control (anywhere).
@@ -293,6 +292,24 @@ AddToFunc FuncFvwmMoveOrRaise
 
 ######################################################################
 # Menus
+
+DestroyMenu menu-windowswitch
+AddToMenu menu-windowswitch
+    + "Window/Desktop Switch"               Title
+    + "&l	Desktop Windows"      WindowList (CurrentDesk) NoDeskNum,NoNumInDeskTitle,IconifiedAtEnd,NoGeometryWithInfo
+    + "&a	All Windows"          WindowList TitleForAllDesks,NoDeskNum,NoNumInDeskTitle,IconifiedAtEnd,NoGeometryWithInfo
+    + "&1	Desktop 1"            GotoDesk  0 1
+    + "&2	Desktop 2"            GotoDesk  0 2
+    + "&3	Desktop 3"            GotoDesk  0 3
+    + "&4	Desktop 4"            GotoDesk  0 4
+    + "&5	Desktop 5"            GotoDesk  0 5
+    + "&6	Desktop 6"            GotoDesk  0 6
+    + "&7	Desktop 7"            GotoDesk  0 7
+    + "&8	Desktop 8"            GotoDesk  0 8
+    + "&9	Desktop 9"            GotoDesk  0 9
+    + "&0	Desktop 10"           GotoDesk  0 10
+    + "&-	Desktop 11"           GotoDesk  0 11
+    + "&=	Desktop 12"           GotoDesk  0 12
 
 DestroyMenu menu-gotodesk
 AddToMenu menu-gotodesk
